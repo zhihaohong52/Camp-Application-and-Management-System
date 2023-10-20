@@ -1,7 +1,9 @@
 /**
  * 
  */
-package cams.user;
+package cams.model.user;
+
+import cams.util.*;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -14,6 +16,9 @@ import java.util.regex.Matcher;
  * @since 2023-10-20
  */
 public class User {
+	
+	public String name;
+	
 	/**
 	 * Unique ntu id
 	 */
@@ -29,6 +34,8 @@ public class User {
 	 */
 	public String faculty;
 	
+	public UserType type;
+	
 	/**
 	 * Variable to check for first login
 	 */
@@ -36,19 +43,22 @@ public class User {
 	public boolean firstLogin;
 	
 	/**
-	 * Creates a new user with the userID. Password and faculty info is also stored
+	 * @param name
 	 * @param userID
-	 * @param password
 	 * @param faculty
 	 */
-	
-	public User(String userID, String password, String faculty) {
+	public User(String name, String userID, String faculty, UserType type) {
+		this.name = name;
 		this.userID = userID;
-		this.password = password;
 		this.faculty = faculty;
+		this.password = "Default123!";
 		this.firstLogin = true;
+		this.type = type;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
 	
 	/**
 	 * Gets the user's ID
@@ -56,6 +66,10 @@ public class User {
 	 */
 	public String getID() {
 		return this.userID;
+	}
+	
+	public String getPassword() {
+		return this.password;
 	}
 	
 	/**
@@ -93,5 +107,17 @@ public class User {
 	 */
 	public String getFaculty() {
 		return this.faculty;
+	}
+
+	public UserType getType() {
+		return type;
+	}
+
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+
+	public void removeDefault() {
+		this.firstLogin = false;
 	}
 }

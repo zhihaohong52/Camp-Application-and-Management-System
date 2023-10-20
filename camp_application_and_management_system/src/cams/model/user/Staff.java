@@ -1,10 +1,12 @@
 /**
  * 
  */
-package cams.user;
+package cams.model.user;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cams.util.UserType;
 
 /**
  * 
@@ -21,8 +23,8 @@ public class Staff extends User {
 	 * @param password
 	 * @param faculty
 	 */
-	public Staff(String userID, String password, String faculty) {
-		super(userID, password, faculty);
+	public Staff(String name, String userID, String faculty) {
+		super(name, userID, faculty, UserType.Staff);
 	}
 
 }

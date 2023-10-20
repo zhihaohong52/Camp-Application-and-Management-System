@@ -4,4 +4,4 @@
 /**
  * 
  */
-package cams.user;
+package cams.ui;
