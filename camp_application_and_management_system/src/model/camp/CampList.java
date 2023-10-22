@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cams.model.camp;
+package model.camp;
 
 import java.util.ArrayList;
 import java.util.List;

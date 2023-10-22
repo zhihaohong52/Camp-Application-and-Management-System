@@ -1,9 +1,9 @@
 /**
  * 
  */
-package cams.ui;
+package view;
 
-import cams.database.database.UserDB;
+//import cams.database.store.UserDB;
 import cams.model.user.*;
 
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class LoginUI {
 		
 	public LoginUI() {
 		Scanner sc = new Scanner(System.in);
-		UserDB users = new UserDB();
+		//UserDB users = new UserDB();
 		
 		System.out.println("Welcome to NTU Camp Management and Application System (CAMs)");
 		System.out.println("---Login---");
@@ -35,21 +35,22 @@ public class LoginUI {
 				System.out.println("Enter your password: ");
 				String password = sc.nextLine();
 				if (users.checkPassword(user, password)) {
-					System.out.println("Login succeeful! Welcome " + user.getID());
-					if (user.isFirstLogin()) {
-						user.setPassword();
-						user.removeDefault();
+					System.out.println("Login succeeful! Welcome " + user.getName());
+					if (!user.isFirstLogin()) {
+						autheticated = true;
+						return;
 					}
-					autheticated = true;
+					else {
+						System.out.println("First logon. Please reset your password.");
+						user.setPassword();
+					}
 				}
 				else {
-					System.out.print("Incorrect password. Please try again!");
+					System.out.println("Incorrect password. Please try again!");
 				}
-			}
-			
+			}			
 		}while (autheticated == false); 
 		
 	}
-	
 	
 }

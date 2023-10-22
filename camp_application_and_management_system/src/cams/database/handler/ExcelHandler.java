@@ -4,7 +4,7 @@
 package cams.database.handler;
 
 import cams.model.user.*;
-import cams.util.UserType;
+import cams.util.UserRole;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -32,7 +32,7 @@ public class ExcelHandler {
 	    return data;
 	}
 	
-	public static ArrayList<User> readContent(String fileName, UserType type) throws IOException{
+	public static ArrayList<User> readContent(String fileName, UserRole type) throws IOException{
 		ArrayList<String> stringArray = (ArrayList<String>)read(fileName);
 		ArrayList<User> userList = new ArrayList<User>();
 		
@@ -48,7 +48,7 @@ public class ExcelHandler {
 			
 			String faculty = star.nextToken().trim();
 			
-			if (type == UserType.Student) {
+			if (type == UserRole.Student) {
 				Student student = new Student(name, userID, faculty);
 				userList.add(student);
 			}

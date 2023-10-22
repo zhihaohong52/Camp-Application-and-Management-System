@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cams.util;
+package util;
 
 /**
  * This enum lists all the schools in NTU

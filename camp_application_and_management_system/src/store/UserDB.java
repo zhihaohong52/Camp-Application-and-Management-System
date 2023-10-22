@@ -1,11 +1,11 @@
 /**
  * 
  */
-package cams.database.database;
+package store;
 
-import cams.util.UserType;
+import model.user.*;
+import util.UserRole;
 import cams.database.handler.*;
-import cams.model.user.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ public class UserDB {
 	public UserDB() {
 		try {
 			users = new ArrayList<User>();
-			users.addAll(ExcelHandler.readContent("student_list.txt", UserType.Student));
-			users.addAll(ExcelHandler.readContent("staff_list.txt", UserType.Staff));
+			users.addAll(ExcelHandler.readContent("student_list.txt", UserRole.Student));
+			users.addAll(ExcelHandler.readContent("staff_list.txt", UserRole.Staff));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

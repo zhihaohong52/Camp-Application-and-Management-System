@@ -1,10 +1,10 @@
 /**
  * 
  */
-package cams.model.camp;
+package model.camp;
 
-import cams.model.user.*;
-import cams.util.Schools;
+import model.user.*;
+import util.Schools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,8 @@ import java.time.LocalDate;
  * @since 2023-10-20
  */
 public class Camp {
+	
+	public int campID;
 	
 	public String name; 
 	
@@ -34,11 +36,11 @@ public class Camp {
 	
 	public int campCommitteeSlots = 10;
 	
-	public List<CampCommitteeMember> campCommittee = new ArrayList<CampCommitteeMember>(10);
+	public List<Committee> campCommittee = new ArrayList<Committee>(10);
 	
 	public String description;
 	
-	public Staff staffIC;
+	 String staffIC;
 	
 	/**
 	 * @param name
@@ -50,8 +52,9 @@ public class Camp {
 	 * @param description
 	 * @param staffIC
 	 */
-	public Camp(String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
-			String location, int totalSlots, String description, Staff staffIC) {
+	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
+			String location, int totalSlots, String description, String staffIC) {
+		this.campID = campID;
 		this.name = name;
 		this.dates = dates;
 		this.closing = closing;
@@ -65,8 +68,29 @@ public class Camp {
 	/**
 	 * @return
 	 */
+	public int getCampID() {
+		return campID;
+	}
+
+	/**
+	 * @param campID
+	 */
+	public void setCampID(int campID) {
+		this.campID = campID;
+	}
+
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getStaffIC() {
+		return staffIC;
 	}
 
 	/**
@@ -157,13 +181,13 @@ public class Camp {
 
 	
 	/**
-	 * @param newMember
+	 * @param newCommittee
 	 */
-	public void addCommitteeMember(CampCommitteeMember newMember) {
+	public void addCommitteeCommittee(Committee newCommittee) {
 		if (totalSlots == 0 || campCommitteeSlots == 0 ) //
 			System.out.println("No more slots available!");
 		else {
-			campCommittee.add(newMember);
+			campCommittee.add(newCommittee);
 			campCommitteeSlots--;
 			totalSlots--;
 		}
