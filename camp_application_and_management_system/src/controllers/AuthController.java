@@ -38,6 +38,7 @@ public class AuthController{
 		
 		do {
 			String userID, password;
+			int choice = -1;
 			
 			System.out.print("UserID: ");
 			userID = sc.nextLine();
@@ -57,31 +58,34 @@ public class AuthController{
 	            String input = sc.nextLine();
             
 				if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
-                    int choice = Integer.parseInt(input);
-                    
-                    switch (choice) {
-                    case 0:
-    	            	System.out.println("Exiting CAMS...");
-    	            	return;
-    	            case 1:
-    	            	System.out.println("Entering AuthStudentService");
-    	            	authService = new AuthStudentService();
-    	            	break;
-    	            case 2:
-    	            	authService = new AuthStaffService();
-    	            	break;
-    	            case 3:
-    	            	authService = new AuthCommitteeService();
-    	            	break;
-    	            	default:
-    	            		System.out.println("Invalid input. Please enter 0 - 3");
+                    choice = Integer.parseInt(input);
+
+                    if (choice < 0 || choice > 3) {
+                        System.out.println("Invalid input. Please enter 0 - 3");
+                    } else {
+                        break;
                     }
-                    
                 } else { // If the input is not an integer, prompt the user to enter again
                     System.out.println("Invalid input. Please enter an integer.");
                 }
-			}
 	            
+	            switch (choice) {
+	            case 0:
+	            	System.out.println("Exiting CAMS...");
+	            	return;
+	            case 1:
+	            	//System.out.println("Entering AuthStudentService");
+	            	authService = new AuthStudentService();
+	            	break;
+	            case 2:
+	            	authService = new AuthStaffService();
+	            	break;
+	            case 3:
+	            	authService = new AuthCommitteeService();
+	            	break;
+	            }
+			}
+			
 			authenticated = authService.login(userID, password);
 			
 			System.out.println("UserID or password incorrect! Please enter again!");
