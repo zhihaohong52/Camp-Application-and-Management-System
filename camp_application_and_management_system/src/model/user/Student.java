@@ -24,8 +24,8 @@ public class Student extends User {
 	 * @param userID
 	 * @param faculty
 	 */
-	public Student(String name, String password, String userID, Schools faculty) {
-		super(name, password, userID, faculty, UserRole.Student);
+	public Student(String name, String password, String userID, String email, Schools faculty) {
+		super(name, password, userID, email, faculty, UserRole.Student);
 	}
 
 }

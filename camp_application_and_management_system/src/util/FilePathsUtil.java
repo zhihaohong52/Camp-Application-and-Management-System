@@ -23,6 +23,7 @@ public class FilePathsUtil {
 	
 	public static Map<String, String> csvFilePaths(){
 		filePathsMap.put("user", "data/user.csv");
+		filePathsMap.put("student", "data/student.csv");
 		filePathsMap.put("staff", "data/staff.csv");
 		filePathsMap.put("committee", "data/committee.csv");
 		filePathsMap.put("camp", "data/camp.csv");

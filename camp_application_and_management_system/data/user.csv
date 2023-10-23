@@ -1,0 +1,17 @@
+UserID,Name,Email,Faculty,Role,Password
+YCHERN,CHERN ,YCHERN@e.ntu.edu.sg;,SCSE,student
+KOH1,KOH ,KOH1@e.ntu.edu.sg;,ADM,student
+BR015,BRANDON ,BR015@e.ntu.edu.sg;,EEE,student
+CT113,CALVIN ,CT113@e.ntu.edu.sg;,SCSE,student
+YCN019,CHAN,YCN019@e.ntu.edu.sg;,NBS,student
+DL007,DENISE,DL007@e.ntu.edu.sg;,SCSE,student
+DON84,DONG,DON84@e.ntu.edu.sg;,ADM,student
+ELI34,ERNEST,ELI34@e.ntu.edu.sg;,EEE,student
+LE51,LEE ,LE51@e.ntu.edu.sg;,SCSE,student
+SL22,LIU ,SL22@e.ntu.edu.sg;,NBS,student
+AKY013,RAWAL,AKY013@e.ntu.edu.sg;,SSS,student
+HUKUMAR,Madhukumar,HUKUMAR@NTU.EDU.SG,SCSE,staff
+OURIN,Alexei ,OURIN@ntu.edu.sg,ADM,staff
+UPAM,Chattopadhyay,UPAM@NTU.EDU.SG,EEE,staff
+ANWIT,Datta,ANWIT@NTU.EDU.SG,SCSE,staff
+ARVI,Arvind ,ARVI@NTU.EDU.SG,NBS,staff

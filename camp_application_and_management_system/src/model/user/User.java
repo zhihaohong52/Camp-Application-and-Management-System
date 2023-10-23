@@ -45,7 +45,9 @@ public class User {
 	 * Variable to check for first login
 	 */
 	
-	public boolean firstLogin;
+	private String email;
+	
+	private boolean firstLogin;
 	
 	/**
 	 * Create an object of the {@link User} class
@@ -54,9 +56,10 @@ public class User {
 	 * @param userID
 	 * @param faculty
 	 */
-	public User(String name, String password, String userID, Schools faculty, UserRole type) {
+	public User(String name, String password, String userID, String email, Schools faculty, UserRole type) {
 		this.name = name;
 		this.userID = userID;
+		this.email = email;
 		this.faculty = faculty;
 		this.password = password;
 		this.firstLogin = true;
@@ -90,46 +93,21 @@ public class User {
 	/**
 	 * Set password
 	 */
-	public void setPassword() {
-		/*password requirements*/
-	
-		try (Scanner sc = new Scanner(System.in)) {
-			boolean reset = false;
-			boolean validPassword = false;
-			
-			do {
-			    System.out.println("Password must be:\n"
-			            + "i. more than 8 characters\n"
-			            + "ii. contain at least one lower case and one upper case letter\n"
-			            + "iii. contain at least one digit\n"
-			            + "iv. contain at least one special character from the following: ,.<>/:;!@#$%^&*()-_+=]");
-			    System.out.println("Please set a new password: ");
-			    String newPassword = sc.nextLine();
-
-			    if (newPassword.length() > 8) {
-			        // Check for at least 1 upper case, 1 lower case, 1 digit, and 1 special character
-			    	String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[,.<>/:;!@#$%^&*()-_+=])";
-			        Pattern pattern = Pattern.compile(regex);
-			        Matcher matcher = pattern.matcher(newPassword);
-			        validPassword = matcher.find();
-			        
-			        if (validPassword) {
-			            System.out.println("Please enter the new password again");
-			            String checkPassword = sc.nextLine();
-
-			            if (checkPassword.equals(newPassword)) {
-			            	this.password = newPassword;
-			            	this.removeDefault();
-			                System.out.println("Password reset successfully!");
-			                System.out.println("Please login again");
-			                reset = true; // Set reset to true to exit the loop                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-			            }
-			        }
-			    }
-			} while (!reset); // Check if reset is true to exit the loop
-		}
+	public boolean setPassword(String oldPassword, String newPassword) {
+		if (!oldPassword.equals(newPassword))
+			return false;
+		this.password = newPassword;
+		this.removeDefault();
+		return true;
 	}
 	
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
 	/**
 	 * Gets the user's faculty info
 	 * @return faculty

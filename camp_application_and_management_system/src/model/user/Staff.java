@@ -24,8 +24,8 @@ public class Staff extends User {
 	 * @param password
 	 * @param faculty
 	 */
-	public Staff(String name, String password, String userID, Schools faculty) {
-		super(name, password, userID, faculty, UserRole.Staff);
+	public Staff(String name, String password, String userID, String email, Schools faculty) {
+		super(name, password, userID, email, faculty, UserRole.Staff);
 	}
 
 }
