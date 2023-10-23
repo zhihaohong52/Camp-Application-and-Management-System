@@ -66,11 +66,11 @@ public class DataStore {
 		DataStore.fileDataService = fileDataService;
 		
 		//import all data
-		//DataStore.setStudentData(fileDataService.importStudentData(filePathsMap.get("user"), filePathsMap.get("student")));
-		//DataStore.setStaffData(fileDataService.importStaffData(filePathsMap.get("user"), filePathsMap.get("staff")));
-		//DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("campCommitteeMember")));
-		//DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("staff"), filePathsMap.get("campCommitteeMember")));
-		//DataStore.setRequestData(fileDataService.importRequestData(filePathsMap.get("request")));
+		DataStore.setStudentData(fileDataService.importStudentData(filePathsMap.get("user"), filePathsMap.get("student")));
+		DataStore.setStaffData(fileDataService.importStaffData(filePathsMap.get("user"), filePathsMap.get("staff")));
+		DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("campCommitteeMember")));
+		DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("staff"), filePathsMap.get("campCommitteeMember")));
+		DataStore.setRequestData(fileDataService.importRequestData(filePathsMap.get("request")));
 		
 		return true;
 	}

@@ -5,6 +5,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="cams/database/store/UserDB.java|cams/ui/LoginUI.java|cams/database/handler/ExcelHandler.java|cams/view/LoginUI.java" kind="src" path="src"/>
+	<classpathentry excluding="cams/database/store/UserDB.java|cams/ui/LoginUI.java|cams/database/handler/ExcelHandler.java|cams/view/LoginUI.java|view/LoginUI.java|store/UserDB.java" kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

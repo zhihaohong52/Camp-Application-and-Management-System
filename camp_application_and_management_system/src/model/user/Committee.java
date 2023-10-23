@@ -3,7 +3,6 @@
  */
 package model.user;
 
-import model.camp.Camp;
 import util.Schools;
 
 /**

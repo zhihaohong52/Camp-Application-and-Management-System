@@ -35,6 +35,7 @@ public class AuthController{
 		
 		do {
 			String userID, password;
+			int choice = 0;
 			
 			System.out.print("UserID: ");
 			userID = sc.nextLine();
@@ -42,10 +43,49 @@ public class AuthController{
 			System.out.print("Password: ");
 			password = sc.nextLine();
 			
+			while (true) {
+				System.out.println();
+				System.out.println("Login as:");
+	            System.out.println("1. Student");
+	            System.out.println("2. Staff");
+	            System.out.println("3. Camp Committee Member");
+	            System.out.println("------------------------");
+	            System.out.println("Enter 0 to exit CAMS");
+	            
+	            String input = sc.nextLine();
+            
+				if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+                    choice = Integer.parseInt(input);
+
+                    if (choice < 0 || choice > 3) {
+                        System.out.println("Invalid input. Please enter 0 - 3");
+                    } else {
+                        break;
+                    }
+                } else { // If the input is not an integer, prompt the user to enter again
+                    System.out.println("Invalid input. Please enter an integer.");
+                }
+	            
+	            switch (choice) {
+	            case 0:
+	            	System.out.println("Exiting CAMS...");
+	            	return;
+	            case 1:
+	            	//authService = new AuthStudentService;
+	            	break;
+	            case 2:
+	            	//authService = new AuthStaffService;
+	            	break;
+	            case 3:
+	            	//authService = new AuthCommitteeService;
+	            	break;
+	            }
+			}
+			
 			authenticated = authService.login(userID, password);
 			
-			System.out.println("UserID or password incorrect! Please enter again!")
-;		} while (!authenticated);
+			System.out.println("UserID or password incorrect! Please enter again!");
+		} while (!authenticated);
 	}
 	
 	/**

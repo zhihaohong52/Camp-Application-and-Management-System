@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 import interfaces.IFileDataService;
 import model.camp.Camp;
@@ -47,7 +47,7 @@ public class CsvDataService implements IFileDataService {
 	/**
 	 * List of headers for the CSV file that stores camp committee member data.
 	 */
-	private static List<String> CommitteeCsvHeaders = new ArrayList<String>();
+	private static List<String> committeeCsvHeaders = new ArrayList<String>();
 
 	/**
 	 * List of headers for the CSV file that stores camp data.
@@ -299,7 +299,7 @@ public class CsvDataService implements IFileDataService {
 		Map<String, Committee> committeeMap = new HashMap<String, Committee>();
 		
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
-		List<String[]> CommitteesRows = this.readCsvFile(CommitteesFilePath, studentCsvHeaders);
+		List<String[]> CommitteesRows = this.readCsvFile(CommitteesFilePath, committeeCsvHeaders);
 		
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -363,7 +363,7 @@ public class CsvDataService implements IFileDataService {
 		}
 		
 		boolean successUsers = this.writeCsvFile(usersFilePath, userCsvHeaders, userLines);
-;		boolean successCommittees = this.writeCsvFile(committeesFilePath, staffCsvHeaders, committeeLines);
+;		boolean successCommittees = this.writeCsvFile(committeesFilePath, committeeCsvHeaders, committeeLines);
 		return successUsers && successCommittees;
 	}
 

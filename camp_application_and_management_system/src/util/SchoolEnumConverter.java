@@ -3,8 +3,6 @@
  */
 package util;
 
-import util.Schools;
-
 /**
  * 
  */
