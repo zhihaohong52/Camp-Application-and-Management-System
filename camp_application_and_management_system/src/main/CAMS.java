@@ -43,6 +43,7 @@ public class CAMS {
 				
 				// Start session
 				User user = AuthStore.getCurrentUser();
+				System.out.print("Welcome to CAMS, " + user.getName());
 				switch (user.getType()) {
 				case Student:
 					//new StudentController().start();

@@ -34,63 +34,65 @@ public class AuthController{
 	private AuthController() {}
 	
 	public static void startSession() {
-		boolean authenticated = false;
-		
-		do {
-			String userID, password;
-			int choice = -1;
-			
-			System.out.print("UserID: ");
-			userID = sc.nextLine();
-			
-			System.out.print("Password: ");
-			password = sc.nextLine();
-			
-			while (true) {
-				System.out.println();
-				System.out.println("Login as:");
-	            System.out.println("1. Student");
-	            System.out.println("2. Staff");
-	            System.out.println("3. Camp Committee Member");
-	            System.out.println("------------------------");
-	            System.out.println("Enter 0 to exit CAMS");
-	            
-	            String input = sc.nextLine();
-            
-				if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
+        int choice;
+        boolean authenticated = false;
+
+        do {
+
+            while (true) {
+                System.out.println("<Enter 0 to shutdown system>\n");
+                System.out.println("Login as:");
+                System.out.println("1. Student");
+                System.out.println("2. Staff");
+                System.out.println("3. Camp committee member");
+
+                String input = sc.nextLine();
+
+                if (input.matches("[0-9]+")) { // If the input is an integer, proceed with the code
                     choice = Integer.parseInt(input);
 
                     if (choice < 0 || choice > 3) {
-                        System.out.println("Invalid input. Please enter 0 - 3");
+                        System.out.println("Invalid input. Please enter 0-3!");
                     } else {
                         break;
                     }
                 } else { // If the input is not an integer, prompt the user to enter again
-                    System.out.println("Invalid input. Please enter an integer.");
+                    System.out.println("Invalid input. Please enter an integer.\n");
                 }
-	            
-	            switch (choice) {
-	            case 0:
-	            	System.out.println("Exiting CAMS...");
-	            	return;
-	            case 1:
-	            	//System.out.println("Entering AuthStudentService");
-	            	authService = new AuthStudentService();
-	            	break;
-	            case 2:
-	            	authService = new AuthStaffService();
-	            	break;
-	            case 3:
-	            	authService = new AuthCommitteeService();
-	            	break;
-	            }
-			}
-			
-			authenticated = authService.login(userID, password);
-			
-			System.out.println("UserID or password incorrect! Please enter again!");
-		} while (!authenticated);
-	}
+
+            }
+
+            switch (choice) {
+                case 0:
+                    System.out.println("Shutting down FYPMS...");
+                    return;
+                case 1:
+                    authService = new AuthStudentService();
+                    break;
+                case 2:
+                    authService = new AuthStaffService();
+                    break;
+                case 3:
+                    authService = new AuthCommitteeService();
+                    break;
+            }
+
+            String userID, password;
+
+            System.out.print("UserID: ");
+            userID = sc.nextLine();
+
+            System.out.print("Password: ");
+            password = sc.nextLine();
+
+            authenticated = authService.login(userID, password);
+            if (!authenticated) {
+                // We do not specify whether the userID or password is incorrect to make it more
+                // secure
+                System.out.println("Credentials invalid! Note that UserID and Password are case-sensitive.\n");
+            }
+        } while (!authenticated);
+    }
 	
 	/**
 	 * Ends the current user session by logging the user out

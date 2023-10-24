@@ -12,34 +12,31 @@ import store.AuthStore;
  * interface. It provides authentication functions for login and logout.
  */
 public abstract class AuthService implements IAuthService {
+    public abstract boolean login(String userID, String password);
 
-	public abstract boolean login(String userID, String password);
-	
-	/**
-	 * Constructs an instance of the {@link AuthService} class
-	 */
-	public AuthService() {}
+    /**
+     * Constructs an instance of the {@link AuthService} class.
+     */
+    public AuthService() {}
 
+    @Override
+    public boolean logout() {
+        AuthStore.setCurrentUser(null);
+        return true;
+    }
 
-	@Override
-	public boolean logout() {
-		AuthStore.setCurrentUser(null);
-		return true;
-	}
-
-	/**
-	 * Authenticate the user with password
-	 * 
-	 * @param user		user to be authenticated
-	 * @param password	password for user to be authenticated
-	 * @return			true if user's password matches input, false otherwise
-	 */
-	public boolean authenticate(User user, String password) {
-		if (user == null)
-			return false;
-		if (!user.getPassword().equals(password))
-			return false;
-		return true;
-	}
-	
+    /**
+     * Authenticates the given user with the given password.
+     * 
+     * @param user     the user to be authenticated
+     * @param password the password to be used for authentication
+     * @return true if the user is authenticated successfully, false otherwise
+     */
+    protected boolean authenticate(User user, String password) {
+        if (user == null)
+            return false;
+        if (!user.getPassword().equals(password))
+            return false;
+        return true;
+    }
 }

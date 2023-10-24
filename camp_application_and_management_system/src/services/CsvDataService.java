@@ -113,7 +113,6 @@ public class CsvDataService implements IFileDataService {
 			
 			// Write Content
 			for (String line : lines) {
-				System.out.println(line);
 				writer.write(line + "\n");
 			}
 			
