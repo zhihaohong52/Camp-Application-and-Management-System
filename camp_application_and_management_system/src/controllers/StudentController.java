@@ -27,7 +27,7 @@ public class StudentController extends UserController {
 	 */
 	public StudentController() {}
 	
-	public void Start() {
+	public void start() {
 		int choice;
 		
 		do {
@@ -75,6 +75,9 @@ public class StudentController extends UserController {
 				default:
 					System.out.println("Invalid choice. Please select a number between 1 and 8.");
 					break;
+			}
+			if (choice >= 2 && choice <7) {
+				CommonView.pressEnterToContinue();
 			}
 		}while (true);
 	}
