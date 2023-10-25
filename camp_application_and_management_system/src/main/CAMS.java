@@ -4,6 +4,7 @@
 package main;
 
 import controllers.AuthController;
+import controllers.StudentController;
 import model.user.User;
 import services.CsvDataService;
 import store.AuthStore;
@@ -43,11 +44,11 @@ public class CAMS {
 				
 				// Start session
 				User user = AuthStore.getCurrentUser();
-				System.out.print("Welcome to CAMS, " + user.getName());
+				System.out.println("Welcome to CAMS, " + user.getName());
 				switch (user.getType()) {
 				case Student:
-					//new StudentController().start();
-					System.out.println("Student");
+					new StudentController().start();
+					//System.out.println("Student");
 					break;
 				case Staff:
 					//new StaffController().start();
