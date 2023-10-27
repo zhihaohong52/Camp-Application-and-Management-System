@@ -15,5 +15,5 @@ public interface IUserService {
 	 * @param oldPassword user's current password
 	 * @return true if password was changed successfully, false otherwise
 	 */
-	public boolean changePassword(String oldPassword, String newPassword);
+	public boolean changePassword(String newPassword);
 }

@@ -93,11 +93,14 @@ public class User {
 	/**
 	 * Set password
 	 */
-	public boolean setPassword(String oldPassword, String newPassword) {
-		if (!oldPassword.equals(newPassword))
-			return false;
+	public boolean setPassword(String newPassword) {
+	
 		this.password = newPassword;
-		this.removeDefault();
+		
+		if (this.firstLogin) {
+			this.removeDefault();
+		}
+		
 		return true;
 	}
 	

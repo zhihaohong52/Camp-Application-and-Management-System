@@ -20,15 +20,19 @@ public class UserService implements IUserService {
 	public UserService() {}
 	
 	@Override
-	public boolean changePassword(String oldPassword, String newPassword) {
+	public boolean changePassword(String newPassword) {
 		User user = AuthStore.getCurrentUser();
 		
-		if(user.setPassword(oldPassword, newPassword)) {
-			DataStore.saveData();
-			return true;
-		}
+		Boolean success = user.setPassword(newPassword);
 		
-		return false;
+		if(!success) {
+			return false;
+		}
+		else {
+			System.out.println("Saving new password");
+			DataStore.saveData(); //save new password to database
+			return true;
+		}	
 	}
 
 }

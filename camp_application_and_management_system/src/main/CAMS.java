@@ -48,7 +48,6 @@ public class CAMS {
 				switch (user.getType()) {
 				case Student:
 					new StudentController().start();
-					//System.out.println("Student");
 					break;
 				case Staff:
 					//new StaffController().start();

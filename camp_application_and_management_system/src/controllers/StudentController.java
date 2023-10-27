@@ -6,6 +6,7 @@ package controllers;
 import java.util.Scanner;
 
 import view.CommonView;
+import store.AuthStore;
 
 /**
  * The {@link StudentController} class is responsible for handling the
@@ -28,6 +29,17 @@ public class StudentController extends UserController {
 	public StudentController() {}
 	
 	public void start() {
+		
+		// force to change password if first login
+		if(AuthStore.getCurrentUser().isFirstLogin()) {
+			changePassword();
+			// Restart user session after changing password
+			AuthController.endSession();
+			System.out.println("Password reset successfully!");
+            System.out.println("Please login again");   
+			return;
+		}
+		
 		int choice;
 		
 		do {
@@ -49,6 +61,8 @@ public class StudentController extends UserController {
 				if (changePassword()) {
 					// Restart user session after changing password
 					AuthController.endSession();
+					System.out.println("Password reset successfully!");
+	                System.out.println("Please login again");   
 					return;
 				}
 			case 2:

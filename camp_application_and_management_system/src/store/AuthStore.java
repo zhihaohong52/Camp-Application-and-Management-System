@@ -24,7 +24,6 @@ public class AuthStore {
 	 * @return the currentUser
 	 */
 	public static User getCurrentUser() {
-		System.out.println(currentUser);
 		return AuthStore.currentUser;
 	}
 

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import interfaces.IUserService;
 import services.UserService;
+import store.AuthStore;
 
 /**
  * The {@link UserController} class is responsible for handling user-related
@@ -30,46 +31,56 @@ public class UserController {
 	public UserController() {}
 
 	protected boolean changePassword() {
-		String oldPassword, newPassword;
-		IUserService userService = new UserService();
-		
-		boolean reset = false;
-		boolean validPassword = false;
-		boolean success = false;
-		
-		System.out.println("Enter old password");
-		oldPassword = sc.nextLine();
-		
-		do {
-		    System.out.println("Password must be:\n"
-		            + "i. more than 8 characters\n"
-		            + "ii. contain at least one lower case and one upper case letter\n"
-		            + "iii. contain at least one digit\n"
-		            + "iv. contain at least one special character from the following: ,.<>/:;!@#$%^&*()-_+=]");
-		    System.out.println("Please set a new password: ");
-		    newPassword = sc.nextLine();
+	    String oldPassword, newPassword;
+	    IUserService userService = new UserService();
 
-		    if (newPassword.length() > 8) {
-		        // Check for at least 1 upper case, 1 lower case, 1 digit, and 1 special character
-		    	String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[,.<>/:;!@#$%^&*()-_+=])";
-		        Pattern pattern = Pattern.compile(regex);
-		        Matcher matcher = pattern.matcher(newPassword);
-		        validPassword = matcher.find();
-		        
-		        if (validPassword) {
-		            System.out.println("Please enter the new password again");
-		            String checkPassword = sc.nextLine();
+	    boolean success = false;
+	    Scanner sc = new Scanner(System.in); // Create a Scanner object
 
-		            if (checkPassword.equals(newPassword)) {
-		            	success = userService.changePassword(oldPassword, newPassword);
-		                System.out.println("Password reset successfully!");
-		                System.out.println("Please login again");
-		                reset = success; // Set reset to true to exit the loop                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	    System.out.print("Enter old password: ");
+	    oldPassword = sc.nextLine();
+	    
+	    if(!oldPassword.equals(AuthStore.getCurrentUser().getPassword())) {
+	    	System.out.print("Password does not match!");
+	    }
+	    else {
+	    	do {
+		        System.out.println("Password must be:\n"
+		                + "i. more than 8 characters\n"
+		                + "ii. contain at least one lower case and one upper case letter\n"
+		                + "iii. contain at least one digit\n"
+		                + "iv. contain at least one special character from the following: ,.<>/:;!@#$%^&*()-_+=]");
+		        System.out.print("Please set a new password: ");
+		        newPassword = sc.nextLine();
+
+		        if (newPassword.length() > 8) {
+		            // Check for at least 1 upper case, 1 lower case, 1 digit, and 1 special character
+		            String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[,.<>/:;!@#$%^&*()-_+=])";
+		            Pattern pattern = Pattern.compile(regex);
+		            Matcher matcher = pattern.matcher(newPassword);
+		            boolean validPassword = matcher.find();
+
+		            if (validPassword) {
+		                System.out.print("Please enter the new password again: ");
+		                String checkPassword = sc.nextLine();
+
+		                if (checkPassword.equals(newPassword)) {
+		                    success = userService.changePassword(newPassword);
+		                }
 		            }
 		        }
-		    }
-		} while (!reset); // Check if reset is true to exit the loop
-		return success;
+
+		        if (!success) {
+		            System.out.println("Password change failed. Do you want to try again? (yes/no)");
+		            String tryAgain = sc.nextLine().toLowerCase();
+		            if (!tryAgain.equals("yes")) {
+		                break; // Exit the loop if the user doesn't want to try again
+		            }
+		        }
+		    } while (!success); // Check if success is true to exit the loop
+	    }
+
+	    return success;
 	}
 
 }
