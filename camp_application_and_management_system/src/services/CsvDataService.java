@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import enums.Schools;
+
 import java.util.List;
 import java.util.ArrayList;
 //import java.util.Arrays;
@@ -20,8 +23,8 @@ import model.camp.Request;
 import model.user.Committee;
 import model.user.Staff;
 import model.user.Student;
+import util.BooleanConverter;
 import util.SchoolEnumConverter;
-import util.Schools;
 
 /**
  * The {@link CsvDataService} class implements the {@link IFileDataService}
@@ -130,6 +133,7 @@ public class CsvDataService implements IFileDataService {
 		String faculty = userRow[3];
 		String role = userRow[4];
 		String password = userRow[5];
+		String firstLogin = userRow[6];
 		
 		// return
 		Map<String, String> userInfoMap = new HashMap<String, String>();
@@ -139,6 +143,7 @@ public class CsvDataService implements IFileDataService {
 		userInfoMap.put("faculty", faculty);
 		userInfoMap.put("role", role);
 		userInfoMap.put("password", password);
+		userInfoMap.put("firstLogin", firstLogin);
 		
 		return userInfoMap;
 	}
@@ -164,13 +169,14 @@ public class CsvDataService implements IFileDataService {
 			String email = userInfoMap.get("email");
 			String name = userInfoMap.get("name");
 			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] studentRow : studentsRows) {
 				if (!studentRow[0].equals(userID))
-					continue;		
+					continue;
 			}
 			
-			Student student = new Student(name, password, userID, email, faculty);
+			Student student = new Student(name, password, userID, email, faculty, firstLogin);
 			
 			studentMap.put(userID, student);
 		}
@@ -186,23 +192,25 @@ public class CsvDataService implements IFileDataService {
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
-			String userLine = String.format("%s,%s,%s,%s,%s,%s", 
+			String userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 					userInfoMap.get("userID"), 
 					userInfoMap.get("name"),
 					userInfoMap.get("email"), 
 					userInfoMap.get("faculty"),
 					userInfoMap.get("role"),
-					userInfoMap.get("password"));
+					userInfoMap.get("password"),
+					userInfoMap.get("firstLogin"));
 			if (userInfoMap.get("role").equals("student")) {
 				Student student = studentMap.get(userInfoMap.get("userID"));
 				
-				userLine = String.format("%s,%s,%s,%s,%s,%s", 
+				userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 						student.getID(), 
 						student.getName(),
 						student.getEmail(),
 						student.getFaculty().toString(), 
 						"student",
-						student.getPassword());
+						student.getPassword(),
+						student.isFirstLogin());
 			}
 			
 			userLines.add(userLine);
@@ -238,13 +246,14 @@ public class CsvDataService implements IFileDataService {
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
 			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] staffRow : staffsRows) {
 				if (!staffRow[0].equals(userID))
 					continue;		
 			}
 			
-			Staff staff = new Staff(name, password, userID, email, faculty);
+			Staff staff = new Staff(name, password, userID, email, faculty, firstLogin);
 			
 			staffMap.put(userID, staff);
 		}
@@ -260,23 +269,25 @@ public class CsvDataService implements IFileDataService {
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
-			String userLine = String.format("%s,%s,%s,%s,%s,%s", 
+			String userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 					userInfoMap.get("userID"), 
 					userInfoMap.get("name"),
 					userInfoMap.get("email"), 
 					userInfoMap.get("faculty"),
 					userInfoMap.get("role"),
-					userInfoMap.get("password"));
+					userInfoMap.get("password"),
+					userInfoMap.get("firstLogin"));
 			if (userInfoMap.get("role").equals("staff")) {
 				Staff staff = staffMap.get(userInfoMap.get("userID"));
 				
-				userLine = String.format("%s,%s,%s,%s,%s,%s", 
+				userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 						staff.getID(), 
 						staff.getName(),
 						staff.getEmail(),
 						staff.getFaculty().toString(), 
 						"staff",
-						staff.getPassword());
+						staff.getPassword(),
+						staff.isFirstLogin());
 			}
 			userLines.add(userLine);
 		}
@@ -312,6 +323,7 @@ public class CsvDataService implements IFileDataService {
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
 			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			int campID = Integer.parseInt(userInfoMap.get("campID"));
 			
 			for (String[] CommitteeRow : CommitteesRows) {
@@ -319,7 +331,7 @@ public class CsvDataService implements IFileDataService {
 					continue;		
 			}
 			
-			Committee committee = new Committee(name, password, userID, email, faculty, campID);
+			Committee committee = new Committee(name, password, userID, email, faculty, firstLogin, campID);
 			
 			committeeMap.put(userID, committee);
 		}
@@ -336,23 +348,25 @@ public class CsvDataService implements IFileDataService {
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
-			String userLine = String.format("%s,%s,%s,%s,%s", 
+			String userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 					userInfoMap.get("userID"), 
 					userInfoMap.get("name"),
 					userInfoMap.get("email"),
 					userInfoMap.get("faculty"), 
 					userInfoMap.get("role"),
-					userInfoMap.get("password"));
+					userInfoMap.get("password"),
+					userInfoMap.get("firstLogin"));
 			if (userInfoMap.get("role").equals("committee")) {
 				Committee committee = committeeMap.get(userInfoMap.get("userID"));
 				
-				userLine = String.format("%s,%s,%s,%s,%s", 
+				userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
 						committee.getID(), 
 						committee.getName(),
 						committee.getEmail(),
 						committee.getFaculty().toString(), 
 						"committee",
-						committee.getPassword());
+						committee.getPassword(),
+						committee.isFirstLogin());
 			}
 			
 			userLines.add(userLine);

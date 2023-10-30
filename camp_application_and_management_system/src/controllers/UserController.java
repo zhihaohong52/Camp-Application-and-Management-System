@@ -35,8 +35,7 @@ public class UserController {
 	    IUserService userService = new UserService();
 
 	    boolean success = false;
-	    Scanner sc = new Scanner(System.in); // Create a Scanner object
-
+	    
 	    System.out.print("Enter old password: ");
 	    oldPassword = sc.nextLine();
 	    

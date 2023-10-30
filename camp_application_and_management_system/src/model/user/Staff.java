@@ -6,8 +6,8 @@ package model.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.Schools;
-import util.UserRole;
+import enums.Schools;
+import enums.UserRole;
 
 /**
  * 
@@ -24,8 +24,8 @@ public class Staff extends User {
 	 * @param password
 	 * @param faculty
 	 */
-	public Staff(String name, String password, String userID, String email, Schools faculty) {
-		super(name, password, userID, email, faculty, UserRole.Staff);
+	public Staff(String name, String password, String userID, String email, Schools faculty, boolean firstLogin) {
+		super(name, password, userID, email, faculty, UserRole.Staff, firstLogin);
 	}
 
 }

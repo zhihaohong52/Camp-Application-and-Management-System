@@ -3,13 +3,8 @@
  */
 package model.user;
 
-import java.util.Scanner;
-import java.util.regex.Pattern;
-
-import util.Schools;
-import util.UserRole;
-
-import java.util.regex.Matcher;
+import enums.Schools;
+import enums.UserRole;
 
 /**
  * Represents a user using the system
@@ -56,14 +51,14 @@ public class User {
 	 * @param userID
 	 * @param faculty
 	 */
-	public User(String name, String password, String userID, String email, Schools faculty, UserRole type) {
+	public User(String name, String password, String userID, String email, Schools faculty, UserRole type, boolean firstLogin) {
 		this.name = name;
 		this.userID = userID;
 		this.email = email;
 		this.faculty = faculty;
 		this.password = password;
-		this.firstLogin = true;
 		this.type = type;
+		this.firstLogin = firstLogin;
 	}
 	
 	/**

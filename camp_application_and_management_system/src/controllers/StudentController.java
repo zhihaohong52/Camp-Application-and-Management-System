@@ -3,10 +3,20 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import enums.Schools;
+import interfaces.ICampView;
+import interfaces.ICampStudentService;
+import model.camp.Camp;
+import model.user.Student;
+import services.CampStudentService;
+import view.CampAvailableView;
+import view.CampRegisteredView;
 import view.CommonView;
 import store.AuthStore;
+import util.TextDecoratorUtil;
 
 /**
  * The {@link StudentController} class is responsible for handling the
@@ -23,6 +33,8 @@ public class StudentController extends UserController {
 	 */
 	private static final Scanner sc = new Scanner(System.in);
 	
+	private static final ICampStudentService campStudentService= new CampStudentService();
+	
 	/**
 	 * Constructs an instance of {@link StudentContoller}
 	 */
@@ -32,6 +44,7 @@ public class StudentController extends UserController {
 		
 		// force to change password if first login
 		if(AuthStore.getCurrentUser().isFirstLogin()) {
+			System.out.println("Please change your password");
 			changePassword();
 			// Restart user session after changing password
 			AuthController.endSession();
@@ -40,15 +53,21 @@ public class StudentController extends UserController {
 			return;
 		}
 		
+		ICampView campView;
 		int choice;
 		
 		do {
 			CommonView.printNavbar("CAMS > Student");
+			System.out.println(TextDecoratorUtil.underlineText("Settings"));
 			System.out.println("1. Change password");
+			
+			System.out.println(TextDecoratorUtil.underlineText("\nCamps"));
 			System.out.println("2. View available camps");
 			System.out.println("3. View registered camps");
 			System.out.println("4. Register for camp");
 			System.out.println("5. Withdraw from camp");
+			
+			System.out.println(TextDecoratorUtil.underlineText("\nEnquiries"));
 			System.out.println("6. View enquiries");
 			System.out.println("7. Submit/edit enquiries");
 			System.out.println("8. Exit");
@@ -67,9 +86,13 @@ public class StudentController extends UserController {
 				}
 			case 2:
 				CommonView.printNavbar("CAMS > Student > View available camps");
+				campView = new CampAvailableView();
+				viewAvailableCamps(campView);
 				break;
 			case 3:
 				CommonView.printNavbar("CAMS > Student > View registered camps");
+				campView = new CampRegisteredView();
+				viewRegisteredCamps(campView);
 				break;
 			case 4:
 				CommonView.printNavbar("CAMS > Student > Register for camp");
@@ -85,6 +108,7 @@ public class StudentController extends UserController {
 				break;
 			case 8:
 				System.out.println("Exiting student menu...");
+				AuthController.endSession();
 				return;
 				default:
 					System.out.println("Invalid choice. Please select a number between 1 and 8.");
@@ -94,6 +118,42 @@ public class StudentController extends UserController {
 				CommonView.pressEnterToContinue();
 			}
 		}while (true);
+	}
+	
+	// Helper methods
+	
+	private void viewAvailableCamps(ICampView campView) {
+		Student student = (Student) AuthStore.getCurrentUser();
+		Schools school = student.getFaculty();
+		
+		ArrayList<Camp> availableCamps = campStudentService.getAvailableCamps(school);
+		
+		if (availableCamps.isEmpty()) {
+			System.out.println("There are no camps available at the moment.\n");
+		}
+		else {
+			for (Camp camp : availableCamps) {
+				campView.displayCamp(camp);
+				System.out.println();
+			}
+		}
+	}
+	
+	private void viewRegisteredCamps(ICampView campView) {
+		Student student = (Student) AuthStore.getCurrentUser();
+		String studentID = student.getID();
+		
+		ArrayList<Camp> registeredCamps = campStudentService.getRegisteredCamps(studentID);
+		
+		if (registeredCamps.isEmpty()) {
+			System.out.println("You have not registered for any camps");
+		}
+		else {
+			for (Camp camp : registeredCamps) {
+				campView.displayCamp(camp);
+				System.out.println();
+			}
+		}
 	}
 }
  

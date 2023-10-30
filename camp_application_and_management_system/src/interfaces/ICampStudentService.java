@@ -5,6 +5,7 @@ package interfaces;
 
 import java.util.ArrayList;
 
+import enums.Schools;
 import model.camp.Camp;
 
 /**
@@ -14,12 +15,14 @@ import model.camp.Camp;
 public interface ICampStudentService {
 
 	/**
-	 * Retrieves a list of available camps
 	 * 
+	 * Retrieves a list of available camps
+
+	 * @param school student's school
 	 * @return a {@link ArrayList} of {@link Camp} objects representing
 	 * the available camps
 	 */
-	public ArrayList<Camp> getAvailableCamps();
+	public ArrayList<Camp> getAvailableCamps(Schools school);
 	
 	/**
 	 * Retrieves the camps the student has registered for

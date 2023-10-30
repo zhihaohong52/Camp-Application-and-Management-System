@@ -63,7 +63,7 @@ public class CAMS {
 		} catch (Exception e) {
 			// Save data and logout
 			DataStore.saveData();
-			AuthController.endSession();
+			AuthController.endSession();			
 			
 			// Print error message
 			System.out.println("Error: " + e.getMessage());

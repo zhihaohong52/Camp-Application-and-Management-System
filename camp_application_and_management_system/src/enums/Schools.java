@@ -1,7 +1,7 @@
 /**
  * 
  */
-package util;
+package enums;
 
 /**
  * This enum lists all the schools in NTU

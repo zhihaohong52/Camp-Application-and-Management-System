@@ -22,10 +22,17 @@ public class CommonView {
 	 * Prints the start up screen for Camp Application and Management System (CAMS)
 	 */
 	public static void printStartUpScreen() {
-		System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
 		System.out.println(
-				"\u2503                           Camp Application and Management System (CAMS)                           \u2503");
-		System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
+				  "\r\n"
+				  + "Welcome to\n"
+				  + " ██████╗ █████╗ ███╗   ███╗███████╗\r\n"
+				  + "██╔════╝██╔══██╗████╗ ████║██╔════╝\r\n"
+				  + "██║     ███████║██╔████╔██║███████╗\r\n"
+				  + "██║     ██╔══██║██║╚██╔╝██║╚════██║\r\n"
+				  + "╚██████╗██║  ██║██║ ╚═╝ ██║███████║\r\n"
+				  + " ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝\r\n"
+				  + "Camp Application and Management System\n"
+				  + "");
 	
 	}
 	

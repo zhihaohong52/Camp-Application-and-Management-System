@@ -4,10 +4,12 @@
 package model.camp;
 
 import model.user.*;
-import util.Schools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import enums.Schools;
+
 import java.time.LocalDate;
 
 /**
@@ -32,7 +34,7 @@ public class Camp {
 	
 	public int totalSlots;
 	
-	public List<Student> students = new ArrayList<>();
+	public List<String> students = new ArrayList<>();
 	
 	public int campCommitteeSlots = 10;
 	
@@ -156,11 +158,11 @@ public class Camp {
 		this.location = location;
 	}
 
-	public void addAttendee(Student newAttendee) {
+	public void addAttendee(String newAttendeeID) {
 		if (totalSlots == 0) 
 			System.out.println("Camp already full!");
 		else {
-			students.add(newAttendee);
+			students.add(newAttendeeID);
 			totalSlots--;
 		}
 	}
@@ -180,6 +182,14 @@ public class Camp {
 	}
 
 	
+	public List<String> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<String> students) {
+		this.students = students;
+	}
+
 	/**
 	 * @param newCommittee
 	 */
