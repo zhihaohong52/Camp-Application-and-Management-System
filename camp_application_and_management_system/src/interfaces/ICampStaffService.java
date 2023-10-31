@@ -11,7 +11,7 @@ import model.camp.Camp;
  * {@link ICampStudentService} defines a contract for managing
  * services for Staff
  */
-public interface IStaffCampService {
+public interface ICampStaffService {
 
 	/**
 	 * Create new camps
@@ -35,4 +35,12 @@ public interface IStaffCampService {
 	 * @return true if camp is updated successfully, false if otherwise
 	 */
 	public boolean editCamp(Camp camp);
+	
+	/**
+	 * Toggle visibility of camps 
+	 * 
+	 * @param camps with visibility to be toggled
+	 * @return true if visibility is updated successfully, false if otherwise
+	 */
+	public boolean toggleCampVisibilty(ArrayList<Camp> camps);
 }

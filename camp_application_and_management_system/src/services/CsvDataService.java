@@ -399,27 +399,30 @@ public class CsvDataService implements IFileDataService {
 			
 	     // Parse the date and school strings from the CSV and add them to the lists
 	        String datesString = campRow[2]; // Assuming dates are in the third column
-	        String availableSchoolsString = campRow[4]; // Assuming available schools are in the fourth column
-
 	        String[] dateStrings = datesString.split(";"); // Split dates by a delimiter
 	        for (String dateString : dateStrings) {
 	            LocalDate date = LocalDate.parse(dateString);
 	            dates.add(date);
 	        }
 	        
+	        LocalDate closing = LocalDate.parse(campRow[3]);
+	        
+	        String availableSchoolsString = campRow[4]; // Assuming available schools are in the fourth column
 	        String[] schoolStrings = availableSchoolsString.split(";"); // Split schools by a delimiter
 	        for (String schoolString : schoolStrings) {
 	            Schools school = SchoolEnumConverter.convertToEnum(schoolString); // Convert into enum
 	            available.add(school);
 	        }
-	        
-	        LocalDate closing = LocalDate.parse(campRow[3]);
+	        	        
 	        String location = campRow[5];
 	        int totalSlots = Integer.parseInt(campRow[6]);
 	        String description = campRow[7];
 	        String staffIC = campRow[8];
 	        
-	        Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, description, staffIC);
+	        String visibilityString = campRow[9];
+	        boolean visibility = BooleanConverter.convertToBoolean(visibilityString);
+	        
+	        Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, description, staffIC, visibility);
 	        
 	        campMap.put(campID, camp);
 		}

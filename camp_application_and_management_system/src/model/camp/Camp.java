@@ -42,7 +42,9 @@ public class Camp {
 	
 	public String description;
 	
-	 String staffIC;
+	String staffIC;
+	
+	public boolean visibility;
 	
 	/**
 	 * @param name
@@ -53,9 +55,10 @@ public class Camp {
 	 * @param totalSlots
 	 * @param description
 	 * @param staffIC
+	 * @param visibility
 	 */
 	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
-			String location, int totalSlots, String description, String staffIC) {
+			String location, int totalSlots, String description, String staffIC, boolean visibility) {
 		this.campID = campID;
 		this.name = name;
 		this.dates = dates;
@@ -65,6 +68,7 @@ public class Camp {
 		this.totalSlots = totalSlots;
 		this.description = description;
 		this.staffIC = staffIC;
+		this.visibility = visibility;
 	}
 
 	/**
@@ -215,5 +219,13 @@ public class Camp {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public boolean getVisibility() {
+		return visibility;
+	}
+	
+	public void setVisibility(boolean visibility) {
+		this.visibility = visibility;
 	}
 }
