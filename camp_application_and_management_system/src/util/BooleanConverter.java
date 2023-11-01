@@ -19,7 +19,7 @@ public class BooleanConverter {
 		else if (input.equals("FALSE") || input.equals("false"))
 			return false;
 		else
-			throw new IllegalArgumentException("Input is an invalid boolean value: " + input);
+			throw new IllegalArgumentException("Input is an invalid value: " + input);
 	}
 
 }

@@ -3,20 +3,17 @@
  */
 package model.camp;
 
-import model.user.*;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import enums.Schools;
 
-import java.time.LocalDate;
-
 /**
  * Represents a camp declared within the system
- * @author whoever want can just put ur name here lol yes
+ * @author Zhi Hao, !! everyone just put ur name here !!
  * @version 1.0
- * @since 2023-10-20
+ * @since put date of submission 2023-11-dd
  */
 public class Camp {
 	
@@ -34,11 +31,11 @@ public class Camp {
 	
 	public int totalSlots;
 	
-	public List<String> students = new ArrayList<>();
+	public List<String> students = new ArrayList<String>();
 	
 	public int campCommitteeSlots = 10;
 	
-	public List<Committee> campCommittee = new ArrayList<Committee>(10);
+	public List<String> campCommittee = new ArrayList<String>(10);
 	
 	public String description;
 	
@@ -197,7 +194,7 @@ public class Camp {
 	/**
 	 * @param newCommittee
 	 */
-	public void addCommitteeCommittee(Committee newCommittee) {
+	public void addCommitteeCommittee(String newCommittee) {
 		if (totalSlots == 0 || campCommitteeSlots == 0 ) //
 			System.out.println("No more slots available!");
 		else {

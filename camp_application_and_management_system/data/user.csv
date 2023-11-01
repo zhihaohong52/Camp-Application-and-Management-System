@@ -1,4 +1,4 @@
-��UserID,Name,Email,Faculty,Role,Password,First Login
+UserID,Name,Email,Faculty,Role,Password,First Login
 YCHERN,CHERN ,YCHERN@e.ntu.edu.sg;,SCSE,student,Password123!,false
 KOH1,KOH ,KOH1@e.ntu.edu.sg;,ADM,student,Default123!,true
 BR015,BRANDON ,BR015@e.ntu.edu.sg;,EEE,student,Default123!,true
@@ -8,10 +8,10 @@ DL007,DENISE,DL007@e.ntu.edu.sg;,SCSE,student,Default123!,true
 DON84,DONG,DON84@e.ntu.edu.sg;,ADM,student,Default123!,true
 ELI34,ERNEST,ELI34@e.ntu.edu.sg;,EEE,student,Default123!,true
 LE51,LEE ,LE51@e.ntu.edu.sg;,SCSE,student,Default123!,true
-SL22,LIU ,SL22@e.ntu.edu.sg;,NBS,student,Default123!,true
+SL22,LIU ,SL22@e.ntu.edu.sg;,NBS,student,NEWpw12345!,false
 AKY013,RAWAL,AKY013@e.ntu.edu.sg;,SSS,student,Default123!,true
 HUKUMAR,Madhukumar,HUKUMAR@NTU.EDU.SG,SCSE,staff,Default123!,true
 OURIN,Alexei ,OURIN@ntu.edu.sg,ADM,staff,Default123!,true
 UPAM,Chattopadhyay,UPAM@NTU.EDU.SG,EEE,staff,Default123!,true
 ANWIT,Datta,ANWIT@NTU.EDU.SG,SCSE,staff,Default123!,true
-ARVI,Arvind ,ARVI@NTU.EDU.SG,NBS,staff,Default123!,true
+ARVI,Arvind ,ARVI@NTU.EDU.SG,NBS,staff,Password123!,false

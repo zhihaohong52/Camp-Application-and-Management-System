@@ -60,7 +60,7 @@ public class CsvDataService implements IFileDataService {
 	/**
 	 * List of headers for the CSV file that stores request data.
 	 */
-	private static List<String> requestCsvHeaders = new ArrayList<String>();
+	//private static List<String> requestCsvHeaders = new ArrayList<String>();
 
 	/**
 	 * Constructs an instance of the {@link CSVDataService} class.
@@ -438,7 +438,7 @@ public class CsvDataService implements IFileDataService {
 		for (Camp camp : campMap.values()) {
 			String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
 			String availableString = String.join(";", camp.available.stream().map(Schools::toString).toArray(String[]::new));
-			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%s", 
+			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s", 
 					camp.getCampID(),
 					camp.getName(),
 					datesString,
@@ -447,7 +447,8 @@ public class CsvDataService implements IFileDataService {
 					camp.getLocation(),
 					camp.getTotalSlots(),
 					camp.getDescription(),
-					camp.getStaffIC());
+					camp.getStaffIC(),
+					camp.getVisibility());
 			
 			campLines.add(campLine);
 		}

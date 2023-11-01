@@ -4,6 +4,7 @@
 package main;
 
 import controllers.AuthController;
+import controllers.StaffController;
 import controllers.StudentController;
 import model.user.User;
 import services.CsvDataService;
@@ -50,7 +51,7 @@ public class CAMS {
 					new StudentController().start();
 					break;
 				case Staff:
-					//new StaffController().start();
+					new StaffController().start();
 					System.out.println("Staff");
 					break;
 				case Committee:
