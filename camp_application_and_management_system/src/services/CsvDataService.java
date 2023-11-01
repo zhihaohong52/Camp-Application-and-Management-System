@@ -24,7 +24,7 @@ import model.user.Committee;
 import model.user.Staff;
 import model.user.Student;
 import util.BooleanConverter;
-import util.SchoolEnumConverter;
+import util.SchoolEnumUtil;
 
 /**
  * The {@link CsvDataService} class implements the {@link IFileDataService}
@@ -168,7 +168,7 @@ public class CsvDataService implements IFileDataService {
 			String password = userInfoMap.get("password");
 			String email = userInfoMap.get("email");
 			String name = userInfoMap.get("name");
-			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
 			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] studentRow : studentsRows) {
@@ -245,7 +245,7 @@ public class CsvDataService implements IFileDataService {
 			String password = userInfoMap.get("password");
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
-			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
 			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] staffRow : staffsRows) {
@@ -304,12 +304,11 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	@Override
-	public Map<String, Committee> importCommitteeData(String usersFilePath,
-			String CommitteesFilePath) {
+	public Map<String, Committee> importCommitteeData(String usersFilePath,String committeesFilePath) {
 		Map<String, Committee> committeeMap = new HashMap<String, Committee>();
 		
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
-		List<String[]> CommitteesRows = this.readCsvFile(CommitteesFilePath, committeeCsvHeaders);
+		List<String[]> committeesRows = this.readCsvFile(committeesFilePath, committeeCsvHeaders);
 		
 		for (String[] userRow : usersRows) {
 			Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -322,11 +321,11 @@ public class CsvDataService implements IFileDataService {
 			String password = userInfoMap.get("password");
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
-			Schools faculty = SchoolEnumConverter.convertToEnum(userInfoMap.get("faculty"));
+			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
 			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
 			int campID = Integer.parseInt(userInfoMap.get("campID"));
 			
-			for (String[] CommitteeRow : CommitteesRows) {
+			for (String[] CommitteeRow : committeesRows) {
 				if (!CommitteeRow[0].equals(userID))
 					continue;		
 			}
@@ -410,7 +409,7 @@ public class CsvDataService implements IFileDataService {
 	        String availableSchoolsString = campRow[4]; // Assuming available schools are in the fourth column
 	        String[] schoolStrings = availableSchoolsString.split(";"); // Split schools by a delimiter
 	        for (String schoolString : schoolStrings) {
-	            Schools school = SchoolEnumConverter.convertToEnum(schoolString); // Convert into enum
+	            Schools school = SchoolEnumUtil.convertToEnum(schoolString); // Convert into enum
 	            available.add(school);
 	        }
 	        	        

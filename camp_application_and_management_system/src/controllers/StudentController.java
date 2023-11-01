@@ -4,6 +4,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import enums.Schools;
@@ -11,11 +12,14 @@ import interfaces.ICampView;
 import interfaces.ICampStudentService;
 import model.camp.Camp;
 import model.user.Student;
+import model.user.User;
+import model.user.Committee;
 import services.CampStudentService;
 import view.CampAvailableView;
 import view.CampRegisteredView;
 import view.CommonView;
 import store.AuthStore;
+import store.DataStore;
 import util.TextDecoratorUtil;
 
 /**
@@ -33,7 +37,10 @@ public class StudentController extends UserController {
 	 */
 	private static final Scanner sc = new Scanner(System.in);
 	
-	private static final ICampStudentService campStudentService= new CampStudentService();
+	/**
+	 * 
+	 */
+	private static final ICampStudentService campStudentService = new CampStudentService();
 	
 	/**
 	 * Constructs an instance of {@link StudentContoller}
@@ -42,8 +49,12 @@ public class StudentController extends UserController {
 	
 	public void start() {
 		
+		User user = AuthStore.getCurrentUser();
+		Map<String, Committee> committeeData = DataStore.getCommitteeData();
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		
 		// force to change password if first login
-		if(AuthStore.getCurrentUser().isFirstLogin()) {
+		if(user.isFirstLogin()) {
 			System.out.println("Please change your password");
 			changePassword();
 			// Restart user session after changing password
@@ -70,7 +81,16 @@ public class StudentController extends UserController {
 			System.out.println(TextDecoratorUtil.underlineText("\nEnquiries"));
 			System.out.println("6. View enquiries");
 			System.out.println("7. Submit/edit enquiries");
-			System.out.println("8. Exit");
+			
+			if (committeeData.containsKey(user.getID())) {
+				Committee committee = committeeData.get(user.getID());
+				Camp camp = campData.get(committee.getCampID());
+				System.out.println(TextDecoratorUtil.underlineText("\nCamp commmitee"));
+				System.out.println(user.getID() + " is a committee member for " + camp.getName());
+				System.out.println("Enter committee view");
+			}			
+						
+			System.out.println("0. Exit");
 			
 			choice = sc.nextInt();
 			
@@ -84,6 +104,7 @@ public class StudentController extends UserController {
 	                System.out.println("Please login again");   
 					return;
 				}
+				break;
 			case 2:
 				CommonView.printNavbar("CAMS > Student > View available camps");
 				campView = new CampAvailableView();
@@ -106,13 +127,13 @@ public class StudentController extends UserController {
 			case 7:
 				CommonView.printNavbar("CAMS > Student > Submit/edit enquiries");
 				break;
-			case 8:
+			case 0:
 				System.out.println("Exiting student menu...");
 				AuthController.endSession();
 				return;
-				default:
-					System.out.println("Invalid choice. Please select a number between 1 and 8.");
-					break;
+			default:
+				System.out.println("Invalid choice. Please select a number between 1 and 8.");
+				break;
 			}
 			if (choice >= 2 && choice <7) {
 				CommonView.pressEnterToContinue();

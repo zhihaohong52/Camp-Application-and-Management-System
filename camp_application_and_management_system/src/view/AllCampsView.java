@@ -26,6 +26,7 @@ public class AllCampsView extends CampAvailableView implements ICampView {
 		System.out.println("Description: " + camp.getDescription());
 		System.out.println("Staff IC " + camp.getStaffIC());
 		System.out.println("Number of slots left: " + camp.getTotalSlots());
+		System.out.println("Visibility: " + camp.getVisibility());
 	}
 
 }

@@ -3,10 +3,13 @@
  */
 package services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import enums.Schools;
 import interfaces.ICampStaffService;
 import model.camp.Camp;
 import store.DataStore;
@@ -37,7 +40,7 @@ public class CampStaffService implements ICampStaffService {
 	}
 
 	@Override
-	public ArrayList<Camp> viewCamps() {
+	public ArrayList<Camp> getAllCamps() {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		ArrayList<Camp> allCamps = new ArrayList<>();
 		
@@ -48,16 +51,69 @@ public class CampStaffService implements ICampStaffService {
 		return allCamps;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public boolean editCamp(Camp camp) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editCamp(Camp camp, int field, Object value) {
+		switch (field) {
+			case 1:
+				if (value instanceof String) {
+					camp.setName((String) value);
+				}
+				break;
+			case 2:
+				if (value instanceof List<?> && !((List<?>) value).isEmpty()) {
+					List<?> listValue = (List<?>) value;
+					if (listValue.get(0) instanceof LocalDate) {
+						camp.setDates((List<LocalDate>) value);
+					}
+				}
+				break;
+			case 3:
+				if (value instanceof LocalDate) {
+					camp.setClosing((LocalDate) value);
+				}
+				break;
+			case 4:
+				if (value instanceof List<?> && !((List<?>) value).isEmpty()) {
+					List<?> listValue = (List<?>) value;
+					if (listValue.get(0) instanceof Schools) {
+						camp.setAvailable((List<Schools>) value);
+					}
+				}
+			case 5:
+				if (value instanceof String) {
+					camp.setLocation((String) value);
+				}
+				break;
+			case 6:
+				if (value instanceof Integer) {
+					camp.setTotalSlots((int) value);
+				}
+				break;
+			case 7:
+				if (value instanceof String) {
+					camp.setDescription((String) value);
+				}
+				break;
+			}
+		return DataStore.saveData();
+	}
+	
+	@Override
+	public boolean deleteCamp(Camp camp) {
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		
+		campData.remove(camp.getCampID());
+		
+		return DataStore.saveData();
 	}
 
 	@Override
 	public boolean toggleCampVisibilty(ArrayList<Camp> camps) {
-		// TODO Auto-generated method stub
-		return false;
+		for (Camp camp : camps) {
+			boolean visibility = camp.getVisibility();
+			camp.setVisibility(!visibility);
+		}
+		return DataStore.saveData();
 	}
-
 }

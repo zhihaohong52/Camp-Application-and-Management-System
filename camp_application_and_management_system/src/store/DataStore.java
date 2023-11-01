@@ -68,7 +68,7 @@ public class DataStore {
 		//import all data
 		DataStore.setStudentData(fileDataService.importStudentData(filePathsMap.get("user"), filePathsMap.get("student")));
 		DataStore.setStaffData(fileDataService.importStaffData(filePathsMap.get("user"), filePathsMap.get("staff")));
-		//DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("committee")));
+		DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("committee")));
 		DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("staff"), filePathsMap.get("committee")));
 		//DataStore.setRequestData(fileDataService.importRequestData(filePathsMap.get("request")));
 		
@@ -81,7 +81,7 @@ public class DataStore {
 	public static boolean saveData() {
 		DataStore.setStudentData(studentData);
 		DataStore.setStaffData(staffData);
-		//DataStore.setCommitteeData(committeeData);
+		DataStore.setCommitteeData(committeeData);
 		DataStore.setCampData(campData);
 		//DataStore.setRequestData(requestData);
 		

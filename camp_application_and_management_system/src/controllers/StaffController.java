@@ -5,6 +5,7 @@ package controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import store.AuthStore;
 import store.DataStore;
 import util.BooleanConverter;
 import util.CampUtil;
-import util.SchoolEnumConverter;
+import util.SelectorUtil;
 import util.TextDecoratorUtil;
 import view.AllCampsView;
 import view.CommonView;
@@ -56,7 +57,8 @@ public class StaffController extends UserController {
 		}
 		
 		ICampView campView;
-		int choice;
+		int choice, choice2;
+		boolean back = false;
 		
 		do {
 			CommonView.printNavbar("CAMS > Staff");
@@ -75,59 +77,85 @@ public class StaffController extends UserController {
 			
 			System.out.println(TextDecoratorUtil.underlineText("\nReports"));
 			System.out.println("8. Generate reports");
-			System.out.println("9. Exit");
+			System.out.println("0. Exit");
 			
 			choice = sc.nextInt();
 			
 			switch (choice) {
-			case 1:
-				CommonView.printNavbar("CAMS > Staff > Change password");
-				if (changePassword()) {
-					// Restart user session after changing password
+				case 1:
+					CommonView.printNavbar("CAMS > Staff > Change password");
+					if (changePassword()) {
+						// Restart user session after changing password
+						AuthController.endSession();
+						System.out.println("Password reset successfully!");
+		                System.out.println("Please login again");   
+						return;
+					}
+				case 2:
+					CommonView.printNavbar("CAMS > Staff > View all camps");
+					campView = new AllCampsView();
+					viewAllCamps(campView);
+					break;
+				case 3:
+					CommonView.printNavbar("CAMS > Staff > Create new camps");
+					createCamps();
+					break;
+				case 4:
+					CommonView.printNavbar("CAMS > Staff > Edit/Delete camp");
+					do {
+						System.out.println("1. Edit camp");
+						System.out.println("2. Delete camp");
+						System.out.println("3. Return to homepage");
+						choice2 = sc.nextInt();
+						switch (choice2) {
+							case 1:
+								CommonView.printNavbar("CAMS > Staff > Edit/Delete camp > Edit camp");
+								editCamp();
+								break;
+							case 2:
+								CommonView.printNavbar("CAMS > Staff > Edit/Delete camp > Delete camp");
+								deleteCamp();
+								break;
+							case 3:
+								back = true;
+								break;
+							default:
+								System.out.println("Invalid choice. Please select a number between 1 and 3.");
+								break;
+						}
+						if (choice2 == 1 || choice2 == 2) {
+							CommonView.pressEnterToContinue();
+						}
+					} while (back == false);
+					break;
+				case 5:
+					CommonView.printNavbar("CAMS > Staff > Toggle camp visiblity");
+					toggleCamp();
+					break;
+				case 6:
+					CommonView.printNavbar("CAMS > Staff > View/Reply enquiries");
+					break;
+				case 7:
+					CommonView.printNavbar("CAMS > Staff > View/Approve suggestions");
+					break;
+				case 8:
+					CommonView.printNavbar("CAMS > Staff > Generate reports");
+				case 0:
+					System.out.println("Exiting staff menu...");
 					AuthController.endSession();
-					System.out.println("Password reset successfully!");
-	                System.out.println("Please login again");   
 					return;
-				}
-			case 2:
-				CommonView.printNavbar("CAMS > Staff > View all camps");
-				campView = new AllCampsView();
-				viewAllCamps(campView);
-				break;
-			case 3:
-				CommonView.printNavbar("CAMS > Staff > Create new camps");
-				createCamps();
-				break;
-			case 4:
-				CommonView.printNavbar("CAMS > Staff > Edit/Delete camp");
-				break;
-			case 5:
-				CommonView.printNavbar("CAMS > Staff > Toggle camp visiblity");
-				break;
-			case 6:
-				CommonView.printNavbar("CAMS > Staff > View/Reply enquiries");
-				break;
-			case 7:
-				CommonView.printNavbar("CAMS > Staff > View/Approve suggestions");
-				break;
-			case 8:
-				CommonView.printNavbar("CAMS > Staff > Generate reports");
-			case 9:
-				System.out.println("Exiting student menu...");
-				AuthController.endSession();
-				return;
 				default:
 					System.out.println("Invalid choice. Please select a number between 1 and 8.");
 					break;
 			}
-			if (choice >= 2 && choice <7) {
+			if (choice >= 2 && choice <8) {
 				CommonView.pressEnterToContinue();
 			}
 		}while (true);
 	}
 	
 	private void viewAllCamps(ICampView campView) {
-		ArrayList<Camp> camps = campStaffService.viewCamps();
+		ArrayList<Camp> camps = campStaffService.getAllCamps();
 		
 		if (camps.isEmpty()) {
 			System.out.println("No camps have been created.\n");
@@ -175,123 +203,7 @@ public class StaffController extends UserController {
 			String dateString = sc.next();
 			LocalDate closing = LocalDate.parse(dateString, formatter);
 			
-			List<Schools> available = new ArrayList<Schools>();
-			
-			do {
-				System.out.println("Please indicate if the camp is open to all schools (Y/N): ");
-				String input = sc.next();
-				if (input.equals("Y") || input.equals("y")) {
-					System.out.println("Camp is open to all schools.");
-					available = SchoolEnumConverter.allSchools();
-					break;
-				}
-				else if (input.equals("N") || input.equals("n")) {
-					System.out.println("Please indicate if the camp is open to a college (Y/N): ");
-					String input2 = sc.next();
-					if (input2.equals("Y") || input2.equals("y")) {
-						System.out.println("Select college: ");
-						System.out.println("1. CoE");
-						System.out.println("2. CoHASS");
-						System.out.println("3. CoS");
-						int choice = sc.nextInt();
-						switch(choice) {
-							case 1:
-								for (Schools school : SchoolEnumConverter.CoE)
-									available.add(school);
-								break;
-							case 2:
-								for (Schools school : SchoolEnumConverter.CoHASS)
-									available.add(school);
-								break;
-							case 3:
-								for (Schools school : SchoolEnumConverter.CoS)
-									available.add(school);
-								break;
-							default:
-								System.out.println("Invalid input");		
-						}
-						break;
-					}
-					else if (input2.equals("N") || input2.equals("n")) {
-						System.out.print("Number of schools the camps if open to: ");
-						int numOfSchools = sc.nextInt();
-						List<Schools> schoolList = SchoolEnumConverter.allSchools();
-						for (int j = 0; j < numOfSchools; j++) {
-							System.out.println("Please indicate which school(s) the camp is open to: ");
-							for (int k = 0; k < schoolList.size(); k++) {
-								Schools school = schoolList.get(k);
-								System.out.println((k+1) + "." + school);
-							}
-							int choice = sc.nextInt();
-							switch(choice) {
-								case 1:
-				                    available.add(Schools.SCSE);
-				                    break;
-				                case 2:
-				                    available.add(Schools.CCEB);
-				                    break;
-				                case 3:
-				                    available.add(Schools.EEE);
-				                    break;
-				                case 4:
-				                    available.add(Schools.CEE);
-				                    break;
-				                case 5:
-				                    available.add(Schools.MSE);
-				                    break;
-				                case 6:
-				                    available.add(Schools.MAE);
-				                    break;
-				                case 7:
-				                    available.add(Schools.NBS);
-				                    break;
-				                case 8:
-				                    available.add(Schools.ADM);
-				                    break;
-				                case 9:
-				                    available.add(Schools.SOH);
-				                    break;
-				                case 10:
-				                    available.add(Schools.SSS);
-				                    break;
-				                case 11:
-				                    available.add(Schools.WKWSCI);
-				                    break;
-				                case 12:
-				                    available.add(Schools.SPMS);
-				                    break;
-				                case 13:
-				                    available.add(Schools.SBS);
-				                    break;
-				                case 14:
-				                    available.add(Schools.ASE);
-				                    break;
-				                case 15:
-				                    available.add(Schools.LKCMedicine);
-				                    break;
-				                case 16:
-				                    available.add(Schools.NIE);
-				                    break;
-				                default:
-				                    System.out.println("Invalid input");
-								}
-						}
-						break;
-					}
-					else {
-						System.out.println("Invalid input! Please input Y or N.");
-					}
-					System.out.println("Camp is open to the following schools: ");
-					for (int k = 0; k < available.size(); k++) {
-						Schools school = available.get(k);
-						System.out.print(school + ",");
-					}
-					System.out.println();
-					break;
-				}
-				else
-					System.out.println("Invalid input! Please input Y or N.");
-			} while (true);
+			List<Schools> available = SelectorUtil.schoolSelector();
 			
 			System.out.print("Location: ");
 			sc.nextLine(); //consumer newline char from previous input
@@ -330,6 +242,162 @@ public class StaffController extends UserController {
 		
 		campStaffService.createCamp(camps);
 		
+	}
+	
+	private void editCamp() {
+	    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+	    ArrayList<Camp> camps = campStaffService.getAllCamps();
+	    Camp selectedCamp = SelectorUtil.campSelector(camps);
+
+	    if (selectedCamp != null) {
+	        System.out.printf("Editing camp %d - %s\n", selectedCamp.getCampID(), selectedCamp.getName());
+
+	        while (true) {
+	            System.out.println("Select field to edit:");
+	            System.out.println("1. Camp name");
+	            System.out.println("2. Camp dates");
+	            System.out.println("3. Closing date");
+	            System.out.println("4. Schools");
+	            System.out.println("5. Location");
+	            System.out.println("6. Total number of slots");
+	            System.out.println("7. Description");
+	            System.out.println("0. Exit");
+
+	            int choice = sc.nextInt();
+	            sc.nextLine(); // Consume the newline character
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.print("Enter new name: ");
+	                    String name = sc.nextLine();
+	                    campStaffService.editCamp(selectedCamp, choice, name);
+	                    break;
+	                case 2:
+	                    System.out.print("Enter new dates (separated by spaces): ");
+	                    String dateInput = sc.nextLine();
+	                    List<LocalDate> dates = new ArrayList<>();
+	                    String[] dateStrings = dateInput.split(" ");
+	                    for (String dateString : dateStrings) {
+	                        try {
+	                            LocalDate date = LocalDate.parse(dateString, formatter);
+	                            dates.add(date);
+	                        } catch (DateTimeParseException e) {
+	                            System.out.println("Invalid date format. Please use dd/mm/yyyy.");
+	                        }
+	                    }
+	                    campStaffService.editCamp(selectedCamp, choice, dates);
+	                    break;
+	                case 3:
+	                    System.out.print("Enter new closing date (dd/mm/yyyy): ");
+	                    String dateString = sc.nextLine();
+	                    try {
+	                        LocalDate closing = LocalDate.parse(dateString, formatter);
+	                        campStaffService.editCamp(selectedCamp, choice, closing);
+	                    } catch (DateTimeParseException e) {
+	                        System.out.println("Invalid date format. Please use dd/mm/yyyy.");
+	                    }
+	                    break;
+	                case 4:
+	                    System.out.println("Enter new available schools (separated by spaces): ");
+	                    List<Schools> available = SelectorUtil.schoolSelector();
+	                    campStaffService.editCamp(selectedCamp, choice, available);
+	                    break;
+	                case 5:
+	                    System.out.print("Enter new location: ");
+	                    String location = sc.nextLine();
+	                    campStaffService.editCamp(selectedCamp, choice, location);
+	                    break;
+	                case 6:
+	                    System.out.print("Enter new number of slots: ");
+	                    int totalSlots = sc.nextInt();
+	                    sc.nextLine(); // Consume the newline character
+	                    campStaffService.editCamp(selectedCamp, choice, totalSlots);
+	                    break;
+	                case 7:
+	                    System.out.print("Enter new description: ");
+	                    String description = sc.nextLine();
+	                    campStaffService.editCamp(selectedCamp, choice, description);
+	                    break;
+	                case 0:
+	                    System.out.println("Exiting edit camp.");
+	                    return;
+	                default:
+	                    System.out.println("Invalid choice. Please select a number between 1 and 7.");
+	            }
+	        }
+	    }
+	}
+	
+	private void deleteCamp() {
+		ArrayList<Camp> camps = campStaffService.getAllCamps();
+	    Camp selectedCamp = SelectorUtil.campSelector(camps);
+	    String input = null;
+	    
+	    if (selectedCamp != null) {
+	    	do {
+	    		System.out.printf("Deleting camp %d - %s\n", selectedCamp.getCampID(), selectedCamp.getName());
+		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");
+		    	input = sc.next();
+		    	if (input.equals("Y") || input.equals("y")) {
+		    		campStaffService.deleteCamp(selectedCamp);
+		    		System.out.println("Camp deleted successfully.");
+		    		break;
+		    	}
+		    	else if (input.equals("N") || input.equals("n")) {
+		    		break;
+		    	}
+		    	else {
+		    		System.out.println("Invalid input. Please input Y or N.");
+		    	}
+	    	} while (true);
+	    }
+	}
+	
+	private void toggleCamp() {
+		ArrayList<Camp> camps = campStaffService.getAllCamps();
+		ArrayList<Camp> selectedCamps = new ArrayList<>();
+
+		System.out.println("Select all camps to toggle. End selection by pressing enter with no option selected.");
+		
+		while (true) {
+			
+		    Camp selectedCamp = SelectorUtil.campSelector(camps);
+		    
+		    if (selectedCamp != null) {
+		        selectedCamps.add(selectedCamp);
+		    }
+		    else {
+		        break;
+		    }
+		}		
+		
+	    String input = null;
+	    
+	    if (selectedCamps != null) {
+	    	do {
+	    		System.out.printf("Selected camps are:\n");
+	    		System.out.printf("CampID\tCamp name\tVisiblity");
+	    		
+	    		for (Camp selectedCamp : selectedCamps) {
+	    			System.out.printf("%d\t%s\t", selectedCamp.getCampID(), selectedCamp.getName(), selectedCamp.getVisibility());
+	    		}
+	    		
+		    	System.out.println("Please confirm the option. (Y/N)");
+		    	input = sc.next();
+		    	if (input.equals("Y") || input.equals("y")) {
+		    		campStaffService.toggleCampVisibilty(selectedCamps);
+		    		System.out.println("Camp visibility toggled successfully.");
+		    		break;
+		    	}
+		    	else if (input.equals("N") || input.equals("n")) {
+		    		break;
+		    	}
+		    	else {
+		    		System.out.println("Invalid input. Please input Y or N.");
+		    	}
+	    	} while (true);
+	    }
 	}
 }
 

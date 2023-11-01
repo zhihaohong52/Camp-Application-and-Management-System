@@ -12,7 +12,7 @@ import enums.Schools;
 /**
  * 
  */
-public class SchoolEnumConverter {
+public class SchoolEnumUtil {
 	
 	public static final Schools[] CoE = {Schools.SCSE, Schools.CCEB, Schools.EEE, Schools.CEE, Schools.MSE, Schools.MAE};
 

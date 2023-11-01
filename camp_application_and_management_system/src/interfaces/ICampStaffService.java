@@ -26,15 +26,25 @@ public interface ICampStaffService {
 	 * 
 	 * @return {@link ArrayList} of {@link Camp} objects that represents all camps
 	 */
-	public ArrayList<Camp> viewCamps();
+	public ArrayList<Camp> getAllCamps();
 	
 	/**
 	 * Update camp details
 	 * 
 	 * @param camp to be edited
+	 * @param field to be edited
+	 * @param value for edit
 	 * @return true if camp is updated successfully, false if otherwise
 	 */
-	public boolean editCamp(Camp camp);
+	public boolean editCamp(Camp camp, int field, Object value);
+	
+	/**
+	 * Delete camp
+	 * 
+	 * @param camp to be deleted
+	 * @return true if camp is deleted successfully, false if otherwise
+	 */
+	public boolean deleteCamp(Camp camp);
 	
 	/**
 	 * Toggle visibility of camps 
