@@ -32,4 +32,14 @@ public interface ICampStudentService {
 	 * the camps registered, or null is no camp is registered
 	 */
 	public ArrayList<Camp> getRegisteredCamps(String studentID);
+	
+	/**
+	 * Registers the student for a camp
+	 * 
+	 * @param studentID
+	 * @param campID
+	 * @param committee whether student intends to register as a committee member
+	 * @return true if student registered for camp successfully, false if otherwise
+	 */
+	public boolean registerForCamp(String studentID, int campID, boolean committee);
 }

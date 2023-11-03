@@ -20,6 +20,7 @@ import view.CampRegisteredView;
 import view.CommonView;
 import store.AuthStore;
 import store.DataStore;
+import util.SelectorUtil;
 import util.TextDecoratorUtil;
 
 /**
@@ -87,7 +88,7 @@ public class StudentController extends UserController {
 				Camp camp = campData.get(committee.getCampID());
 				System.out.println(TextDecoratorUtil.underlineText("\nCamp commmitee"));
 				System.out.println(user.getID() + " is a committee member for " + camp.getName());
-				System.out.println("Enter committee view");
+				System.out.println("8. Enter committee view");
 			}			
 						
 			System.out.println("0. Exit");
@@ -117,9 +118,10 @@ public class StudentController extends UserController {
 				break;
 			case 4:
 				CommonView.printNavbar("CAMS > Student > Register for camp");
+				register();
 				break;
 			case 5:
-				CommonView.printNavbar("CAMS > Student > Withdraw for camp");
+				CommonView.printNavbar("CAMS > Student > Withdraw from camp");
 				break;
 			case 6:
 				CommonView.printNavbar("CAMS > Student > View enquiries");
@@ -174,6 +176,46 @@ public class StudentController extends UserController {
 				campView.displayCamp(camp);
 				System.out.println();
 			}
+		}
+	}
+	
+	private void register() {
+		Student student = (Student) AuthStore.getCurrentUser();
+		String studentID = student.getID();
+		
+		ArrayList<Camp> camps = campStudentService.getAvailableCamps(student.getFaculty());
+		Camp camp = SelectorUtil.campSelector(camps);
+		
+		int choice;
+		boolean success = false;
+		
+		System.out.println("1. Register as attendee");
+		System.out.println("2. Register as camp committee member");
+		System.out.println("0. Return to homepage");
+		
+		choice = sc.nextInt();
+		
+		switch (choice) {
+			case 1:
+				System.out.println("Registering as attendee...");
+				success = campStudentService.registerForCamp(studentID, camp.getCampID(), false);
+				break;
+			case 2:
+				System.out.println("Registering as camp committee member...");
+				success = campStudentService.registerForCamp(studentID, camp.getCampID(), true);
+				break;
+			case 0:
+				System.out.println("Exiting");
+				return;
+			default:
+				System.out.println("Invalid choice. Please select a number between 0 and 2");
+		}
+		
+		if (success) {
+			System.out.println("Camp registered successfully.");
+		}
+		else {
+			System.out.println("Camp not registered.");
 		}
 	}
 }

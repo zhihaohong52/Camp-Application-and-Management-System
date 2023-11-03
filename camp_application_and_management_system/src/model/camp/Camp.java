@@ -67,6 +67,24 @@ public class Camp {
 		this.staffIC = staffIC;
 		this.visibility = visibility;
 	}
+	
+	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
+			String location, int totalSlots, String description, String staffIC, boolean visibility, 
+			List<String> students, int campCommitteeSlots, List<String> campCommittee) {
+		this.campID = campID;
+		this.name = name;
+		this.dates = dates;
+		this.closing = closing;
+		this.available = available;
+		this.location = location;
+		this.totalSlots = totalSlots;
+		this.description = description;
+		this.staffIC = staffIC;
+		this.visibility = visibility;
+		this.students = students;
+		this.campCommitteeSlots = campCommitteeSlots;
+		this.campCommittee = campCommittee;
+	}
 
 	/**
 	 * @return
@@ -159,15 +177,6 @@ public class Camp {
 		this.location = location;
 	}
 
-	public void addAttendee(String newAttendeeID) {
-		if (totalSlots == 0) 
-			System.out.println("Camp already full!");
-		else {
-			students.add(newAttendeeID);
-			totalSlots--;
-		}
-	}
-	
 	/**
 	 * @return
 	 */
@@ -190,18 +199,55 @@ public class Camp {
 	public void setStudents(List<String> students) {
 		this.students = students;
 	}
+	
+	public boolean addAttendee(String newAttendeeID) {
+		if (totalSlots == 0) {
+			System.out.println("Camp already full!");
+			return false;
+		}	
+		else {
+			students.add(newAttendeeID);
+			totalSlots--;
+			return true;
+		}
+	}
 
+	public int getCampCommitteeSlots() {
+		return campCommitteeSlots;
+	}
+
+	public void setCampCommitteeSlots(int campCommitteeSlots) {
+		this.campCommitteeSlots = campCommitteeSlots;
+	}
+
+	public List<String> getCampCommittee() {
+		return campCommittee;
+	}
+
+	public void setCampCommittee(List<String> campCommittee) {
+		this.campCommittee = campCommittee;
+	}
+	
 	/**
 	 * @param newCommittee
 	 */
-	public void addCommitteeCommittee(String newCommittee) {
-		if (totalSlots == 0 || campCommitteeSlots == 0 ) //
+	public boolean addCommittee(String newCommittee) {
+		if (totalSlots == 0 || campCommitteeSlots == 0 ) {
 			System.out.println("No more slots available!");
+			return false;
+		}
+			
 		else {
 			campCommittee.add(newCommittee);
+			students.add(newCommittee);
 			campCommitteeSlots--;
 			totalSlots--;
+			return true;
 		}
+	}
+
+	public void setStaffIC(String staffIC) {
+		this.staffIC = staffIC;
 	}
 	
 	/**

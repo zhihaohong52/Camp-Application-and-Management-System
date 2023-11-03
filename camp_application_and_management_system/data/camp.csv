@@ -1,2 +1,2 @@
-CampID,Name,Date,Closing,Schools,Location,Total Slots,Description,Staff IC,Visibility
-1,NBS Camp,2024-08-01;2024-08-02;2024-08-04,2023-07-01,NBS,Yunnan Garden,500,NBS camp,ARVI,true
+CampID,Name,Date,Closing,Schools,Location,Total Slots,Students,Camp Committee Slots,,Description,Staff IC,Visibility
+1,NBS FOP,2024-08-01;2024-08-02,2024-06-30,NBS,NBS,498,;SL22;YCN019,8,;SL22;YCN019,NBS FOP,ARVI,true

@@ -81,7 +81,7 @@ public class DataStore {
 	public static boolean saveData() {
 		DataStore.setStudentData(studentData);
 		DataStore.setStaffData(staffData);
-		DataStore.setCommitteeData(committeeData);
+		//DataStore.setCommitteeData(committeeData);
 		DataStore.setCampData(campData);
 		//DataStore.setRequestData(requestData);
 		
@@ -130,7 +130,7 @@ public class DataStore {
 	 */
 	public static void setCommitteeData(Map<String, Committee> committeeData) {
 		DataStore.committeeData = committeeData;
-		fileDataService.exportCommitteeData(filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("committee"), committeeData);
+		fileDataService.exportCommitteeData(filePathsMap.get("user"), filePathsMap.get("committee"), committeeData);
 	}
 
 	/**

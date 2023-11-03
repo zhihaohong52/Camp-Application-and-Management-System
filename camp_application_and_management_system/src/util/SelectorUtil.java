@@ -25,8 +25,8 @@ public class SelectorUtil {
 
 	public static Camp campSelector(ArrayList<Camp> camps) {
 		while (true) {
-			System.out.println("CampID\tCamp name\tVisibility");
-			camps.forEach(camp->System.out.printf("%d\t%s\t%s\n", camp.getCampID(), camp.getName(), camp.getVisibility()));
+			System.out.println("CampID\tCamp name");
+			camps.forEach(camp->System.out.printf("%d\t%s\n", camp.getCampID(), camp.getName()));
 			
 			System.out.println("Select campID: ");
 			String input = sc.nextLine();

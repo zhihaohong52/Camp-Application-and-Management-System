@@ -23,7 +23,7 @@ public interface IFileDataService {
 	
 	Map<String, Committee> importCommitteeData(String usersFilePath, String CommitteesFilePath);
 	
-	boolean exportCommitteeData(String usersFilePath, String studentsFilePath, String CommitteesFilePath, Map<String, Committee> committeeMap);
+	boolean exportCommitteeData(String usersFilePath, String CommitteesFilePath, Map<String, Committee> committeeMap);
 	
 	Map<Integer, Camp> importCampData(String campsFilePath, String usersFilePath, String studentsFilePath, String staffsFilePath, String CommitteesFilePath);
 	

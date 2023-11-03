@@ -23,6 +23,7 @@ import model.camp.Request;
 import model.user.Committee;
 import model.user.Staff;
 import model.user.Student;
+import model.user.User;
 import util.BooleanConverter;
 import util.SchoolEnumUtil;
 
@@ -120,7 +121,7 @@ public class CsvDataService implements IFileDataService {
 			}
 			
 		} catch (IOException e) {
-			System.out.println("Unable to export data!");
+			System.out.println("Unable to export data!" + filePath);
 			return false;
 		}
 		return true;
@@ -338,8 +339,7 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	@Override
-	public boolean exportCommitteeData(String usersFilePath, String studentsFilePath,
-			String committeesFilePath, Map<String, Committee> committeeMap) {
+	public boolean exportCommitteeData(String usersFilePath, String committeesFilePath, Map<String, Committee> committeeMap) {
 		List<String> committeeLines = new ArrayList<String>();
 		List<String> userLines = new ArrayList<String>();
 
@@ -374,6 +374,7 @@ public class CsvDataService implements IFileDataService {
 		// Committee
 		for (Committee committee : committeeMap.values()) {
 			String committeeLine = String.format("%s,%d", committee.getID(), committee.getCampID());
+			System.out.print(committeeLine);
 			committeeLines.add(committeeLine);
 		}
 		
@@ -392,9 +393,9 @@ public class CsvDataService implements IFileDataService {
 			int campID = Integer.parseInt(campRow[0]);
 			String name = campRow[1];
 
-			// Parse the dates and available schools, and initialize them as empty lists
+			// Parse the dates and initialize as empty lists
 	        List<LocalDate> dates = new ArrayList<>();
-	        List<Schools> available = new ArrayList<>();
+	        
 			
 	     // Parse the date and school strings from the CSV and add them to the lists
 	        String datesString = campRow[2]; // Assuming dates are in the third column
@@ -406,6 +407,9 @@ public class CsvDataService implements IFileDataService {
 	        
 	        LocalDate closing = LocalDate.parse(campRow[3]);
 	        
+	        //Parse available schools and initialize as empty list
+	        List<Schools> available = new ArrayList<>();
+	        
 	        String availableSchoolsString = campRow[4]; // Assuming available schools are in the fourth column
 	        String[] schoolStrings = availableSchoolsString.split(";"); // Split schools by a delimiter
 	        for (String schoolString : schoolStrings) {
@@ -415,13 +419,33 @@ public class CsvDataService implements IFileDataService {
 	        	        
 	        String location = campRow[5];
 	        int totalSlots = Integer.parseInt(campRow[6]);
-	        String description = campRow[7];
-	        String staffIC = campRow[8];
 	        
-	        String visibilityString = campRow[9];
+	      //Parse students and initialize as empty list
+	        List<String> students = new ArrayList<>();
+	        String studentsString = campRow[7];
+	        String[] studentsList = studentsString.split(";");
+	        for (String studentID : studentsList) {
+	        	students.add(studentID);
+	        }
+	        
+	        int campCommitteeSlots = Integer.parseInt(campRow[8]);
+	        
+	        //Parse camp committee and initialize as empty list
+	        List<String> campCommittee = new ArrayList<>();
+	        String campCommitteeString = campRow[9];
+	        String[] campCommitteeList = campCommitteeString.split(";");
+	        for (String campCommitteeID : campCommitteeList) {
+	        	campCommittee.add(campCommitteeID);
+	        }
+	        
+	        String description = campRow[10];
+	        String staffIC = campRow[11];
+	        
+	        String visibilityString = campRow[12];
 	        boolean visibility = BooleanConverter.convertToBoolean(visibilityString);
 	        
-	        Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, description, staffIC, visibility);
+	        Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, 
+	        		description, staffIC, visibility, students, campCommitteeSlots, campCommittee);
 	        
 	        campMap.put(campID, camp);
 		}
@@ -436,18 +460,23 @@ public class CsvDataService implements IFileDataService {
 		// Camp
 		for (Camp camp : campMap.values()) {
 			String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
-			String availableString = String.join(";", camp.available.stream().map(Schools::toString).toArray(String[]::new));
-			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s", 
-					camp.getCampID(),
-					camp.getName(),
-					datesString,
-					camp.getClosing().toString(),
-					availableString,
-					camp.getLocation(),
-					camp.getTotalSlots(),
-					camp.getDescription(),
-					camp.getStaffIC(),
-					camp.getVisibility());
+			String availableString = String.join(";", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
+			String studentString = String.join(";", camp.getStudents().stream().toArray(String[]::new));
+			String campCommitteeString = String.join(";", camp.getCampCommittee().stream().toArray(String[]::new));
+			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%d,%s,%s,%s,%s", 
+					camp.getCampID(), //1
+					camp.getName(), //2
+					datesString, //3
+					camp.getClosing().toString(), //4
+					availableString, //5
+					camp.getLocation(), //6
+					camp.getTotalSlots(), //7
+					studentString, //8
+					camp.getCampCommitteeSlots(), //9
+					campCommitteeString, //10
+					camp.getDescription(), //11
+					camp.getStaffIC(), //12
+					camp.getVisibility()); //13
 			
 			campLines.add(campLine);
 		}

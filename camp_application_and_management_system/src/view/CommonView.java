@@ -48,9 +48,9 @@ public class CommonView {
 		System.out.println();
 		System.out.println();
 
-		System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
-		System.out.println("\u2503 " + path + spaces + "\u2503");
-		System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
+		System.out.println("┏" + "━".repeat(98) + "┓");
+		System.out.println("┃ " + path + spaces + "┃");
+		System.out.println("┗" + "━".repeat(98) + "┛");
 	}
 
 	/**
