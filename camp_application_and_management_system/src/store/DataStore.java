@@ -26,6 +26,12 @@ public class DataStore {
 	 */
 	private static Map<String, String> filePathsMap;
 	
+	
+	/**
+	 * 
+	 */
+	private static Map<String, User> userData = new HashMap<String, User>();
+	
 	/**
 	 * 
 	 */
@@ -49,7 +55,7 @@ public class DataStore {
 	/**
 	 * 
 	 */
-	private static Map<Integer, Request> requestData = new HashMap<Integer, Request>();
+	private static Map<Integer, Enquiry> enquiryData = new HashMap<Integer, Enquiry>();
 	
 	/**
 	 * 
@@ -69,7 +75,7 @@ public class DataStore {
 		DataStore.setStudentData(fileDataService.importStudentData(filePathsMap.get("user"), filePathsMap.get("student")));
 		DataStore.setStaffData(fileDataService.importStaffData(filePathsMap.get("user"), filePathsMap.get("staff")));
 		DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("committee")));
-		DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp"), filePathsMap.get("user"), filePathsMap.get("student"), filePathsMap.get("staff"), filePathsMap.get("committee")));
+		DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp")));
 		//DataStore.setRequestData(fileDataService.importRequestData(filePathsMap.get("request")));
 		
 		return true;
@@ -81,11 +87,25 @@ public class DataStore {
 	public static boolean saveData() {
 		DataStore.setStudentData(studentData);
 		DataStore.setStaffData(staffData);
-		//DataStore.setCommitteeData(committeeData);
+		DataStore.setCommitteeData(committeeData);
 		DataStore.setCampData(campData);
 		//DataStore.setRequestData(requestData);
 		
 		return true;
+	}
+
+	/**
+	 * @return the userData
+	 */
+	public static Map<String, User> getUserData() {
+		return userData;
+	}
+
+	/**
+	 * @param userData the userData to set
+	 */
+	public static void setUserData(Map<String, User> userData) {
+		DataStore.userData = userData;
 	}
 
 	/**
@@ -151,16 +171,16 @@ public class DataStore {
 	/**
 	 * @return the requestData
 	 */
-	public static Map<Integer, Request> getRequestData() {
-		return DataStore.requestData;
+	public static Map<Integer, Enquiry> getEnquiryData() {
+		return DataStore.enquiryData;
 	}
 
 	/**
 	 * @param requestData the requestData to set
 	 */
-	public static void setRequestData(Map<Integer, Request> requestData) {
-		DataStore.requestData = requestData;
-		fileDataService.exportRequestData(filePathsMap.get("requests"), requestData);
+	public static void setEnquiryData(Map<Integer, Enquiry> requestData) {
+		DataStore.enquiryData = requestData;
+		fileDataService.exportEnquiryData(filePathsMap.get("requests"), requestData);
 	}
 	
 }

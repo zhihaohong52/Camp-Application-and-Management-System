@@ -17,31 +17,33 @@ import enums.Schools;
  */
 public class Camp {
 	
-	public int campID;
+	private int campID;
 	
-	public String name; 
+	private String name; 
 	
-	public List<LocalDate> dates = new ArrayList<LocalDate>();
+	private List<LocalDate> dates = new ArrayList<LocalDate>();
 	
-	public LocalDate closing;
+	private LocalDate closing;
 	
-	public List<Schools> available = new ArrayList<Schools>();
+	private List<Schools> available = new ArrayList<Schools>();
 	
-	public String location;
+	private String location;
 	
-	public int totalSlots;
+	private int totalSlots;
 	
-	public List<String> students = new ArrayList<String>();
+	private List<String> students = new ArrayList<String>();
 	
-	public int campCommitteeSlots = 10;
+	private int campCommitteeSlots = 10;
 	
-	public List<String> campCommittee = new ArrayList<String>(10);
+	private List<String> campCommittee = new ArrayList<String>(10);
 	
-	public String description;
+	private String description;
 	
-	String staffIC;
+	private String staffIC;
 	
-	public boolean visibility;
+	private boolean visibility;
+	
+	private List<String> withdrawn = new ArrayList<String>();
 	
 	/**
 	 * @param name
@@ -70,7 +72,7 @@ public class Camp {
 	
 	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
 			String location, int totalSlots, String description, String staffIC, boolean visibility, 
-			List<String> students, int campCommitteeSlots, List<String> campCommittee) {
+			List<String> students, int campCommitteeSlots, List<String> campCommittee, List<String> withdrawn) {
 		this.campID = campID;
 		this.name = name;
 		this.dates = dates;
@@ -84,6 +86,7 @@ public class Camp {
 		this.students = students;
 		this.campCommitteeSlots = campCommitteeSlots;
 		this.campCommittee = campCommittee;
+		this.withdrawn = withdrawn;
 	}
 
 	/**
@@ -211,6 +214,12 @@ public class Camp {
 			return true;
 		}
 	}
+	
+	public boolean removeAttendee(String attendeeID) {
+		students.remove(attendeeID);
+		totalSlots++;
+		return true;
+	}
 
 	public int getCampCommitteeSlots() {
 		return campCommitteeSlots;
@@ -270,5 +279,19 @@ public class Camp {
 	
 	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
+	}
+
+	/**
+	 * @return the withdrawn
+	 */
+	public List<String> getWithdrawn() {
+		return withdrawn;
+	}
+
+	/**
+	 * @param withdrawn the withdrawn to set
+	 */
+	public void setWithdrawn(List<String> withdrawn) {
+		this.withdrawn = withdrawn;
 	}
 }

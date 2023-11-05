@@ -5,11 +5,14 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
 import enums.Schools;
 import model.camp.Camp;
+import model.camp.Enquiry;
+import store.DataStore;
 
 /**
  * 
@@ -28,11 +31,11 @@ public class SelectorUtil {
 			System.out.println("CampID\tCamp name");
 			camps.forEach(camp->System.out.printf("%d\t%s\n", camp.getCampID(), camp.getName()));
 			
-			System.out.println("Select campID: ");
+			System.out.print("Select campID: ");
 			String input = sc.nextLine();
 			int campID;
 			
-			if (input.isEmpty()) { // if input is empty, return
+			if (input.isEmpty()) {
 				return null;
 			}
 			else if (input.matches("[0-9]+")) { // if input is an integer, find corresponding camp
@@ -47,6 +50,42 @@ public class SelectorUtil {
 			
 			if (optionalSelectedCamp.isPresent()) {
 				return optionalSelectedCamp.get();
+			}
+			else {
+				System.out.println("Invalid input. Please enter again.");
+			}
+		}
+	}
+	
+	public static Enquiry enquirySelector(ArrayList<Enquiry> enquiries) {
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		while (true) {
+			for (Enquiry enquiry : enquiries) {
+				System.out.println("Enquiry no. " + enquiry.getEnquiryID());
+				System.out.println("Camp: " + campData.get(enquiry.getCampID()).getName());
+				System.out.println("Question: " + enquiry.getQuestion());
+			}
+			
+			System.out.print("Select enquiry no: ");
+			
+			String input = sc.nextLine();
+			int enquiryID;
+			
+			if (input.isEmpty()){
+				return null;
+			}
+			else if (input.matches("[0-9]+")) { // if input is an integer, find corresponding camp
+				enquiryID = Integer.parseInt(input);
+			}
+			else {
+				System.out.println("Invalid input. Please enter a campID.");
+				continue;
+			}
+			
+			Optional<Enquiry> optionalSelectedEnquiry = enquiries.stream().filter(enquiry -> enquiry.getEnquiryID() == enquiryID).findFirst();
+			
+			if (optionalSelectedEnquiry.isPresent()) {
+				return optionalSelectedEnquiry.get();
 			}
 			else {
 				System.out.println("Invalid input. Please enter again.");

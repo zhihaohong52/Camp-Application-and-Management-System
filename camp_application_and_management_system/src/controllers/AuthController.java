@@ -6,9 +6,9 @@ package controllers;
 import java.util.Scanner;
 
 import interfaces.IAuthService;
-import services.AuthStudentService;
-import services.AuthStaffService;
 import services.AuthCommitteeService;
+import services.AuthStaffService;
+import services.AuthStudentService;
 
 /**
  * The {@link AuthController} class provides utility methods for managing
@@ -44,7 +44,7 @@ public class AuthController{
                 System.out.println("Login as:");
                 System.out.println("1. Student");
                 System.out.println("2. Staff");
-                System.out.println("3. Camp committee member");
+                //System.out.println("3. Camp committee member");
 
                 String input = sc.nextLine();
 
@@ -72,9 +72,6 @@ public class AuthController{
                 case 2:
                     authService = new AuthStaffService();
                     break;
-                case 3:
-                    authService = new AuthCommitteeService();
-                    break;
             }
 
             String userID, password;
@@ -93,6 +90,14 @@ public class AuthController{
             }
         } while (!authenticated);
     }
+	
+	public static void changeToCommittee() {
+		authService = (AuthCommitteeService) authService;
+	}
+	
+	public static void changeToStudent() {
+		authService = (AuthStudentService) authService;
+	}
 	
 	/**
 	 * Ends the current user session by logging the user out

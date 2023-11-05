@@ -19,11 +19,11 @@ import model.user.Staff;
 import services.CampStaffService;
 import store.AuthStore;
 import store.DataStore;
-import util.BooleanConverter;
-import util.CampUtil;
+import util.BooleanConverterUtil;
+import util.IdNumberUtil;
 import util.SelectorUtil;
 import util.TextDecoratorUtil;
-import view.AllCampsView;
+import view.AllCampDetailsView;
 import view.CommonView;
 
 /**
@@ -58,7 +58,7 @@ public class StaffController extends UserController {
 		
 		ICampView campView;
 		int choice, choice2;
-		boolean back = false;
+		boolean back;
 		
 		do {
 			CommonView.printNavbar("CAMS > Staff");
@@ -93,7 +93,7 @@ public class StaffController extends UserController {
 					}
 				case 2:
 					CommonView.printNavbar("CAMS > Staff > View all camps");
-					campView = new AllCampsView();
+					campView = new AllCampDetailsView();
 					viewAllCamps(campView);
 					break;
 				case 3:
@@ -102,6 +102,7 @@ public class StaffController extends UserController {
 					break;
 				case 4:
 					CommonView.printNavbar("CAMS > Staff > Edit/Delete camp");
+					back = false;
 					do {
 						System.out.println("1. Edit camp");
 						System.out.println("2. Delete camp");
@@ -221,11 +222,11 @@ public class StaffController extends UserController {
 				System.out.print("Set visibility (Y/N): ");
 				String input = sc.next();
 				if (input.equals("Y") || input.equals("y")) {
-					visibility = BooleanConverter.convertToBoolean("TRUE");
+					visibility = BooleanConverterUtil.convertToBoolean("TRUE");
 					break;
 				}
 				else if (input.equals("N") || input.equals("n")) {
-					visibility = BooleanConverter.convertToBoolean("FALSE");
+					visibility = BooleanConverterUtil.convertToBoolean("FALSE");
 					break;
 				}
 				else {
@@ -233,7 +234,7 @@ public class StaffController extends UserController {
 				}
 			}while (true);
 			
-			int campID = CampUtil.findLowestAvailableInteger(campData);
+			int campID = IdNumberUtil.findLowestAvailableCampId(campData);
 			
 			Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, description, staffID, visibility);
 			
@@ -247,10 +248,13 @@ public class StaffController extends UserController {
 	private void editCamp() {
 	    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	    ArrayList<Camp> camps = campStaffService.getAllCamps();
+	    ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 	    Camp selectedCamp = SelectorUtil.campSelector(camps);
 
-	    if (selectedCamp != null) {
+	    if (selectedCamp == null) {
+	    	System.out.println("You have not yet created any camps.");
+	    }
+	    else {
 	        System.out.printf("Editing camp %d - %s\n", selectedCamp.getCampID(), selectedCamp.getName());
 
 	        while (true) {

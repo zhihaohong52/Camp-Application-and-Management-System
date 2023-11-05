@@ -22,11 +22,18 @@ public interface ICampStaffService {
 	public boolean createCamp(ArrayList<Camp> camps);
 	
 	/**
-	 * View the list of camps
+	 * View the list of all camps
 	 * 
 	 * @return {@link ArrayList} of {@link Camp} objects that represents all camps
 	 */
 	public ArrayList<Camp> getAllCamps();
+	
+	/**
+	 * Get list of camps created by Staff
+	 * 
+	 * @return
+	 */
+	public ArrayList<Camp> getCreatedCamps();
 	
 	/**
 	 * Update camp details

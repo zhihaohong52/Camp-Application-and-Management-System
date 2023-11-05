@@ -21,15 +21,15 @@ public interface IFileDataService {
 	
 	boolean exportStaffData(String usersFilePath, String staffsFilePath, Map<String, Staff> staffMap);
 	
-	Map<String, Committee> importCommitteeData(String usersFilePath, String CommitteesFilePath);
+	Map<String, Committee> importCommitteeData(String usersFilePath, String committeesFilePath);
 	
-	boolean exportCommitteeData(String usersFilePath, String CommitteesFilePath, Map<String, Committee> committeeMap);
+	boolean exportCommitteeData(String usersFilePath, String committeesFilePath, Map<String, Committee> committeeMap);
 	
-	Map<Integer, Camp> importCampData(String campsFilePath, String usersFilePath, String studentsFilePath, String staffsFilePath, String CommitteesFilePath);
+	Map<Integer, Camp> importCampData(String campsFilePath);
 	
 	boolean exportCampData(String campsFilePath, Map<Integer, Camp> campMap);
 	
-	Map<Integer, Request> importRequestData(String requestsFilePath);
+	Map<Integer, Enquiry> importEnquiryData(String inquiryFilePath);
 	
-	boolean exportRequestData(String requestsFilePath, Map<Integer, Request> requestMap);
+	boolean exportEnquiryData(String inquiryFilePath, Map<Integer, Enquiry> enquiryMap);
 }

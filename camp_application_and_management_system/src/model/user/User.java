@@ -123,6 +123,13 @@ public class User {
 	}
 
 	/**
+	 * @param type the type to set
+	 */
+	public void setType(UserRole type) {
+		this.type = type;
+	}
+
+	/**
 	 * Check's if it's user's first login
 	 * @return firstLogin
 	 */

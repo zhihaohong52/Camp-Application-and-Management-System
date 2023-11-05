@@ -42,4 +42,13 @@ public interface ICampStudentService {
 	 * @return true if student registered for camp successfully, false if otherwise
 	 */
 	public boolean registerForCamp(String studentID, int campID, boolean committee);
+	
+	/**
+	 * Withdraws the student from a camp
+	 * 
+	 * @param studentID
+	 * @param campID
+	 * @return true if student withdrawn from camp successfully, false if otherwise
+	 */
+	public boolean withdrawFromCamp(String studentID, int campID);
 }

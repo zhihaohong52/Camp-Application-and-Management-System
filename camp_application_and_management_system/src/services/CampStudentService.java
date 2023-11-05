@@ -14,7 +14,7 @@ import enums.Schools;
 import interfaces.ICampStudentService;
 import model.camp.Camp;
 import model.user.Committee;
-import model.user.Student;
+import model.user.User;
 import store.AuthStore;
 import store.DataStore;
 
@@ -64,11 +64,9 @@ public class CampStudentService implements ICampStudentService {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		Camp camp = campData.get(campID);
 		
-		Map<String, Committee> committeeData = DataStore.getCommitteeData();
+		User user = AuthStore.getCurrentUser();
 		
-		Student student = (Student) AuthStore.getCurrentUser();
-		
-		Boolean success;
+		boolean success;
 		
 		//check for date clash
 		List<LocalDate> campDates = camp.getDates();
@@ -87,17 +85,21 @@ public class CampStudentService implements ICampStudentService {
 			}
 		}
 		
+		if (camp.getWithdrawn().contains(studentID)) {
+			System.out.println("You are not allowed to register for a camp you have previously withdrawn from.");
+			return false;
+		}
+		
 		// register student for camp if no clash
 		if (committee) {
-			// create new committee objects and store into hashmaps
-			Committee newCommittee = new Committee(student.getName(), student.getPassword(), 
-					String.join(Integer.toString(campID), studentID), 
-					student.getEmail(), student.getFaculty(), student.isFirstLogin(), campID);
-			committeeData.put(String.join(Integer.toString(campID), studentID), newCommittee);
-			
-			DataStore.setCommitteeData(committeeData);
-			System.out.print(committeeData);
-			
+			Map<String, Committee> committeeData = DataStore.getCommitteeData();
+			if (committeeData.get(studentID) != null) {
+				System.out.println("You have already a camp committee member for another camp.");
+				System.out.println("Please register as an attendee instead.");
+				return false;
+			}
+			Committee newCommittee = new Committee(user.getName(), user.getPassword(), studentID, user.getEmail(), user.getFaculty(), user.isFirstLogin(), campID);
+			committeeData.put(studentID, newCommittee);
 			success = camp.addCommittee(studentID);
 		}
 		else
@@ -106,4 +108,24 @@ public class CampStudentService implements ICampStudentService {
 		return success && DataStore.saveData();
 	}
 
+	@Override
+	public boolean withdrawFromCamp(String studentID, int campID) {
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		Camp camp = campData.get(campID);
+		
+		boolean success;
+		
+		List<String> committee = camp.getCampCommittee();
+		
+		if (committee.contains(studentID)) {
+			System.out.println("Camp committee members are not allowed to withdraw from camp");
+			success = false;
+		}
+		else {
+			System.out.println("Please confirm the option. You are not allowed to register for camps you have withdrawn from");
+			success = camp.removeAttendee(studentID);
+		}
+		
+		return success && DataStore.saveData();
+	}
 }

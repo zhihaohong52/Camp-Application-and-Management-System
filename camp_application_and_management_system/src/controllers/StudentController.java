@@ -8,20 +8,25 @@ import java.util.Map;
 import java.util.Scanner;
 
 import enums.Schools;
-import interfaces.ICampView;
 import interfaces.ICampStudentService;
+import interfaces.ICampView;
+import interfaces.IEnquiryStudentService;
+import interfaces.IEnquiryView;
 import model.camp.Camp;
+import model.camp.Enquiry;
+import model.user.Committee;
 import model.user.Student;
 import model.user.User;
-import model.user.Committee;
 import services.CampStudentService;
-import view.CampAvailableView;
-import view.CampRegisteredView;
-import view.CommonView;
+import services.EnquiryStudentService;
 import store.AuthStore;
 import store.DataStore;
 import util.SelectorUtil;
 import util.TextDecoratorUtil;
+import view.CampAvailableView;
+import view.CampRegisteredView;
+import view.CommonView;
+import view.EnquiryStudentView;
 
 /**
  * The {@link StudentController} class is responsible for handling the
@@ -36,12 +41,13 @@ public class StudentController extends UserController {
 	/**
 	 * {@link Scanner} object to get input
 	 */
-	private static final Scanner sc = new Scanner(System.in);
+	protected static final Scanner sc = new Scanner(System.in);
 	
 	/**
 	 * 
 	 */
 	private static final ICampStudentService campStudentService = new CampStudentService();
+	private static final IEnquiryStudentService enquiryStudentService = new EnquiryStudentService();
 	
 	/**
 	 * Constructs an instance of {@link StudentContoller}
@@ -66,81 +72,137 @@ public class StudentController extends UserController {
 		}
 		
 		ICampView campView;
-		int choice;
-		
+		IEnquiryView enquiryView;
+		int choice, choice2;
+		boolean back;
+
 		do {
-			CommonView.printNavbar("CAMS > Student");
-			System.out.println(TextDecoratorUtil.underlineText("Settings"));
-			System.out.println("1. Change password");
-			
-			System.out.println(TextDecoratorUtil.underlineText("\nCamps"));
-			System.out.println("2. View available camps");
-			System.out.println("3. View registered camps");
-			System.out.println("4. Register for camp");
-			System.out.println("5. Withdraw from camp");
-			
-			System.out.println(TextDecoratorUtil.underlineText("\nEnquiries"));
-			System.out.println("6. View enquiries");
-			System.out.println("7. Submit/edit enquiries");
-			
-			if (committeeData.containsKey(user.getID())) {
-				Committee committee = committeeData.get(user.getID());
-				Camp camp = campData.get(committee.getCampID());
-				System.out.println(TextDecoratorUtil.underlineText("\nCamp commmitee"));
-				System.out.println(user.getID() + " is a committee member for " + camp.getName());
-				System.out.println("8. Enter committee view");
-			}			
-						
-			System.out.println("0. Exit");
-			
-			choice = sc.nextInt();
-			
-			switch (choice) {
-			case 1:
-				CommonView.printNavbar("CAMS > Student > Change password");
-				if (changePassword()) {
-					// Restart user session after changing password
-					AuthController.endSession();
-					System.out.println("Password reset successfully!");
-	                System.out.println("Please login again");   
-					return;
-				}
-				break;
-			case 2:
-				CommonView.printNavbar("CAMS > Student > View available camps");
-				campView = new CampAvailableView();
-				viewAvailableCamps(campView);
-				break;
-			case 3:
-				CommonView.printNavbar("CAMS > Student > View registered camps");
-				campView = new CampRegisteredView();
-				viewRegisteredCamps(campView);
-				break;
-			case 4:
-				CommonView.printNavbar("CAMS > Student > Register for camp");
-				register();
-				break;
-			case 5:
-				CommonView.printNavbar("CAMS > Student > Withdraw from camp");
-				break;
-			case 6:
-				CommonView.printNavbar("CAMS > Student > View enquiries");
-				break;
-			case 7:
-				CommonView.printNavbar("CAMS > Student > Submit/edit enquiries");
-				break;
-			case 0:
-				System.out.println("Exiting student menu...");
-				AuthController.endSession();
-				return;
-			default:
-				System.out.println("Invalid choice. Please select a number between 1 and 8.");
-				break;
-			}
-			if (choice >= 2 && choice <7) {
+		    CommonView.printNavbar("CAMS > Student");
+		    System.out.println(TextDecoratorUtil.underlineText("Settings"));
+		    System.out.println("1. Change password");
+
+		    System.out.println(TextDecoratorUtil.underlineText("\nCamps"));
+		    System.out.println("2. View available camps");
+		    System.out.println("3. View registered camps");
+		    System.out.println("4. Register for camp");
+		    System.out.println("5. Withdraw from camp");
+
+		    System.out.println(TextDecoratorUtil.underlineText("\nEnquiries"));
+		    System.out.println("6. View enquiries");
+		    System.out.println("7. Submit/edit enquiries");
+
+		    if (committeeData.containsKey(user.getID())) {
+		        Committee committee = committeeData.get(user.getID());
+		        Camp camp = campData.get(committee.getCampID());
+		        System.out.println(TextDecoratorUtil.underlineText("\nCamp committee"));
+		        System.out.println(user.getID() + " is a committee member for " + camp.getName());
+		        System.out.println("8. Enter committee view");
+		    }
+
+		    System.out.println("0. Exit");
+
+		    choice = sc.nextInt();
+
+		    if (choice == 8) {
+		        // Handle the case where 8 was selected (committee view)
+		        if (committeeData.containsKey(user.getID())) {
+		        	Committee committee = committeeData.get(user.getID());
+			        Camp camp = campData.get(committee.getCampID());
+			        
+		        	new CommitteeController().start(camp);
+		        } 
+		        else {
+		            System.out.println("Invalid choice.");
+		        }
+		        CommonView.pressEnterToContinue();
+		    } 
+		    else if (choice >= 0 && choice <= 7) {
+		        // Handle other options using the switch statement
+		        switch (choice) {
+		            case 1:
+		                // Handle option 1
+		                CommonView.printNavbar("CAMS > Student > Change password");
+		                if (changePassword()) {
+		                    // Restart user session after changing password
+		                    AuthController.endSession();
+		                    System.out.println("Password reset successfully!");
+		                    System.out.println("Please login again");
+		                    return;
+		                }
+		                break;
+		            case 2:
+		                // Handle option 2
+		                CommonView.printNavbar("CAMS > Student > View available camps");
+		                campView = new CampAvailableView();
+		                viewAvailableCamps(campView);
+		                break;
+		            case 3:
+		                // Handle option 3
+		                CommonView.printNavbar("CAMS > Student > View registered camps");
+		                campView = new CampRegisteredView();
+		                viewRegisteredCamps(campView);
+		                break;
+		            case 4:
+		                // Handle option 4
+		                CommonView.printNavbar("CAMS > Student > Register for camp");
+		                register();
+		                break;
+		            case 5:
+		                // Handle option 5
+		                CommonView.printNavbar("CAMS > Student > Withdraw from camp");
+		                withdraw();
+		                break;
+		            case 6:
+		                // Handle option 6
+		                CommonView.printNavbar("CAMS > Student > View enquiries");
+		                enquiryView = new EnquiryStudentView();
+		                viewEnquiries(enquiryView);
+		                break;
+		            case 7:
+		                // Handle option 7
+		                CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries");
+		                back = false;
+		                do {
+		                	System.out.println("1. Submit enquiries");
+		                	System.out.println("2. Edit enquiries");
+		                	System.out.println("3. Delete enquiries");
+		                	System.out.println("4. Return to homepage");
+		                	choice2 = sc.nextInt();
+		                	switch(choice2) {
+		                	case 1:
+		                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Submit enquiries");
+		                		submitEnquiry();
+		                		break;
+		                	case 2:
+		                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Edit enquiries");
+		                		editEnquiry();
+		                		break;
+		                	case 3:
+		                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Delete enquiries");
+		                		deleteEnquiry();
+		                		break;
+		                	case 4:
+		                		back = true;
+		                		break;
+		                	}
+		                } while (back == false);
+		                break;
+		            case 0:
+		            	// Handle option 0 (Exit)
+				        System.out.println("Exiting student menu...");
+				        AuthController.endSession();
+				        return;
+				    default:
+				    	System.out.println("Invalid choice.");
+            	}
+		    }
+		    
+		    if (choice >= 2 && choice <7) {
 				CommonView.pressEnterToContinue();
 			}
-		}while (true);
+		    
+		} while (true);
+
 	}
 	
 	// Helper methods
@@ -189,6 +251,8 @@ public class StudentController extends UserController {
 		int choice;
 		boolean success = false;
 		
+		sc.nextLine();// consume newline character
+		
 		System.out.println("1. Register as attendee");
 		System.out.println("2. Register as camp committee member");
 		System.out.println("0. Return to homepage");
@@ -217,6 +281,101 @@ public class StudentController extends UserController {
 		else {
 			System.out.println("Camp not registered.");
 		}
+	}
+	
+	private void withdraw() {
+		Student student = (Student) AuthStore.getCurrentUser();
+		String studentID = student.getID();
+		
+		ArrayList<Camp> camps = campStudentService.getRegisteredCamps(studentID);
+		Camp camp = SelectorUtil.campSelector(camps);
+		
+		boolean success = campStudentService.withdrawFromCamp(studentID, camp.getCampID());
+		
+		if (success) {
+			System.out.println("Camp withdrwan successfully.\n"
+					+ "!!Please not that you are NOT allowed to register for this camp again!!");
+		}
+		else {
+			System.out.println("Camp not withdrawn from.");
+		}
+	}
+	
+	private void viewEnquiries(IEnquiryView enquiryView) {
+		ArrayList<Enquiry> enquiries = enquiryStudentService.viewAllEnquiries();
+		
+		if (enquiries.isEmpty()) {
+			System.out.println("You have not made any enquiries.");
+		}
+		else {
+			for (Enquiry enquiry : enquiries) {
+				enquiryView.displayEnquiries(enquiry);
+				System.out.println();
+			}
+		}
+	}
+	
+	private void submitEnquiry() {
+		Student student = (Student) AuthStore.getCurrentUser();
+		ArrayList<Camp> camps = campStudentService.getAvailableCamps(student.getFaculty());
+		Camp camp = SelectorUtil.campSelector(camps);
+		
+		boolean success = enquiryStudentService.submitEnquiry(camp);
+		
+		if (success) {
+			System.out.println("Enquiry submitted successfully.\n"
+					+ "Please be patients while we get back to you.");
+		}
+		else {
+			System.out.println("Enquiry not submitted");
+		}
+	}
+	
+	private void editEnquiry() {
+		ArrayList<Enquiry> enquiries = enquiryStudentService.viewProcessingEnquiries();
+		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
+		
+		if (selectedEnquiry != null) {
+			System.out.println("Current question: " + selectedEnquiry.getQuestion());
+			System.out.println("Enter edited question");
+			String newQuestion = sc.nextLine();
+			
+			boolean success = enquiryStudentService.editEnquiry(selectedEnquiry, newQuestion);
+			
+			if (success) {
+				System.out.println("Enquiry edited successfully.");
+			}
+			else {
+				System.out.println("Enquiry not edited.");
+			}
+		}
+	}
+	
+	private void deleteEnquiry() {
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		
+		ArrayList<Enquiry> enquiries = enquiryStudentService.viewProcessingEnquiries();
+		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
+		String input = null;
+		
+		if (selectedEnquiry != null) {
+	    	do {
+	    		System.out.printf("Deleting enquiry for camp %d - %s\n", campData.get(selectedEnquiry.getCampID()).getName(), selectedEnquiry.getQuestion());
+		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");
+		    	input = sc.next();
+		    	if (input.equals("Y") || input.equals("y")) {
+		    		enquiryStudentService.deleteEnquiry(selectedEnquiry);
+		    		System.out.println("Enquiry deleted successfully.");
+		    		break;
+		    	}
+		    	else if (input.equals("N") || input.equals("n")) {
+		    		break;
+		    	}
+		    	else {
+		    		System.out.println("Invalid input. Please input Y or N.");
+		    	}
+	    	} while (true);
+	    }
 	}
 }
  

@@ -8,7 +8,7 @@ package util;
 /**
  * 
  */
-public class BooleanConverter {
+public class BooleanConverterUtil {
 
 	/**
 	 * 

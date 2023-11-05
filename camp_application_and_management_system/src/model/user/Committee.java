@@ -32,4 +32,8 @@ public class Committee extends Student {
 	public int getCampID() {
 		return campID;
 	}
+	
+	public void setCampID(int campID) {
+		this.campID = campID;
+	}
 }

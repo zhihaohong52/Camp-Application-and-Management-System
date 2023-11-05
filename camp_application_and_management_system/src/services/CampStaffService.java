@@ -12,6 +12,8 @@ import java.util.Map;
 import enums.Schools;
 import interfaces.ICampStaffService;
 import model.camp.Camp;
+import model.user.Staff;
+import store.AuthStore;
 import store.DataStore;
 
 /**
@@ -49,6 +51,20 @@ public class CampStaffService implements ICampStaffService {
 		}
 		
 		return allCamps;
+	}
+	
+	public ArrayList<Camp> getCreatedCamps(){
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		Staff staff = (Staff) AuthStore.getCurrentUser();
+		ArrayList<Camp> createdCamps = new ArrayList<>();
+		
+		for (Camp camp : campData.values()) {
+			if (camp.getStaffIC() == staff.getID()) {
+				createdCamps.add(camp);
+			}
+		}
+		
+		return createdCamps;
 	}
 
 	@SuppressWarnings("unchecked")

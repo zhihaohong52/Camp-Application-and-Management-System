@@ -8,23 +8,22 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-
-import enums.Schools;
-
-import java.util.List;
 import java.util.ArrayList;
-//import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import enums.EnquiryStatus;
+import enums.Schools;
 import interfaces.IFileDataService;
 import model.camp.Camp;
-import model.camp.Request;
+import model.camp.Enquiry;
 import model.user.Committee;
 import model.user.Staff;
 import model.user.Student;
-import model.user.User;
-import util.BooleanConverter;
+import util.BooleanConverterUtil;
+import util.EnquiryStatusUtil;
 import util.SchoolEnumUtil;
 
 /**
@@ -59,14 +58,14 @@ public class CsvDataService implements IFileDataService {
 	private static List<String> campCsvHeaders = new ArrayList<String>();
 
 	/**
-	 * List of headers for the CSV file that stores request data.
+	 * List of headers for the CSV file that stores inquiry data.
 	 */
-	//private static List<String> requestCsvHeaders = new ArrayList<String>();
+	private static List<String> enquiryCsvHeaders = new ArrayList<String>();
 
 	/**
 	 * Constructs an instance of the {@link CSVDataService} class.
 	 */
-	public CsvDataService() {	}
+	public CsvDataService() {}
 	
 	// ----- Helper Function ------ //
 	/**
@@ -150,6 +149,7 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	// ----- Interface method implementation ----- //
+	
 	// Student
 	@Override
 	public Map<String, Student> importStudentData(String usersFilePath, String studentsFilePath) {
@@ -170,7 +170,7 @@ public class CsvDataService implements IFileDataService {
 			String email = userInfoMap.get("email");
 			String name = userInfoMap.get("name");
 			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
-			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
+			boolean firstLogin = BooleanConverterUtil.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] studentRow : studentsRows) {
 				if (!studentRow[0].equals(userID))
@@ -247,7 +247,7 @@ public class CsvDataService implements IFileDataService {
 			String name = userInfoMap.get("name");
 			String email = userInfoMap.get("email");
 			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
-			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
+			boolean firstLogin = BooleanConverterUtil.convertToBoolean(userInfoMap.get("firstLogin"));
 			
 			for (String[] staffRow : staffsRows) {
 				if (!staffRow[0].equals(userID))
@@ -310,82 +310,45 @@ public class CsvDataService implements IFileDataService {
 		
 		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
 		List<String[]> committeesRows = this.readCsvFile(committeesFilePath, committeeCsvHeaders);
-		
-		for (String[] userRow : usersRows) {
-			Map<String, String> userInfoMap = parseUserRow(userRow);
 			
-			String role = userInfoMap.get("role");
-			if (!role.equals("committee"))
-				continue;
+		for (String[] committeeRow : committeesRows) {
+			String userID = committeeRow[0];
+			int campID = Integer.parseInt(committeeRow[1]);
 			
-			String userID = userInfoMap.get("userID");
-			String password = userInfoMap.get("password");
-			String name = userInfoMap.get("name");
-			String email = userInfoMap.get("email");
-			Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
-			boolean firstLogin = BooleanConverter.convertToBoolean(userInfoMap.get("firstLogin"));
-			int campID = Integer.parseInt(userInfoMap.get("campID"));
-			
-			for (String[] CommitteeRow : committeesRows) {
-				if (!CommitteeRow[0].equals(userID))
-					continue;		
+			for (String[] userRow : usersRows) {
+				Map<String, String> userInfoMap = parseUserRow(userRow);
+				if (!userInfoMap.get("userID").equals(userID))
+					continue;
+				String name = userInfoMap.get("name");
+				String password = userInfoMap.get("password");
+				String email = userInfoMap.get("email");
+				Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
+				boolean firstLogin = BooleanConverterUtil.convertToBoolean(userInfoMap.get("firstLogin"));
+				Committee committee = new Committee(name, password, userID, email, faculty, firstLogin, campID);
+				
+				committeeMap.put(userID, committee);
 			}
-			
-			Committee committee = new Committee(name, password, userID, email, faculty, firstLogin, campID);
-			
-			committeeMap.put(userID, committee);
 		}
+			
 		return committeeMap;
 	}
 
 	@Override
 	public boolean exportCommitteeData(String usersFilePath, String committeesFilePath, Map<String, Committee> committeeMap) {
 		List<String> committeeLines = new ArrayList<String>();
-		List<String> userLines = new ArrayList<String>();
-
-		// User
-		List<String[]> usersRows = this.readCsvFile(usersFilePath, userCsvHeaders);
-		for (String[] userRow : usersRows) {
-			Map<String, String> userInfoMap = parseUserRow(userRow);
-			String userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
-					userInfoMap.get("userID"), 
-					userInfoMap.get("name"),
-					userInfoMap.get("email"),
-					userInfoMap.get("faculty"), 
-					userInfoMap.get("role"),
-					userInfoMap.get("password"),
-					userInfoMap.get("firstLogin"));
-			if (userInfoMap.get("role").equals("committee")) {
-				Committee committee = committeeMap.get(userInfoMap.get("userID"));
-				
-				userLine = String.format("%s,%s,%s,%s,%s,%s,%s", 
-						committee.getID(), 
-						committee.getName(),
-						committee.getEmail(),
-						committee.getFaculty().toString(), 
-						"committee",
-						committee.getPassword(),
-						committee.isFirstLogin());
-			}
-			
-			userLines.add(userLine);
-		}
-		
+	
 		// Committee
 		for (Committee committee : committeeMap.values()) {
 			String committeeLine = String.format("%s,%d", committee.getID(), committee.getCampID());
-			System.out.print(committeeLine);
 			committeeLines.add(committeeLine);
 		}
-		
-		boolean successUsers = this.writeCsvFile(usersFilePath, userCsvHeaders, userLines);
+
 ;		boolean successCommittees = this.writeCsvFile(committeesFilePath, committeeCsvHeaders, committeeLines);
-		return successUsers && successCommittees;
+		return successCommittees;
 	}
 
 	@Override
-	public Map<Integer, Camp> importCampData(String campsFilePath, String usersFilePath, String studentsFilePath,
-			String staffsFilePath, String CommitteesFilePath) {
+	public Map<Integer, Camp> importCampData(String campsFilePath) {
 		Map<Integer, Camp> campMap = new HashMap<Integer, Camp>();
 		List<String[]> campsRows = this.readCsvFile(campsFilePath, campCsvHeaders);
 		
@@ -438,14 +401,22 @@ public class CsvDataService implements IFileDataService {
 	        	campCommittee.add(campCommitteeID);
 	        }
 	        
-	        String description = campRow[10];
-	        String staffIC = campRow[11];
+	        //Parse withdrawn and initialize as empty list
+	        List<String> withdrawn = new ArrayList<>();
+	        String withdrawnString = campRow[10];
+	        String[] withdrawnList = withdrawnString.split(";");
+	        for (String withdrawnID : withdrawnList) {
+	        	withdrawn.add(withdrawnID);
+	        }
 	        
-	        String visibilityString = campRow[12];
-	        boolean visibility = BooleanConverter.convertToBoolean(visibilityString);
+	        String description = campRow[11];
+	        String staffIC = campRow[12];
 	        
+	        String visibilityString = campRow[13];
+	        boolean visibility = BooleanConverterUtil.convertToBoolean(visibilityString);
+	        	        
 	        Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, 
-	        		description, staffIC, visibility, students, campCommitteeSlots, campCommittee);
+	        		description, staffIC, visibility, students, campCommitteeSlots, campCommittee, withdrawn);
 	        
 	        campMap.put(campID, camp);
 		}
@@ -461,9 +432,10 @@ public class CsvDataService implements IFileDataService {
 		for (Camp camp : campMap.values()) {
 			String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
 			String availableString = String.join(";", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
-			String studentString = String.join(";", camp.getStudents().stream().toArray(String[]::new));
-			String campCommitteeString = String.join(";", camp.getCampCommittee().stream().toArray(String[]::new));
-			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%d,%s,%s,%s,%s", 
+			String studentString = camp.getStudents().stream().collect(Collectors.joining(";"));
+			String campCommitteeString = camp.getCampCommittee().stream().collect(Collectors.joining(";"));
+			String withdrawnString = camp.getWithdrawn().stream().collect(Collectors.joining(";"));
+			String campLine = String.format("%d,%s,%s,%s,%s,%s,%d,%s,%d,%s,%s,%s,%s,%s", 
 					camp.getCampID(), //1
 					camp.getName(), //2
 					datesString, //3
@@ -474,25 +446,73 @@ public class CsvDataService implements IFileDataService {
 					studentString, //8
 					camp.getCampCommitteeSlots(), //9
 					campCommitteeString, //10
-					camp.getDescription(), //11
-					camp.getStaffIC(), //12
-					camp.getVisibility()); //13
+					withdrawnString,//11
+					camp.getDescription(), //12
+					camp.getStaffIC(), //13
+					camp.getVisibility()); //14
 			
 			campLines.add(campLine);
 		}
-	return this.writeCsvFile(campsFilePath, campCsvHeaders, campLines);
+	
+		return this.writeCsvFile(campsFilePath, campCsvHeaders, campLines);
 	}
 
 	@Override
-	public Map<Integer, Request> importRequestData(String requestsFilePath) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Integer, Enquiry> importEnquiryData(String inquiryFilePath) {
+		Map<Integer, Enquiry> enquiryMap = new HashMap<Integer, Enquiry>();
+		List<String[]> enquiryRows = this.readCsvFile(inquiryFilePath, enquiryCsvHeaders);
+		
+		for (String[] enquiryRow : enquiryRows) {
+			int enquiryID = Integer.parseInt(enquiryRow[0]);
+			
+			String studentID = enquiryRow[1];
+			String question = enquiryRow[2];
+			
+			List<String> replies = new ArrayList<>();
+	        String replyString = enquiryRow[3];
+	        String[] replyList = replyString.split(";");
+	        for (String reply : replyList) {
+	        	replies.add(reply);
+	        }
+	        
+	        List<String> replierIDs = new ArrayList<>();
+	        String replierIDString = enquiryRow[4];
+	        String[] replierIDList = replierIDString.split(";");
+	        for (String replierID: replierIDList) {
+	        	replierIDs.add(replierID);
+	        }
+	        
+	        int campID = Integer.parseInt(enquiryRow[5]);
+	        
+	        EnquiryStatus status = EnquiryStatusUtil.convertToEnum(enquiryRow[6]);
+	        
+	        Enquiry enquiry = new Enquiry(enquiryID, campID, studentID, question, replies, replierIDs, status);
+	        
+	        enquiryMap.put(enquiryID, enquiry);
+	    }
+		
+		return enquiryMap;
 	}
 
 	@Override
-	public boolean exportRequestData(String requestsFilePath, Map<Integer, Request> requestMap) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean exportEnquiryData(String inquiryFilePath, Map<Integer, Enquiry> enquiryMap) {
+		List<String> enquiryLines = new ArrayList<String>();
+		
+		for (Enquiry enquiry : enquiryMap.values()) {
+			String replyString = enquiry.getReply().stream().collect(Collectors.joining(";"));
+			String replierIDString = enquiry.getReplierID().stream().collect(Collectors.joining(";"));
+			String enquiryLine = String.format("%d,%s,%s,%s,%s,%d,%s",
+					enquiry.getEnquiryID(),
+					enquiry.getStudentID(),
+					enquiry.getQuestion(),
+					replyString,
+					replierIDString,
+					enquiry.getCampID(),
+					enquiry.getStatus().toString());
+			enquiryLines.add(enquiryLine);
+		}
+		
+		return this.writeCsvFile(inquiryFilePath, enquiryCsvHeaders, enquiryLines);
 	}
 
 }

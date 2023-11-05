@@ -34,5 +34,4 @@ public class AuthStudentService extends AuthService {
 		
 		return false;
 	}
-
 }

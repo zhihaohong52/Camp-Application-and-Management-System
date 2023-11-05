@@ -48,15 +48,11 @@ public class CAMS {
 				System.out.println("Welcome to CAMS, " + user.getName());
 				switch (user.getType()) {
 				case Student:
+				case Committee:
 					new StudentController().start();
 					break;
 				case Staff:
 					new StaffController().start();
-					System.out.println("Staff");
-					break;
-				case Committee:
-					//new CommitteeController().start();
-					System.out.println("Committee");
 					break;
 				}
 				

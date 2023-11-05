@@ -7,32 +7,36 @@ package services;
 import java.util.Map;
 
 import model.user.Committee;
+import model.user.Student;
 import store.AuthStore;
 import store.DataStore;
 
 /**
- * {@link AuthCommitteeService} extends {@link AuthService} and 
- * provides authentication functions for Staff. 
+ * {@link AuthCommitteeService} extends {@link AuthStudentService} and 
+ * provides authentication functions for Committee. 
  */
-public class AuthCommitteeService extends AuthService {
+public abstract class AuthCommitteeService extends AuthStudentService {
 
 	/**
 	 * Construct an instance of {@link AuthCommitteeService}
 	 */
-	public AuthCommitteeService() {	}
+	public AuthCommitteeService() {}
 
 	@Override
-	public boolean login(String userID, String password) {
+	public void login(String userID) {
 		Map<String, Committee> committeeData = DataStore.getCommitteeData();
 		
 		Committee committee = committeeData.get(userID);
 		
-		if (authenticate(committee, password)) {
-			AuthStore.setCurrentUser(committee);
-			return true;
-		}
+		AuthStore.setCurrentUser(committee);
+	}
+	
+	public void logout(String userID) {
+		Map<String, Student> studentData = DataStore.getStudentData();
 		
-		return false;
+		Student student = studentData.get(userID);
+		
+		AuthStore.setCurrentUser(student);
 	}
 
 }
