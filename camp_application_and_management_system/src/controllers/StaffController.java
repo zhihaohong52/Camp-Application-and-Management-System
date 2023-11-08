@@ -14,9 +14,13 @@ import java.util.Scanner;
 import enums.Schools;
 import interfaces.ICampStaffService;
 import interfaces.ICampView;
+import interfaces.IEnquiryStaffService;
+import interfaces.IEnquiryView;
 import model.camp.Camp;
+import model.camp.Enquiry;
 import model.user.Staff;
 import services.CampStaffService;
+import services.EnquiryStaffService;
 import store.AuthStore;
 import store.DataStore;
 import util.BooleanConverterUtil;
@@ -25,6 +29,7 @@ import util.SelectorUtil;
 import util.TextDecoratorUtil;
 import view.AllCampDetailsView;
 import view.CommonView;
+import view.EnquiryView;
 
 /**
  * 
@@ -37,6 +42,8 @@ public class StaffController extends UserController {
 	private static final Scanner sc = new Scanner(System.in);
 	
 	private static final ICampStaffService campStaffService = new CampStaffService();
+
+	private static final IEnquiryStaffService enquiryStaffService = new EnquiryStaffService();
 	
 	/**
 	 * 
@@ -57,6 +64,7 @@ public class StaffController extends UserController {
 		}
 		
 		ICampView campView;
+		IEnquiryView enquiryView;
 		int choice, choice2;
 		boolean back;
 		
@@ -135,6 +143,34 @@ public class StaffController extends UserController {
 					break;
 				case 6:
 					CommonView.printNavbar("CAMS > Staff > View/Reply enquiries");
+					back = false;
+					do {
+						System.out.println("1. View enquiries");
+						System.out.println("2. Reply to enquiries");
+						System.out.println("3. Return to homepage");
+						choice2 = sc.nextInt();
+						switch (choice2) {
+							case 1:
+								CommonView.printNavbar("CAMS > Staff > View/Reply enquiries > View enquiries");
+								enquiryView = new EnquiryView();
+								viewEnquiries(enquiryView);
+								break;
+							case 2:
+								CommonView.printNavbar("CAMS > Staff > View/Reply enquiries > Reply to enquiries");
+								enquiryView = new EnquiryView();
+								replyToEnquiries(enquiryView);
+								break;
+							case 3:
+								back = true;
+								break;
+							default:
+								System.out.println("Invalid choice. Please select a number between 1 and 3.");
+								break;
+						}
+						if (choice2 == 1 || choice2 == 2) {
+							CommonView.pressEnterToContinue();
+						}
+					} while (back == false);
 					break;
 				case 7:
 					CommonView.printNavbar("CAMS > Staff > View/Approve suggestions");
@@ -402,6 +438,50 @@ public class StaffController extends UserController {
 		    	}
 	    	} while (true);
 	    }
+	}
+	
+	private void viewEnquiries(IEnquiryView enquiryView) {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
+		
+		for (Camp camp : camps) {
+			enquiries.addAll(enquiryStaffService.viewEnquiries(camp));
+		}
+		
+		if (enquiries.isEmpty()) {
+			System.out.println("There are no enquiries.");
+		}
+		else {
+			for (Enquiry enquiry : enquiries) {
+				enquiryView.displayEnquiries(enquiry);
+				System.out.println();
+			}
+		}
+	}
+	
+	private void replyToEnquiries(IEnquiryView enquiryView) {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
+		
+		for (Camp camp : camps) {
+			enquiries.addAll(enquiryStaffService.viewEnquiries(camp));
+		}
+		
+		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
+		
+		System.out.println("The selected enquiry is: ");
+		enquiryView.displayEnquiries(selectedEnquiry);
+		System.out.print("Enter your reply to the enquiry: ");
+		String reply = sc.nextLine();
+		
+		boolean success = enquiryStaffService.replyToEnquiry(selectedEnquiry, reply);
+		
+		if (success) {
+			System.out.println("Succesfully replied to enquiry!");
+		}
+		else {
+			System.out.println("Reply to enquiry unsuccessful.");
+		}
 	}
 }
 

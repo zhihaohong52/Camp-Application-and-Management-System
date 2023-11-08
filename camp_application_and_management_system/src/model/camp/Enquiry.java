@@ -19,7 +19,7 @@ public class Enquiry {
 	 * @param studentID
 	 */
 	public Enquiry(int enquiryID, int campID, String studentID, String question) {
-		this.setEnquiryID(enquiryID);
+		this.enquiryID = enquiryID;
 		this.campID = campID;
 		this.studentID = studentID;
 		this.question = question;
@@ -27,13 +27,13 @@ public class Enquiry {
 	}
 	
 	public Enquiry(int enquiryID, int campID, String studentID, String question, List<String> reply, List<String> replierID, EnquiryStatus status) {
-		this.setEnquiryID(enquiryID);
+		this.enquiryID = enquiryID;
 		this.campID = campID;
 		this.studentID = studentID;
 		this.question = question;
 		this.reply = reply;
 		this.replierID = replierID;
-		this.setStatus(status);
+		this.status = status;
 	}
 	
 	/**
@@ -114,10 +114,20 @@ public class Enquiry {
 	}
 	
 	/**
-	 * @param answererID
+	 * @param replierID
 	 */
-	public void setReplierID(List<String> answererID) {
-		this.replierID = answererID;
+	public void setReplierID(List<String> replierID) {
+		this.replierID = replierID;
+	}
+	
+	/**
+	 * @param reply
+	 * @return
+	 */
+	public boolean replyToEnquiry(String reply, String replierID) {
+		this.reply.add(reply);
+		this.replierID.add(replierID);
+		return true;
 	}
 
 	/**

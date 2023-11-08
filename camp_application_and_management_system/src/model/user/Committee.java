@@ -14,16 +14,42 @@ public class Committee extends Student {
 	 * Camp where user is a committee member
 	 */
 	
-	public int campID;
+	private int campID;
+	
+	/**
+	 * 
+	 */
+	private int point;
 
 	/**
-	 * @param userID
+	 * @param name
 	 * @param password
+	 * @param userID
+	 * @param email
 	 * @param faculty
+	 * @param firstLogin
+	 * @param campID
 	 */
 	public Committee(String name, String password, String userID, String email, Schools faculty, boolean firstLogin, int campID) {
 		super(name, password, userID, email, faculty, firstLogin);
 		this.campID = campID;
+		this.point = 0;
+	}
+	
+	/**
+	 * @param name
+	 * @param password
+	 * @param userID
+	 * @param email
+	 * @param faculty
+	 * @param firstLogin
+	 * @param campID
+	 * @param point
+	 */
+	public Committee(String name, String password, String userID, String email, Schools faculty, boolean firstLogin, int campID, int point) {
+		super(name, password, userID, email, faculty, firstLogin);
+		this.campID = campID;
+		this.point = point;
 	}
 
 	/**
@@ -35,5 +61,19 @@ public class Committee extends Student {
 	
 	public void setCampID(int campID) {
 		this.campID = campID;
+	}
+
+	/**
+	 * @return the point
+	 */
+	public int getPoint() {
+		return point;
+	}
+
+	/**
+	 * @param point the point to set
+	 */
+	public void setPoint(int point) {
+		this.point = point;
 	}
 }

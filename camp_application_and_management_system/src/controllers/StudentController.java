@@ -26,7 +26,7 @@ import util.TextDecoratorUtil;
 import view.CampAvailableView;
 import view.CampRegisteredView;
 import view.CommonView;
-import view.EnquiryStudentView;
+import view.EnquiryView;
 
 /**
  * The {@link StudentController} class is responsible for handling the
@@ -109,7 +109,7 @@ public class StudentController extends UserController {
 		        	Committee committee = committeeData.get(user.getID());
 			        Camp camp = campData.get(committee.getCampID());
 			        
-		        	new CommitteeController().start(camp);
+		        	new CommitteeController().start(committee, camp);
 		        } 
 		        else {
 		            System.out.println("Invalid choice.");
@@ -155,7 +155,7 @@ public class StudentController extends UserController {
 		            case 6:
 		                // Handle option 6
 		                CommonView.printNavbar("CAMS > Student > View enquiries");
-		                enquiryView = new EnquiryStudentView();
+		                enquiryView = new EnquiryView();
 		                viewEnquiries(enquiryView);
 		                break;
 		            case 7:

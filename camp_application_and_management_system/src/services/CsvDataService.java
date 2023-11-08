@@ -314,6 +314,7 @@ public class CsvDataService implements IFileDataService {
 		for (String[] committeeRow : committeesRows) {
 			String userID = committeeRow[0];
 			int campID = Integer.parseInt(committeeRow[1]);
+			int point = Integer.parseInt(committeeRow[2]);
 			
 			for (String[] userRow : usersRows) {
 				Map<String, String> userInfoMap = parseUserRow(userRow);
@@ -324,7 +325,7 @@ public class CsvDataService implements IFileDataService {
 				String email = userInfoMap.get("email");
 				Schools faculty = SchoolEnumUtil.convertToEnum(userInfoMap.get("faculty"));
 				boolean firstLogin = BooleanConverterUtil.convertToBoolean(userInfoMap.get("firstLogin"));
-				Committee committee = new Committee(name, password, userID, email, faculty, firstLogin, campID);
+				Committee committee = new Committee(name, password, userID, email, faculty, firstLogin, campID, point);
 				
 				committeeMap.put(userID, committee);
 			}
@@ -339,7 +340,7 @@ public class CsvDataService implements IFileDataService {
 	
 		// Committee
 		for (Committee committee : committeeMap.values()) {
-			String committeeLine = String.format("%s,%d", committee.getID(), committee.getCampID());
+			String committeeLine = String.format("%s,%d,%s", committee.getID(), committee.getCampID(), committee.getPoint());
 			committeeLines.add(committeeLine);
 		}
 

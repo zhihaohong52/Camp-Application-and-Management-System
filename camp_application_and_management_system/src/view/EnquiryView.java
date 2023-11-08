@@ -6,6 +6,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Map;
 
+import enums.EnquiryStatus;
 import interfaces.IEnquiryView;
 import model.camp.Camp;
 import model.camp.Enquiry;
@@ -17,12 +18,12 @@ import util.TextDecoratorUtil;
 /**
  * 
  */
-public class EnquiryStudentView implements IEnquiryView {
+public class EnquiryView implements IEnquiryView {
 
 	/**
 	 * 
 	 */
-	public EnquiryStudentView() {}
+	public EnquiryView() {}
 
 	@Override
 	public void displayEnquiries(Enquiry enquiry) {
@@ -33,6 +34,9 @@ public class EnquiryStudentView implements IEnquiryView {
 		
 		System.out.println("Camp: " + camp.getName());
 		System.out.println("Question: " + enquiry.getQuestion());
+		System.out.println("Status" + enquiry.getStatus());
+		if (enquiry.getStatus() == EnquiryStatus.Processing)
+			return;
 		System.out.println("Answers: ");
 		ArrayList<String> answers = new ArrayList<>(enquiry.getReply());
 		ArrayList<String> answererID = new ArrayList<>(enquiry.getReplierID());
