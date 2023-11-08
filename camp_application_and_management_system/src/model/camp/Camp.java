@@ -248,7 +248,6 @@ public class Camp {
 			
 		else {
 			campCommittee.add(newCommittee);
-			students.add(newCommittee);
 			campCommitteeSlots--;
 			totalSlots--;
 			return true;

@@ -4,4 +4,4 @@
 /**
  * 
  */
-package store;
+package stores;

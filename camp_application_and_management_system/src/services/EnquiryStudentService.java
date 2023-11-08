@@ -12,8 +12,9 @@ import interfaces.IEnquiryStudentService;
 import model.camp.Camp;
 import model.camp.Enquiry;
 import model.user.Student;
-import store.AuthStore;
-import store.DataStore;
+import model.user.User;
+import stores.AuthStore;
+import stores.DataStore;
 import util.IdNumberUtil;
 
 /**
@@ -65,7 +66,10 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 
 	@Override
 	public boolean submitEnquiry(Camp camp) {
-		Student student = (Student) AuthStore.getCurrentUser();
+		User user = AuthStore.getCurrentUser();
+		Map<String, Student> studentData = DataStore.getStudentData();
+		Student student = studentData.get(user.getID());
+		
 		Map<Integer, Enquiry> enquiryData = DataStore.getEnquiryData();
 		
 		System.out.print("Please input your enquiry: ");

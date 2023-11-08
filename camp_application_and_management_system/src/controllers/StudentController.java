@@ -19,8 +19,8 @@ import model.user.Student;
 import model.user.User;
 import services.CampStudentService;
 import services.EnquiryStudentService;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 import util.SelectorUtil;
 import util.TextDecoratorUtil;
 import view.CampAvailableView;
@@ -89,7 +89,7 @@ public class StudentController extends UserController {
 
 		    System.out.println(TextDecoratorUtil.underlineText("\nEnquiries"));
 		    System.out.println("6. View enquiries");
-		    System.out.println("7. Submit/edit enquiries");
+		    System.out.println("7. Submit/edit/delete enquiries");
 
 		    if (committeeData.containsKey(user.getID())) {
 		        Committee committee = committeeData.get(user.getID());

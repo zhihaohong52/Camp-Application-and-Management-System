@@ -15,8 +15,8 @@ import interfaces.ICampStudentService;
 import model.camp.Camp;
 import model.user.Committee;
 import model.user.User;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * 
@@ -94,7 +94,7 @@ public class CampStudentService implements ICampStudentService {
 		if (committee) {
 			Map<String, Committee> committeeData = DataStore.getCommitteeData();
 			if (committeeData.get(studentID) != null) {
-				System.out.println("You have already a camp committee member for another camp.");
+				System.out.println("You are already a camp committee member for another camp.");
 				System.out.println("Please register as an attendee instead.");
 				return false;
 			}

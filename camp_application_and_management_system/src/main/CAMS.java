@@ -8,8 +8,8 @@ import controllers.StaffController;
 import controllers.StudentController;
 import model.user.User;
 import services.CsvDataService;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 import util.FilePathsUtil;
 import view.CommonView;
 

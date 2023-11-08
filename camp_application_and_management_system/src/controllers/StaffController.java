@@ -16,13 +16,19 @@ import interfaces.ICampStaffService;
 import interfaces.ICampView;
 import interfaces.IEnquiryStaffService;
 import interfaces.IEnquiryView;
+import interfaces.IReportGeneratorService;
+import interfaces.ISuggestionStaffService;
+import interfaces.ISuggestionView;
 import model.camp.Camp;
 import model.camp.Enquiry;
+import model.camp.Suggestion;
 import model.user.Staff;
 import services.CampStaffService;
 import services.EnquiryStaffService;
-import store.AuthStore;
-import store.DataStore;
+import services.ReportGeneratorService;
+import services.SuggestionStaffService;
+import stores.AuthStore;
+import stores.DataStore;
 import util.BooleanConverterUtil;
 import util.IdNumberUtil;
 import util.SelectorUtil;
@@ -30,6 +36,7 @@ import util.TextDecoratorUtil;
 import view.AllCampDetailsView;
 import view.CommonView;
 import view.EnquiryView;
+import view.SuggestionView;
 
 /**
  * 
@@ -44,6 +51,10 @@ public class StaffController extends UserController {
 	private static final ICampStaffService campStaffService = new CampStaffService();
 
 	private static final IEnquiryStaffService enquiryStaffService = new EnquiryStaffService();
+	
+	private static final ISuggestionStaffService suggestionStaffService = new SuggestionStaffService();
+	
+	private static final IReportGeneratorService reportGeneratorService = new ReportGeneratorService();
 	
 	/**
 	 * 
@@ -65,6 +76,7 @@ public class StaffController extends UserController {
 		
 		ICampView campView;
 		IEnquiryView enquiryView;
+		ISuggestionView suggestionView;
 		int choice, choice2;
 		boolean back;
 		
@@ -79,7 +91,7 @@ public class StaffController extends UserController {
 			System.out.println("4. Edit/Delete camp");
 			System.out.println("5. Toggle camp visiblity");
 			
-			System.out.println(TextDecoratorUtil.underlineText("\nEnquiries and Suggestions"));
+			System.out.println(TextDecoratorUtil.underlineText("\nEnquiries and Suggestion"));
 			System.out.println("6. View/Reply enquiries");
 			System.out.println("7. View/Approve suggestions");
 			
@@ -174,9 +186,64 @@ public class StaffController extends UserController {
 					break;
 				case 7:
 					CommonView.printNavbar("CAMS > Staff > View/Approve suggestions");
+					back = false;
+					do {
+						System.out.println("1. View suggestions");
+						System.out.println("2. Approve suggestions");
+						System.out.println("3. Return to homepage");
+						choice2 = sc.nextInt();
+						switch (choice2) {
+							case 1:
+								CommonView.printNavbar("CAMS > Staff > View/Approve suggestions > View suggestions");
+								suggestionView = new SuggestionView();
+								viewSuggestion(suggestionView);
+								break;
+							case 2:
+								CommonView.printNavbar("CAMS > Staff > View/Approve suggestions > Approve suggestions");
+								suggestionView = new SuggestionView();
+								approveSuggestion(suggestionView);
+								break;
+							case 3:
+								back = true;
+								break;
+							default:
+								System.out.println("Invalid choice. Please select a number between 1 and 3.");
+								break;
+						}
+						if (choice2 == 1 || choice2 == 2) {
+							CommonView.pressEnterToContinue();
+						}
+					} while (back == false);
 					break;
 				case 8:
 					CommonView.printNavbar("CAMS > Staff > Generate reports");
+					back = false;
+					do {
+						System.out.println("1. Generate camp report");
+						System.out.println("2. Generate committee performance report");
+						System.out.println("3. Return to homepage");
+						choice2 = sc.nextInt();
+						switch (choice2) {
+							case 1:
+								CommonView.printNavbar("CAMS > Staff > Generate reports > Generate camp report");
+								generateCampReport();
+								break;
+							case 2:
+								CommonView.printNavbar("CAMS > Staff > Generate reports > Generate committee performance report");
+								generatePerformanceReport();
+								break;
+							case 3:
+								back = true;
+								break;
+							default:
+								System.out.println("Invalid choice. Please select a number between 1 and 3.");
+								break;
+						}
+						if (choice2 == 1 || choice2 == 2) {
+							CommonView.pressEnterToContinue();
+						}
+					} while (back == false);
+					break;
 				case 0:
 					System.out.println("Exiting staff menu...");
 					AuthController.endSession();
@@ -190,7 +257,7 @@ public class StaffController extends UserController {
 			}
 		}while (true);
 	}
-	
+
 	private void viewAllCamps(ICampView campView) {
 		ArrayList<Camp> camps = campStaffService.getAllCamps();
 		
@@ -482,6 +549,80 @@ public class StaffController extends UserController {
 		else {
 			System.out.println("Reply to enquiry unsuccessful.");
 		}
+	}
+	
+	private void viewSuggestion(ISuggestionView suggestionView) {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
+		
+		for (Camp camp : camps) {
+			suggestions.addAll(suggestionStaffService.viewEnquiries(camp));
+		}
+		
+		if (suggestions.isEmpty()) {
+			System.out.println("There are no enquiries.");
+		}
+		else {
+			for (Suggestion suggestion : suggestions) {
+				suggestionView.displaySuggestions(suggestion);
+				System.out.println();
+			}
+		}
+		
+	}
+	
+	private void approveSuggestion(ISuggestionView suggestionView) {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
+		
+		for (Camp camp : camps) {
+			suggestions.addAll(suggestionStaffService.viewEnquiries(camp));
+		}
+		
+		Suggestion selectedSuggestion = SelectorUtil.suggestionSelector(suggestions);
+		
+		System.out.println("The selected suggestion is: ");
+		suggestionView.displaySuggestions(selectedSuggestion);
+		System.out.print("Enter your reply to the suggestion: ");
+		String reply = sc.nextLine();
+		
+		do {
+			System.out.println("Please select if suggestion is approved. (Y/N)");
+			String input = sc.next();
+			
+			if (input.equals("Y") || input.equals("y")) {
+				suggestionStaffService.approveSuggestion(selectedSuggestion, reply, true);
+	    		System.out.println("Suggestion approved");
+	    		break;
+	    	}
+	    	else if (input.equals("N") || input.equals("n")) {
+	    		suggestionStaffService.approveSuggestion(selectedSuggestion, reply, false);
+	    		System.out.println("Suggestion rejected");
+	    		break;
+	    	}
+	    	else {
+	    		System.out.println("Invalid input. Please input Y or N.");
+	    	}
+		} while (true);
+	}
+	
+	private void generatePerformanceReport() {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		Camp selectedCamp = SelectorUtil.campSelector(camps);
+		
+		System.out.println("Please select filters for report:");
+		System.out.println("1. Attendees only");
+		System.out.println("2. Camp committee only");
+		System.out.println("Press any other number to see both attendee and camp committee");
+		int filter = sc.nextInt();
+		reportGeneratorService.generateCampReport(selectedCamp, filter);
+	}
+
+	private void generateCampReport() {
+		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
+		Camp selectedCamp = SelectorUtil.campSelector(camps);
+		
+		reportGeneratorService.generateCommitteePerformanceReport(selectedCamp);
 	}
 }
 

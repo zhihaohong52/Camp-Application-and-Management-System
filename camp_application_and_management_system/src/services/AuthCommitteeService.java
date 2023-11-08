@@ -8,8 +8,8 @@ import java.util.Map;
 
 import model.user.Committee;
 import model.user.Student;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * {@link AuthCommitteeService} extends {@link AuthStudentService} and 

@@ -12,7 +12,8 @@ import java.util.Scanner;
 import enums.Schools;
 import model.camp.Camp;
 import model.camp.Enquiry;
-import store.DataStore;
+import model.camp.Suggestion;
+import stores.DataStore;
 
 /**
  * 
@@ -86,6 +87,42 @@ public class SelectorUtil {
 			
 			if (optionalSelectedEnquiry.isPresent()) {
 				return optionalSelectedEnquiry.get();
+			}
+			else {
+				System.out.println("Invalid input. Please enter again.");
+			}
+		}
+	}
+	
+	public static Suggestion suggestionSelector(ArrayList<Suggestion> suggestions) {
+		Map<Integer, Camp> campData = DataStore.getCampData();
+		while (true) {
+			for (Suggestion suggestion : suggestions) {
+				System.out.println("Suggestion no. " + suggestion.getSuggestionID());
+				System.out.println("Camp: " + campData.get(suggestion.getCampID()).getName());
+				System.out.println("Question: " + suggestion.getQuestion());
+			}
+			
+			System.out.print("Select enquiry no: ");
+			
+			String input = sc.nextLine();
+			int suggestionID;
+			
+			if (input.isEmpty()){
+				return null;
+			}
+			else if (input.matches("[0-9]+")) { // if input is an integer, find corresponding camp
+				suggestionID = Integer.parseInt(input);
+			}
+			else {
+				System.out.println("Invalid input. Please enter a campID.");
+				continue;
+			}
+			
+			Optional<Suggestion> optionalSelectedSuggestion = suggestions.stream().filter(suggestion -> suggestion.getSuggestionID() == suggestionID).findFirst();
+			
+			if (optionalSelectedSuggestion.isPresent()) {
+				return optionalSelectedSuggestion.get();
 			}
 			else {
 				System.out.println("Invalid input. Please enter again.");

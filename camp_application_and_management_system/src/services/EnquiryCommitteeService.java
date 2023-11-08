@@ -11,8 +11,8 @@ import model.camp.Camp;
 import model.camp.Enquiry;
 import model.user.Committee;
 import model.user.User;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * 

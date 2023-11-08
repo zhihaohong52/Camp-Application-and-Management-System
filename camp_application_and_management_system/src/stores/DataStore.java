@@ -1,7 +1,7 @@
 /**
  * 
  */
-package store;
+package stores;
 
 import model.camp.*;
 import model.user.*;
@@ -57,6 +57,9 @@ public class DataStore {
 	 */
 	private static Map<Integer, Enquiry> enquiryData = new HashMap<Integer, Enquiry>();
 	
+	
+	private static Map<Integer, Suggestion> suggestionData = new HashMap<Integer, Suggestion>();
+	
 	/**
 	 * 
 	 */
@@ -76,7 +79,8 @@ public class DataStore {
 		DataStore.setStaffData(fileDataService.importStaffData(filePathsMap.get("user"), filePathsMap.get("staff")));
 		DataStore.setCommitteeData(fileDataService.importCommitteeData(filePathsMap.get("user"), filePathsMap.get("committee")));
 		DataStore.setCampData(fileDataService.importCampData(filePathsMap.get("camp")));
-		//DataStore.setRequestData(fileDataService.importRequestData(filePathsMap.get("request")));
+		DataStore.setEnquiryData(fileDataService.importEnquiryData(filePathsMap.get("enquiry")));
+		DataStore.setSuggestionData(fileDataService.importSuggestionData(filePathsMap.get("suggestion")));
 		
 		return true;
 	}
@@ -89,7 +93,8 @@ public class DataStore {
 		DataStore.setStaffData(staffData);
 		DataStore.setCommitteeData(committeeData);
 		DataStore.setCampData(campData);
-		//DataStore.setRequestData(requestData);
+		DataStore.setEnquiryData(enquiryData);
+		DataStore.setSuggestionData(suggestionData);
 		
 		return true;
 	}
@@ -182,5 +187,21 @@ public class DataStore {
 		DataStore.enquiryData = requestData;
 		fileDataService.exportEnquiryData(filePathsMap.get("requests"), requestData);
 	}
+
+	/**
+	 * @return the suggestionData
+	 */
+	public static Map<Integer, Suggestion> getSuggestionData() {
+		return suggestionData;
+	}
+
+	/**
+	 * @param suggestionData the suggestionData to set
+	 */
+	public static void setSuggestionData(Map<Integer, Suggestion> suggestionData) {
+		DataStore.suggestionData = suggestionData;
+	}
+	
+	
 	
 }

@@ -127,6 +127,7 @@ public class Enquiry {
 	public boolean replyToEnquiry(String reply, String replierID) {
 		this.reply.add(reply);
 		this.replierID.add(replierID);
+		this.status = EnquiryStatus.Processed;
 		return true;
 	}
 

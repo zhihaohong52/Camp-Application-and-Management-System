@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import interfaces.IUserService;
 import services.UserService;
-import store.AuthStore;
+import stores.AuthStore;
 
 /**
  * The {@link UserController} class is responsible for handling user-related

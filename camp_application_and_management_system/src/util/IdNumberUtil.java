@@ -6,6 +6,7 @@ package util;
 import java.util.Map;
 import model.camp.Camp;
 import model.camp.Enquiry;
+import model.camp.Suggestion;
 
 /**
  * 
@@ -34,5 +35,15 @@ public class IdNumberUtil {
 
         return lowestAvailable;
     }
+	
+	public static int findLowestAvailableSuggestionId(Map<Integer, Suggestion> suggestionData) {
+		int lowestAvailable = 1; // Start with the first possible integer key
+
+        while (suggestionData.containsKey(lowestAvailable)) {
+            lowestAvailable++; // Increment if the key is in use
+        }
+
+        return lowestAvailable;
+	}
 
 }

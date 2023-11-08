@@ -1,7 +1,7 @@
 /**
  * 
  */
-package store;
+package stores;
 
 import model.user.User;
 

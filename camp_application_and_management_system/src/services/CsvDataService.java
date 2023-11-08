@@ -16,15 +16,18 @@ import java.util.stream.Collectors;
 
 import enums.EnquiryStatus;
 import enums.Schools;
+import enums.SuggestionStatus;
 import interfaces.IFileDataService;
 import model.camp.Camp;
 import model.camp.Enquiry;
+import model.camp.Suggestion;
 import model.user.Committee;
 import model.user.Staff;
 import model.user.Student;
 import util.BooleanConverterUtil;
 import util.EnquiryStatusUtil;
 import util.SchoolEnumUtil;
+import util.SuggestionStatusUtil;
 
 /**
  * The {@link CsvDataService} class implements the {@link IFileDataService}
@@ -58,9 +61,14 @@ public class CsvDataService implements IFileDataService {
 	private static List<String> campCsvHeaders = new ArrayList<String>();
 
 	/**
-	 * List of headers for the CSV file that stores inquiry data.
+	 * List of headers for the CSV file that stores enquiry data.
 	 */
 	private static List<String> enquiryCsvHeaders = new ArrayList<String>();
+
+	/**
+	 * List of headers for the CSV file that stores suggestion data.
+	 */
+	private static List<String> suggestionCsvHeaders = new ArrayList<String>();
 
 	/**
 	 * Constructs an instance of the {@link CSVDataService} class.
@@ -514,6 +522,46 @@ public class CsvDataService implements IFileDataService {
 		}
 		
 		return this.writeCsvFile(inquiryFilePath, enquiryCsvHeaders, enquiryLines);
+	}
+
+	@Override
+	public Map<Integer, Suggestion> importSuggestionData(String suggestionFilePath) {
+		Map<Integer, Suggestion> suggestionMap = new HashMap<Integer, Suggestion>();
+		List<String[]> suggestionRows = this.readCsvFile(suggestionFilePath, suggestionCsvHeaders);
+		
+		for (String[] suggestionRow : suggestionRows) {
+			int suggestionID = Integer.parseInt(suggestionRow[0]);
+			String studentID = suggestionRow[1];
+			String question = suggestionRow[2];
+	        String reply = suggestionRow[3];
+	        String replierID = suggestionRow[4]; 
+	        int campID = Integer.parseInt(suggestionRow[5]);
+	        SuggestionStatus status = SuggestionStatusUtil.convertToEnum(suggestionRow[6]);
+	        Suggestion suggestion = new Suggestion(suggestionID, campID, studentID, question, reply, replierID, status);
+	        
+	        suggestionMap.put(suggestionID, suggestion);
+	    }
+		
+		return suggestionMap; 
+	}
+
+	@Override
+	public boolean exportSuggestionData(String suggestionFilePath, Map<Integer, Suggestion> suggestionMap) {
+		List<String> suggestionLines = new ArrayList<String>();
+		
+		for (Suggestion suggestion : suggestionMap.values()) {
+			String suggestionLine = String.format("%d,%s,%s,%s,%s,%d,%s",
+					suggestion.getSuggestionID(),
+					suggestion.getCommiteeID(),
+					suggestion.getQuestion(),
+					suggestion.getReply(),
+					suggestion.getReplierID(),
+					suggestion.getCampID(),
+					suggestion.getStatus().toString());
+			suggestionLines.add(suggestionLine);
+		}
+		
+		return this.writeCsvFile(suggestionFilePath, suggestionCsvHeaders , suggestionLines);
 	}
 
 }

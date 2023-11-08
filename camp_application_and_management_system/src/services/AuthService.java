@@ -5,7 +5,7 @@ package services;
 
 import interfaces.IAuthService;
 import model.user.User;
-import store.AuthStore;
+import stores.AuthStore;
 
 /**
  * {@link AuthService} is an abstract class that implements the {@link IAuthService}

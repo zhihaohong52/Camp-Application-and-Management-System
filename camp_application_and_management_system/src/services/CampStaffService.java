@@ -13,8 +13,8 @@ import enums.Schools;
 import interfaces.ICampStaffService;
 import model.camp.Camp;
 import model.user.Staff;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * 

@@ -27,7 +27,8 @@ public class FilePathsUtil {
 		filePathsMap.put("staff", "data/staff.csv");
 		filePathsMap.put("committee", "data/committee.csv");
 		filePathsMap.put("camp", "data/camp.csv");
-		filePathsMap.put("inquiry", "data/inquiry.csv");
+		filePathsMap.put("enquiry", "data/enquiry.csv");
+		filePathsMap.put("suggestion", "data/suggestion.csv");
 		
 		return filePathsMap;
 	}

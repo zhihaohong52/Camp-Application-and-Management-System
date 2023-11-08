@@ -12,7 +12,7 @@ import model.camp.Camp;
 import model.camp.Enquiry;
 import model.user.Committee;
 import model.user.Staff;
-import store.DataStore;
+import stores.DataStore;
 import util.TextDecoratorUtil;
 
 /**

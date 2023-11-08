@@ -6,8 +6,8 @@ package services;
 import java.util.Map;
 
 import model.user.Student;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * {@link AuthStudentService} extends {@link AuthService} and 

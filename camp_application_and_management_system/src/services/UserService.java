@@ -5,8 +5,8 @@ package services;
 
 import interfaces.IUserService;
 import model.user.User;
-import store.AuthStore;
-import store.DataStore;
+import stores.AuthStore;
+import stores.DataStore;
 
 /**
  * The {@link UserService} class implements the {@link IUserService} interface and 

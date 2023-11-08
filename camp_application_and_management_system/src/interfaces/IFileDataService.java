@@ -5,8 +5,12 @@ package interfaces;
 
 import java.util.Map;
 
-import model.camp.*;
-import model.user.*;
+import model.camp.Camp;
+import model.camp.Enquiry;
+import model.camp.Suggestion;
+import model.user.Committee;
+import model.user.Staff;
+import model.user.Student;
 
 /**
  * 
@@ -32,4 +36,8 @@ public interface IFileDataService {
 	Map<Integer, Enquiry> importEnquiryData(String inquiryFilePath);
 	
 	boolean exportEnquiryData(String inquiryFilePath, Map<Integer, Enquiry> enquiryMap);
+
+	Map<Integer, Suggestion> importSuggestionData(String enquiryFilePath);
+	
+	boolean exportSuggestionData(String enquiryFilePath, Map<Integer, Suggestion> suggestionMap);
 }
