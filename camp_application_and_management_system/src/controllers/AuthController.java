@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package controllers;
 
 import java.util.Scanner;
@@ -29,10 +27,14 @@ public class AuthController{
 	private static IAuthService authService;
 	
 	/**
-	 * 
+	 * Private constructor to prevent instantiation as it is not meant to be instantiated. 
 	 */
 	private AuthController() {}
-	
+
+	/**
+     * Starting a session for log in
+     * 
+     */
 	public static void startSession() {
         int choice;
         boolean authenticated = false;

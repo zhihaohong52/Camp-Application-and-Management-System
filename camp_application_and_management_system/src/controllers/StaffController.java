@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package controllers;
 
 import java.time.LocalDate;
@@ -39,7 +37,9 @@ import view.EnquiryView;
 import view.SuggestionView;
 
 /**
- * 
+ * The {@link StaffController} class provides methods to manage staff related functionalities in the CAMS application.
+ * It includes operations such as changing passwords, creating and managing camps, handling enquiries and suggestions,
+ * and generating reports.
  */
 public class StaffController extends UserController {
 
@@ -47,20 +47,36 @@ public class StaffController extends UserController {
 	 * {@link Scanner} object to get input
 	 */
 	private static final Scanner sc = new Scanner(System.in);
-	
-	private static final ICampStaffService campStaffService = new CampStaffService();
 
+	/**
+	 * This class has-a {@link ICampStaffService} object deal with Services regading the camp
+	 */
+	private static final ICampStaffService campStaffService = new CampStaffService();
+	
+	/**
+	 * This class has-a {@link IEnquiryStaffService} object deal with enquiries from the student regading the camp
+	 */
 	private static final IEnquiryStaffService enquiryStaffService = new EnquiryStaffService();
 	
+	/**
+	 * This class has-a {@link ISuggestionStaffService} object deal with suggestions from the student regading the camp
+	 */
 	private static final ISuggestionStaffService suggestionStaffService = new SuggestionStaffService();
 	
+	/**
+	 * This class has-a {@link IReportGeneratorService} object which the staff can use to generate a report regarding the camp
+	 */
 	private static final IReportGeneratorService reportGeneratorService = new ReportGeneratorService();
 	
 	/**
-	 * 
+	 * Default constructor for the StaffContoller class
 	 */
 	public StaffController() {}
 
+	
+    /**
+     * Starts the staff user session, providing access to various staff specific functionalities.
+    */
 	public void start() {
 		
 		// force to change password if first login
@@ -258,6 +274,10 @@ public class StaffController extends UserController {
 		}while (true);
 	}
 
+	/**
+	 * Displays all camps regardless who is the creator, providing detailed information about each camp.
+	 * @param campView The view interface that displays the camp details
+	 */
 	private void viewAllCamps(ICampView campView) {
 		ArrayList<Camp> camps = campStaffService.getAllCamps();
 		
@@ -271,7 +291,11 @@ public class StaffController extends UserController {
 			}
 		}
 	}
-	
+
+	/**
+	 * Allows staff to create multiple camps by providing information: camp name, dates, registration due date, schools,
+	 * location, total slots, description and visibility
+	 */
 	private void createCamps() {
 		//variables
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -347,7 +371,11 @@ public class StaffController extends UserController {
 		campStaffService.createCamp(camps);
 		
 	}
-	
+
+	/**
+ 	* Edits the details of a specific camp, allowing staff to modify various attributes such as name, dates, closing date,
+ 	* schools, location, total slots, and description.
+ 	*/
 	private void editCamp() {
 	    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -435,7 +463,11 @@ public class StaffController extends UserController {
 	        }
 	    }
 	}
-	
+
+	/**
+ 	* Deletes a specific camp, including all associated data (enquiries, suggestions). Staff members need to confirm
+ 	* their intention to delete a camp.
+ 	*/
 	private void deleteCamp() {
 		ArrayList<Camp> camps = campStaffService.getAllCamps();
 	    Camp selectedCamp = SelectorUtil.campSelector(camps);
@@ -461,6 +493,9 @@ public class StaffController extends UserController {
 	    }
 	}
 	
+	/**
+ 	* Toggles the visibility of selected camps. Staff members can choose to make camps visible or invisible.
+ 	*/
 	private void toggleCamp() {
 		ArrayList<Camp> camps = campStaffService.getAllCamps();
 		ArrayList<Camp> selectedCamps = new ArrayList<>();
@@ -506,7 +541,12 @@ public class StaffController extends UserController {
 	    	} while (true);
 	    }
 	}
-	
+
+	/**
+ 	* Displays enquiries from all camps created by current staff, providing details about each enquiry.
+ 	*
+ 	* @param enquiryView The view interface for displaying enquiry details.
+ 	*/
 	private void viewEnquiries(IEnquiryView enquiryView) {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
@@ -525,7 +565,12 @@ public class StaffController extends UserController {
 			}
 		}
 	}
-	
+
+	/**
+ 	* Staff to reply to a selected enquiry with response.
+ 	*	
+ 	* @param enquiryView The view interface for displaying enquiry details.
+ 	*/
 	private void replyToEnquiries(IEnquiryView enquiryView) {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
@@ -550,7 +595,12 @@ public class StaffController extends UserController {
 			System.out.println("Reply to enquiry unsuccessful.");
 		}
 	}
-	
+
+	/**
+ 	* Displays suggestions from all camps created by staff, providing details about each suggestion.
+ 	*
+ 	* @param suggestionView The view interface for displaying suggestion details.
+ 	*/
 	private void viewSuggestion(ISuggestionView suggestionView) {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
@@ -570,7 +620,12 @@ public class StaffController extends UserController {
 		}
 		
 	}
-	
+
+	/**
+ 	* Staff can approve or reject a selected suggestion and provides a response. Staff need to confirm their decision.
+ 	*
+ 	* @param suggestionView The view interface for displaying suggestion details.
+ 	*/
 	private void approveSuggestion(ISuggestionView suggestionView) {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
@@ -605,7 +660,11 @@ public class StaffController extends UserController {
 	    	}
 		} while (true);
 	}
-	
+
+	/**
+ 	* Staff members can generate a performance report for a specific camp.
+	* Staff members can choose to filter the report for attendees only, camp committee only, or both.
+ 	*/
 	private void generatePerformanceReport() {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		Camp selectedCamp = SelectorUtil.campSelector(camps);
@@ -617,7 +676,10 @@ public class StaffController extends UserController {
 		int filter = sc.nextInt();
 		reportGeneratorService.generateCampReport(selectedCamp, filter);
 	}
-
+	
+	/**
+ 	* Staff can generate a detailed report for a specific camp, including information about attendees and camp committee members.
+ 	*/
 	private void generateCampReport() {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		Camp selectedCamp = SelectorUtil.campSelector(camps);

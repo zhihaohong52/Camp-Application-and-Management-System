@@ -1,63 +1,63 @@
-/**
- * 
- */
+
 package interfaces;
 
 import java.util.ArrayList;
 
 import model.camp.Camp;
-
 /**
- * {@link ICampStudentService} defines a contract for managing
- * services for Staff
+ * The {@link ICampStaffService} interface defines a contract for classes that provide services related to camp management for staff members.
+ * It includes methods for creating, retrieving, editing, and deleting camps, as well as toggling the visibility of camps.
  */
-public interface ICampStaffService {
 
-	/**
-	 * Create new camps
-	 * 
-	 * @param camps an {@link ArrayList} of {@link Camp} objects to be created
-	 * @return true if camps are created successfully, false if otherwise
-	 */
-	public boolean createCamp(ArrayList<Camp> camps);
+public interface ICampStaffService {
+	 /**
+     * Creates camps based on the provided list.
+     *
+     * @param camps The list of camps that exists already.
+     * @return {@code true} if the camps are created successfully, {@code false} otherwise.
+     */
 	
+	public boolean createCamp(ArrayList<Camp> camps);
 	/**
-	 * View the list of all camps
-	 * 
-	 * @return {@link ArrayList} of {@link Camp} objects that represents all camps
-	 */
+     * Retrieves all camps.
+     *
+     * @return An {@code ArrayList} of {@link Camp} containing all camps.
+     */
+	
 	public ArrayList<Camp> getAllCamps();
 	
 	/**
-	 * Get list of camps created by Staff
-	 * 
-	 * @return
-	 */
+     * Retrieves camps created by the staff member.
+     *
+     * @return An {@code ArrayList} of {@link Camp} containing camps created by the staff member.
+     */
+
 	public ArrayList<Camp> getCreatedCamps();
-	
 	/**
-	 * Update camp details
-	 * 
-	 * @param camp to be edited
-	 * @param field to be edited
-	 * @param value for edit
-	 * @return true if camp is updated successfully, false if otherwise
-	 */
+     * Edits a specific field (such as date, description ...) of a camp.
+     *
+     * @param camp   The camp to be edited.
+     * @param field  The field index to be edited. 
+     * @param value  The new value for the field.
+     * @return {@code true} if the camp is edited successfully, {@code false} otherwise.
+     */
+	
 	public boolean editCamp(Camp camp, int field, Object value);
 	
-	/**
-	 * Delete camp
-	 * 
-	 * @param camp to be deleted
-	 * @return true if camp is deleted successfully, false if otherwise
-	 */
+	 /**
+     * Deletes a camp.
+     *
+     * @param camp The camp to be deleted.
+     * @return {@code true} if the camp is deleted successfully, {@code false} otherwise.
+     */
 	public boolean deleteCamp(Camp camp);
 	
-	/**
-	 * Toggle visibility of camps 
-	 * 
-	 * @param camps with visibility to be toggled
-	 * @return true if visibility is updated successfully, false if otherwise
-	 */
+	 /**
+     * Toggles the visibility of the provided list of camps.
+     *
+     * @param camps The {@code ArrayList} of {@link Camp}s for which visibility will be toggled.
+     * @return {@code true} if the visibility is toggled successfully, {@code false} otherwise.
+     */
+
 	public boolean toggleCampVisibilty(ArrayList<Camp> camps);
 }
