@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package interfaces;
 
 /**
@@ -9,11 +7,10 @@ package interfaces;
 public interface IUserService {
 
 	/**
-	 * Changes the password of user if provided old password 
-	 * matches current password
+	 * Changes the password of user if provided old password matches current password
 	 * 
-	 * @param oldPassword user's current password
-	 * @return true if password was changed successfully, false otherwise
+	 * @param newPassword user's new password 
+	 * @return {@code True} if password was changed successfully, {@code False} otherwise
 	 */
 	public boolean changePassword(String newPassword);
 }

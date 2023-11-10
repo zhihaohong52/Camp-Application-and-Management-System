@@ -11,6 +11,9 @@ import enums.Schools;
 
 /**
  * Represents a camp declared within the system
+ * Each camp has various attributes such as a unique identifier, name, closing date, available schools, location, 
+ * time slots, camp committee slots, camp description, staff in charge, list of attendees and committee members, and withdrawn participants.
+ * This class provides methods to interact with and edit camp related data. 
  * @author Zhi Hao, Venus, Siyu, Phyo, Advika
  * @version 1.0
  * @since put date of submission 2023-11-dd
@@ -46,15 +49,17 @@ public class Camp {
 	private List<String> withdrawn = new ArrayList<String>();
 	
 	/**
-	 * @param name
-	 * @param dates
-	 * @param closing
-	 * @param available
-	 * @param location
-	 * @param totalSlots
-	 * @param description
-	 * @param staffIC
-	 * @param visibility
+	 * Constructor of class {@link Camp}
+	 * @param campID ID of the camp
+	 * @param name	Name of the camp
+	 * @param dates A list of dates for the camp
+	 * @param closing	Closing date for registration
+	 * @param available	A list of schools that can register for the camp
+	 * @param location	Location of the camp
+	 * @param totalSlots Number of slots for registration
+	 * @param description	Description of the camp
+	 * @param staffIC	IC of staff in charge
+	 * @param visibility	visibility of the camp to students
 	 */
 	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
 			String location, int totalSlots, String description, String staffIC, boolean visibility) {
@@ -69,7 +74,23 @@ public class Camp {
 		this.staffIC = staffIC;
 		this.visibility = visibility;
 	}
-	
+	/**
+	 * Constructor of class {@link Camp}
+	 * @param campID ID of the camp
+	 * @param name	Name of the camp
+	 * @param dates A list of dates for the camp
+	 * @param closing	Closing date for registration
+	 * @param available	A list of schools that can register for the camp
+	 * @param location	Location of the camp
+	 * @param totalSlots Number of slots for registration
+	 * @param description	Description of the camp
+	 * @param staffIC	IC of staff in charge
+	 * @param visibility	visibility of the camp to students
+	 * @param students	A list of {@link Student} that registered for the camp
+	 * @param campCommitteeSlots Number of slots for camp committee members
+	 * @param campCommittee	A list of {@link Committee} that attached to the camp
+	 * @param withdrawn A list of {@link Student} that withdraw from the camp
+	 */
 	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
 			String location, int totalSlots, String description, String staffIC, boolean visibility, 
 			List<String> students, int campCommitteeSlots, List<String> campCommittee, List<String> withdrawn) {
@@ -90,119 +111,163 @@ public class Camp {
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the unique identifier of the camp.
+ 	* @return The unique identifier of the camp.
+ 	*/
 	public int getCampID() {
 		return campID;
 	}
 
+	
 	/**
-	 * @param campID
-	 */
+ 	* Sets the unique identifier of the camp.
+ 	*
+ 	* @param campID The unique identifier to set for the camp.
+ 	*/
 	public void setCampID(int campID) {
 		this.campID = campID;
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the name of the camp.
+ 	*
+ 	* @return The name of the camp.
+ 	*/
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return
-	 */
+	 * Gets the staff in charge of the camp.
+ 	*
+ 	* @return The staff in charge of the camp.
+ 	*/
 	public String getStaffIC() {
 		return staffIC;
 	}
 
 	/**
-	 * @param name
+ 	* Sets the name of the camp.
+ 	*
+ 	* @param name The name to set for the camp.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the list of dates associated with the camp.
+ 	*
+ 	* @return The list of dates for the camp.
+ 	*/
+
 	public List<LocalDate> getDates() {
 		return dates;
 	}
-
 	/**
-	 * @param dates
-	 */
+ 	* Sets the list of dates for the camp.
+ 	*
+ 	* @param dates The list of dates to set for the camp.
+ 	*/
 	public void setDates(List<LocalDate> dates) {
 		this.dates = dates;
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the closing date of the camp.
+ 	*
+ 	* @return The closing date of the camp.
+ 	*/
 	public LocalDate getClosing() {
 		return closing;
 	}
 
+	
 	/**
-	 * @param closing
-	 */
+ 	* Sets the closing date of the camp.
+ 	*
+ 	* @param closing The closing date to set for the camp.
+ 	*/
 	public void setClosing(LocalDate closing) {
 		this.closing = closing;
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the list of available schools for the camp.
+ 	*
+ 	* @return The list of available schools for the camp.
+ 	*/
 	public List<Schools> getAvailable() {
 		return available;
 	}
 
 	/**
-	 * @param available
-	 */
+ 	* Sets the list of available schools for the camp.
+ 	*
+ 	* @param available The list of available schools to set for the camp.
+ 	*/
 	public void setAvailable(List<Schools> school) {
 		this.available.addAll(school);
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the location of the camp.
+ 	*	
+ 	* @return The location of the camp.
+ 	*/
 	public String getLocation() {
 		return location;
 	}
 
 	/**
-	 * @param location
-	 */
+ 	* Sets the location of the camp.
+ 	*
+ 	* @param location The location to set for the camp.
+ 	*/
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
 	/**
-	 * @return
-	 */
+ 	* Gets the total number of slots available for the camp.
+ 	*
+ 	* @return The total number of slots available for the camp.
+ 	*/
 	public int getTotalSlots() {
 		return totalSlots;
 	}
 
 	/**
-	 * @param totalSlot
-	 */
+ 	* Sets the total number of slots available for the camp.
+ 	*
+ 	* @param totalSlots The total number of slots to set for the camp.
+ 	*/
 	public void setTotalSlots(int totalSlots) {
 		this.totalSlots = totalSlots;
 	}
 
-	
+	/**
+ 	* Gets the list of students (attendees) registered for the camp.
+ 	*
+ 	* @return The list of students registered for the camp.
+ 	*/
 	public List<String> getStudents() {
 		return students;
 	}
-
+	/**
+ 	* Sets the list of students (attendees) for the camp.
+ 	*
+ 	* @param students The list of students to set for the camp.
+ 	*/
 	public void setStudents(List<String> students) {
 		this.students = students;
 	}
-	
+	/**
+ 	* Adds an attendee to the camp and decreases the total available slots.
+ 	*
+ 	* @param newAttendeeID The unique identifier of the new attendee.
+ 	* @return True if the attendee is successfully added, false otherwise.
+ 	*/
 	public boolean addAttendee(String newAttendeeID) {
 		if (totalSlots == 0) {
 			System.out.println("Camp already full!");
@@ -214,7 +279,13 @@ public class Camp {
 			return true;
 		}
 	}
-	
+
+	/**
+ 	* Removes an attendee from the camp, increases the total available slots and add the attendee into the withdraw list
+ 	*
+ 	* @param attendeeID The unique identifier of the attendee to remove.
+	* @return True if the attendee is successfully removed, false otherwise.
+	*/
 	public boolean removeAttendee(String attendeeID) {
 		students.remove(attendeeID);
 		totalSlots++;
@@ -222,25 +293,48 @@ public class Camp {
 		return true;
 	}
 
+	/**
+	 * Gets the number of camp committee slots available for the camp.
+ 	*
+ 	* @return The number of camp committee slots available for the camp.
+ 	*/
 	public int getCampCommitteeSlots() {
 		return campCommitteeSlots;
 	}
 
+	/**
+ 	* Sets the number of camp committee slots available for the camp.
+	*
+	* @param campCommitteeSlots The number of camp committee slots to set for the camp.
+	*/
 	public void setCampCommitteeSlots(int campCommitteeSlots) {
 		this.campCommitteeSlots = campCommitteeSlots;
 	}
 
+	/**
+	 * Gets the list of camp committee members.
+	 *
+	 * @return The list of camp committee members.
+	 */
 	public List<String> getCampCommittee() {
 		return campCommittee;
 	}
 
+	/**
+	 * Sets the list of camp committee members.
+	 *
+	 * @param campCommittee The list of camp committee members to set.
+	 */
 	public void setCampCommittee(List<String> campCommittee) {
 		this.campCommittee = campCommittee;
 	}
-	
+
 	/**
-	 * @param newCommittee
-	 */
+	 * Adds a committee member to the camp and decreases both total available slots and camp committee slots.
+ 	*
+ 	* @param newCommittee The unique identifier of the new committee member.
+	* @return True if the committee member is successfully added, false otherwise.
+	*/
 	public boolean addCommittee(String newCommittee) {
 		if (totalSlots == 0 || campCommitteeSlots == 0 ) {
 			System.out.println("No more slots available!");
@@ -255,41 +349,63 @@ public class Camp {
 		}
 	}
 
+	/**
+	 * Sets Unique identifier of the staff.
+	 *
+	 * @param staffIC The unique identifier of staff 
+	 */
 	public void setStaffIC(String staffIC) {
 		this.staffIC = staffIC;
 	}
 	
 	/**
-	 * @return
+	 * Gets the description of the camp.
+	 *
+	 * @return The description of the camp.
 	 */
 	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * @param description
+	 * Sets the description of the camp.
+	 *
+	 * @param description The description to set for the camp.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+	/**
+	 * Gets the visibility status of the camp.
+	 *
+	 * @return True if the camp is visible, false otherwise.
+	 */
 	public boolean getVisibility() {
 		return visibility;
 	}
 	
+	/**
+	 * Sets the visibility status of the camp.
+	 *
+	 * @param visibility True to set the camp as visible, false to set it as invisible.
+	 */
 	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
 	}
-
 	/**
-	 * @return the withdrawn
+	 * Gets the list of withdrawn participants from the camp.
+	 *
+	 * @return The list of withdrawn {@link Student} from the camp.
 	 */
 	public List<String> getWithdrawn() {
 		return withdrawn;
 	}
 
 	/**
-	 * @param withdrawn the withdrawn to set
+	 * Sets the list of withdrawn participants for the camp.
+	 *
+	 * @param withdrawn The list of withdrawn participants to set for the camp.
 	 */
 	public void setWithdrawn(List<String> withdrawn) {
 		this.withdrawn = withdrawn;

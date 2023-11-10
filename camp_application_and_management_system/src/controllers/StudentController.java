@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package controllers;
 
 import java.time.LocalDate;
@@ -47,16 +45,24 @@ public class StudentController extends UserController {
 	protected static final Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * 
+	 * This class has-a {@link ICampStudentService} object which the StudentController object is able to access all the services given.
 	 */
 	private static final ICampStudentService campStudentService = new CampStudentService();
+	
+	/**
+	 * This class has-a {@link IEnquiryStudentService} object which the StudentController object can access all the services that the enquiry class gives.
+	 */
 	private static final IEnquiryStudentService enquiryStudentService = new EnquiryStudentService();
 	
 	/**
-	 * Constructs an instance of {@link StudentContoller}
+	 * Default constructor for StudentController
 	 */
 	public StudentController() {}
 	
+	/**
+     * Starts the student controller, provides access to various functionalities based on the user's choice.
+	 * Functions such as view available/registered camps, register camps, submit/edit/delete enquiries.
+     */
 	public void start() {
 		
 		User user = AuthStore.getCurrentUser();
@@ -207,9 +213,13 @@ public class StudentController extends UserController {
 		} while (true);
 
 	}
-	
-	// Helper methods
-	
+
+	/**
+     * Displays available camps to the student based on their school and visibility.
+	 * It allows student to view detailed information.
+     *
+     * @param campView The view interface for displaying camp details.
+     */
 	private void viewAvailableCamps(ICampView campView) {
 	    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	    Student student = (Student) AuthStore.getCurrentUser();
@@ -273,6 +283,11 @@ public class StudentController extends UserController {
 	    }
 	}
 	
+	 /**
+     * Displays camps that the student is registered for and allows them to view detailed information.
+     *
+     * @param campView The view interface for displaying camp details.
+     */
 	private void viewRegisteredCamps(ICampView campView) {
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		Student student = (Student) AuthStore.getCurrentUser();
@@ -336,6 +351,9 @@ public class StudentController extends UserController {
 	    }
 	}
 	
+	/**
+     * Allows the current student to register for a camp, choosing between attendee and camp committee member roles.
+     */
 	private void register() {
 		Student student = (Student) AuthStore.getCurrentUser();
 		String studentID = student.getID();
@@ -378,6 +396,9 @@ public class StudentController extends UserController {
 		}
 	}
 	
+	/**
+     * Allows the current student to withdraw from a camp they are registered for.
+     */
 	private void withdraw() {
 		Student student = (Student) AuthStore.getCurrentUser();
 		String studentID = student.getID();
@@ -395,7 +416,12 @@ public class StudentController extends UserController {
 			System.out.println("Camp not withdrawn from.");
 		}
 	}
-	
+
+	/**
+     * Allows the student to view their own enquiries.
+	 * 
+     * @param enquiryView The view interface for displaying enquiry details.
+     */
 	private void viewEnquiries(IEnquiryView enquiryView) {
 		ArrayList<Enquiry> enquiries = enquiryStudentService.viewAllEnquiries();
 		
@@ -409,7 +435,10 @@ public class StudentController extends UserController {
 			}
 		}
 	}
-	
+
+	 /**
+     * Allows the student to submit a new enquiry for a specific camp.
+     */
 	private void submitEnquiry() {
 		Student student = (Student) AuthStore.getCurrentUser();
 		ArrayList<Camp> camps = campStudentService.getAvailableCamps(student.getFaculty());
@@ -425,7 +454,10 @@ public class StudentController extends UserController {
 			System.out.println("Enquiry not submitted");
 		}
 	}
-	
+
+	/**
+     * Allows the student to edit an existing enquiry.
+     */
 	private void editEnquiry() {
 		ArrayList<Enquiry> enquiries = enquiryStudentService.viewProcessingEnquiries();
 		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
@@ -446,6 +478,9 @@ public class StudentController extends UserController {
 		}
 	}
 	
+	/**
+     * Allows the student to delete an existing enquiry.
+     */
 	private void deleteEnquiry() {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		

@@ -14,21 +14,20 @@ public interface IAuthService {
 	 * 
 	 * @param userID
 	 * @param password
-	 * @return
+	 * @return {@code True} if the user is authenticated successfully, {@code False} otherwise
 	 */
 	default public boolean login(String userID, String password) {
 		return false;
 	}
-	
 	/**
-	 * Logs in a user with userID (for committee members accessing committee view)
+	 * Logs in a user with userID 
+	 * 
+	 * @param userID Identifier of the user
 	 */
 	default public void login(String userID) {}
-	
 	/**
 	 * Logs out the currently logged in user.
-	 * 
-	 * @return
+	 * @return {@code True} if successfully log out, {@code False} otherwise.
 	 */
 	public boolean logout();
 }
