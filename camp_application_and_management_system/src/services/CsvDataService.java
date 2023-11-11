@@ -102,7 +102,7 @@ public class CsvDataService implements IFileDataService {
 				dataList.add(values);
 			}
 		} catch (IOException e) {
-			System.out.println("Cannot import data!");
+			System.out.println("Cannot import data! " + filePath);
 		}
 		
 		return dataList;
