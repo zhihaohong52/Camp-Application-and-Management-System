@@ -1,0 +1,11 @@
+module:camp_management_and_application_system
+controllers
+enums
+interfaces
+main
+model.camp
+model.user
+services
+stores
+util
+view
