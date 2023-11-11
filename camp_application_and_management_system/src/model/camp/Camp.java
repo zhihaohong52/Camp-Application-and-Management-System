@@ -289,6 +289,7 @@ public class Camp {
 	public boolean removeAttendee(String attendeeID) {
 		students.remove(attendeeID);
 		totalSlots++;
+		withdrawn.add(attendeeID);
 		return true;
 	}
 
