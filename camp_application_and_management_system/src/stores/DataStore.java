@@ -183,9 +183,9 @@ public class DataStore {
 	/**
 	 * @param requestData the requestData to set
 	 */
-	public static void setEnquiryData(Map<Integer, Enquiry> requestData) {
-		DataStore.enquiryData = requestData;
-		fileDataService.exportEnquiryData(filePathsMap.get("requests"), requestData);
+	public static void setEnquiryData(Map<Integer, Enquiry> enquiryData) {
+		DataStore.enquiryData = enquiryData;
+		fileDataService.exportEnquiryData(filePathsMap.get("enquiry"), enquiryData);
 	}
 
 	/**
@@ -200,8 +200,6 @@ public class DataStore {
 	 */
 	public static void setSuggestionData(Map<Integer, Suggestion> suggestionData) {
 		DataStore.suggestionData = suggestionData;
+		fileDataService.exportSuggestionData(filePathsMap.get("suggestion"), suggestionData);
 	}
-	
-	
-	
 }
