@@ -7,7 +7,7 @@ import enums.SuggestionStatus;
 
 /**
  * The {@link SuggestionStatusUtil} provides utility function for
- * converts string input to an enum for the suggestion status variable
+ * converting string input to an enum for the suggestion status variable
  */
 public class SuggestionStatusUtil {
 

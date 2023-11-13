@@ -11,12 +11,13 @@ import interfaces.ICampView;
 import model.camp.Camp;
 
 /**
- * 
+ * The {@link AllCampDetailsView} class extends {@link CampAvailableView} and
+ * implements {@link ICampView} and provide method for displaying all the camp details
  */
 public class AllCampDetailsView extends CampAvailableView implements ICampView {
 
 	/**
-	 * 
+	 * Construct an instance of {@link AllCampDetailsView}
 	 */
 	public AllCampDetailsView() {}
 	
