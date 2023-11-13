@@ -10,7 +10,8 @@ import java.util.List;
 import enums.Schools;
 
 /**
- * 
+ * The {@link SchoolEnumUtil} provides utility functions for
+ * schools that camps are able to participate in
  */
 public class SchoolEnumUtil {
 	
@@ -21,7 +22,9 @@ public class SchoolEnumUtil {
 	public static final Schools[] CoS = {Schools.CCEB, Schools.SPMS, Schools.SBS, Schools.ASE};
 	
 	/**
-	 * 
+	 * Get a string input which can be converted to School enum variable
+	 * @param input the string input of the school from csv file
+	 * @return the school enum variable for code
 	 */
 	public static Schools convertToEnum(String input) {
 		switch(input.toUpperCase()) {
@@ -61,7 +64,11 @@ public class SchoolEnumUtil {
 	            throw new IllegalArgumentException("Invalid input string: " + input);
 		}
 	}
-	
+
+	/**
+	 * Return a list of schools
+	 * @return all the schools that exists in NTU
+	 */
 	public static List<Schools> allSchools(){
 		Schools[] allSchools = Schools.values();
 		List<Schools> schoolList = new ArrayList<>(Arrays.asList(allSchools));

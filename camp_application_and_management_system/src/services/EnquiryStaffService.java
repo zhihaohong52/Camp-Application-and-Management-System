@@ -15,12 +15,14 @@ import stores.AuthStore;
 import stores.DataStore;
 
 /**
- * 
+ * {@link EnquiryStaffService} implemets {@link IEnquiryStaffService}
+ * interface and provide enquiry related functions for a staff user
+ * for selected camp
  */
 public class EnquiryStaffService implements IEnquiryStaffService {
 
 	/**
-	 * 
+	 * Construct an instance of {@link EnquiryStaffService}
 	 */
 	public EnquiryStaffService() {}
 

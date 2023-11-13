@@ -17,12 +17,13 @@ import stores.AuthStore;
 import stores.DataStore;
 
 /**
- * 
+ * {@link CampStaffService} implements {@link ICampStaffService} interface and
+ * provide camp functions in the role permission of a staff
  */
 public class CampStaffService implements ICampStaffService {
 
 	/**
-	 * 
+	 * Construct an instance of {@link CampStaffService}
 	 */
 	public CampStaffService() {}
 
@@ -53,6 +54,12 @@ public class CampStaffService implements ICampStaffService {
 		return allCamps;
 	}
 	
+	/**
+	 * Check who the logged in staff user is and 
+	 * get all the camps created by this staff user
+	 * 
+	 * @return an ArrayList of camps created by the logged in staff user
+	 */
 	public ArrayList<Camp> getCreatedCamps(){
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		Staff staff = (Staff) AuthStore.getCurrentUser();

@@ -31,6 +31,10 @@ public class AuthCommitteeService extends AuthStudentService {
 		AuthStore.setCurrentUser(committee);
 	}
 	
+	/**
+	 * Log out of committee member user 
+	 * @param userID the current logged in {@link Student} user
+	 */
 	public void logout(String userID) {
 		Map<String, Student> studentData = DataStore.getStudentData();
 		
