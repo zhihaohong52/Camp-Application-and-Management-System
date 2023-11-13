@@ -71,7 +71,7 @@ public class CsvDataService implements IFileDataService {
 	private static List<String> suggestionCsvHeaders = new ArrayList<String>();
 
 	/**
-	 * Constructs an instance of the {@link CSVDataService} class.
+	 * Constructs an instance of the {@link CsvDataService} class.
 	 */
 	public CsvDataService() {}
 	

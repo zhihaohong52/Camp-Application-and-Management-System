@@ -4,7 +4,7 @@
 package util;
 
 /**
- * The {@link TextDecorationUtil} class provides utility methods for providing
+ * The {@link TextDecoratorUtil} class provides utility methods for providing
  * text decoration in the console display for the whole application.
  */
 public class TextDecoratorUtil {
