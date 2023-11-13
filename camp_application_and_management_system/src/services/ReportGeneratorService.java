@@ -17,12 +17,13 @@ import stores.DataStore;
 import util.TextDecoratorUtil;
 
 /**
- * 
+ * {@link ReportGeneratorService} implements {@link IReportGeneratorService}
+ * interface and creates an user interface for camp reports
  */
 public class ReportGeneratorService implements IReportGeneratorService{
 
 	/**
-	 * 
+	 * Construct an instance of {@link ReportGeneratorService}
 	 */
 	public ReportGeneratorService(){}
 

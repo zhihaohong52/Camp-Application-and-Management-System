@@ -19,12 +19,13 @@ import stores.AuthStore;
 import stores.DataStore;
 
 /**
- * 
+ * {@link CampStudentService} implements {@link ICampStudentService} interface and
+ * provide camp functions in the role permission of a student
  */
 public class CampStudentService implements ICampStudentService {
 
 	/**
-	 * 
+	 * Construct an instance of {@link CampStudentService}
 	 */
 	public CampStudentService() {}
 

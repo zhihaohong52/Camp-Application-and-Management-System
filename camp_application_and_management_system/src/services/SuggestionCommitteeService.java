@@ -18,14 +18,17 @@ import stores.DataStore;
 import util.IdNumberUtil;
 
 /**
- * 
+ * {@link SuggestionCommitteeService} implements {@link ISuggestionCommitteeService}
+ * interface
  */
 public class SuggestionCommitteeService implements ISuggestionCommitteeService {
-
+	/**
+	 * {@link Scanner} object to get input from user
+	 */
 	private static final Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * 
+	 * Construct an instance of {@link SuggestionCommitteeService}
 	 */
 	public SuggestionCommitteeService() {}
 

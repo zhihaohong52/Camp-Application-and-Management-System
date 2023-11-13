@@ -15,12 +15,14 @@ import stores.AuthStore;
 import stores.DataStore;
 
 /**
- * 
+ * {@link EnquireyCommitteeService} implements {@link IEnquiryCommitteeService}
+ * interface and provide enquiry related functions for a committee user
+ * for selected camp
  */
 public class EnquiryCommitteeService implements IEnquiryCommitteeService {
 
 	/**
-	 * 
+	 * Construct an instance of {@link EnquiryCommitteeService}
 	 */
 	public EnquiryCommitteeService() {}
 

@@ -12,63 +12,77 @@ import java.util.Map;
 import interfaces.IFileDataService;
 
 /**
- * 
+ * The {@link DataStore} class provides utility methods for managing data storage
+ * within the application. It offers methods to initialize the data store, import and export
+ * data to and from the file system, and interact with data maps for various data types.
  */
 public class DataStore {
 
 	/**
-	 * 
+	 * The {@link IFileDataService} instance used for data operations
 	 */
 	private static IFileDataService fileDataService;
 	
 	/**
-	 * 
+	 * A {@link Map} containing file paths for various data types.
 	 */
 	private static Map<String, String> filePathsMap;
 	
 	
 	/**
-	 * 
+	 * A {@link Map} containing user ID as the key and {@link User} objects
+	 * as the value
 	 */
 	private static Map<String, User> userData = new HashMap<String, User>();
 	
 	/**
-	 * 
+	 * A {@link Map} containing student ID as the key and {@link Student} objects
+	 * as the value.
 	 */
 	private static Map<String, Student> studentData = new HashMap<String, Student>();
 	
 	/**
-	 * 
+	 * A {@link Map} containing staff ID as the key and {@link Staff} objects
+	 * as the value.
 	 */
 	private static Map<String, Staff> staffData = new HashMap<String, Staff>();
 	
 	/**
-	 * 
+	 * A {@link Map} containing comittee ID as the key and {@link Committee} objects
+	 * as the value.
 	 */
 	private static Map<String, Committee> committeeData = new HashMap<String, Committee>();
 	
 	/**
-	 * 
+	 * A {@link Map} containing a numerical Camp ID as the key and {@link Camp} objects
+	 * as the value
 	 */
 	private static Map<Integer, Camp> campData = new HashMap<Integer, Camp>();
 
 	/**
-	 * 
+	 * A {@link Map} containing a numerical Enquiry ID as the key and {@link Enquiry} objects
+	 * as the value
 	 */
 	private static Map<Integer, Enquiry> enquiryData = new HashMap<Integer, Enquiry>();
 	
-	
+	/**
+	 * A {@link Map} containing a numerical Suggestion ID as the key and {@link Suggestion} objects
+	 * as the value
+	 */
 	private static Map<Integer, Suggestion> suggestionData = new HashMap<Integer, Suggestion>();
 	
 	/**
-	 * 
+	 * Private constructor to prevent instantiation of the class
 	 */
 	private DataStore() {}
 
 	/**
-	 * @param fileDataService
-	 * @param filePathsMap
-	 * @return
+	 * Initializes the DataStore by setting up the file data service, file paths map,
+	 * and importing data from the file system
+	 * @param fileDataService the {@link IFileDataService} instance to use for data operations
+	 * @param filePathsMap the {@link Map} containing file paths for various data types
+	 * @return {@code true} if the initialisation is successful,
+	 * {@code false} otherwise
 	 */
 	public static boolean initDataStore(IFileDataService fileDataService, Map<String, String> filePathsMap) {
 		DataStore.filePathsMap = filePathsMap;
@@ -86,7 +100,8 @@ public class DataStore {
 	}
 	
 	/**
-	 * @return
+	 * Save the data from the DataStore to the file system.
+	 * @return {@code true} if the data is saved succesfully, {@code false} otherwise
 	 */
 	public static boolean saveData() {
 		DataStore.setStudentData(studentData);
@@ -100,28 +115,37 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the userData
+	 * Get the users data map
+	 * @return a {@link Map} containing user ID as the key and {@link User} objects
+	 * as the value
 	 */
 	public static Map<String, User> getUserData() {
 		return userData;
 	}
 
 	/**
-	 * @param userData the userData to set
+	 * Sets the user data map and saves the data to the file system.
+	 * 
+	 * @param userData to set a {@link Map} containing user ID as the key and 
+	 * {@link User} objects as the value
 	 */
 	public static void setUserData(Map<String, User> userData) {
 		DataStore.userData = userData;
 	}
 
 	/**
-	 * @return the studentData
+	 * Gets the student data map
+	 * @return a {@link Map} containing student ID as the key and
+	 * {@link Student} objects as the value
 	 */
 	public static Map<String, Student> getStudentData() {
 		return DataStore.studentData;
 	}
 
 	/**
-	 * @param studentData the studentData to set
+	 * Sets the student data map and saves the data to the file system.
+	 * @param studentData to set a {@link Map} containing student ID as the key and
+	 * {@link Student} objects as the value
 	 */
 	public static void setStudentData(Map<String, Student> studentData) {
 		DataStore.studentData = studentData;
@@ -129,14 +153,18 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the staffData
+	 * Gets the staff data map
+	 * @return a {@link Map} containing staff ID as the key and
+	 * {@link Staff} objects as the value
 	 */
 	public static Map<String, Staff> getStaffData() {
 		return DataStore.staffData;
 	}
 
 	/**
-	 * @param staffData the staffData to set
+	 * Sets the staff data map and saves the data to the file system.
+	 * @param staffData to set a {@link Map} containing staff ID as the key and
+	 * {@link Staff} objects as the value
 	 */
 	public static void setStaffData(Map<String, Staff> staffData) {
 		DataStore.staffData = staffData;
@@ -144,14 +172,18 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the campCommitteeMemberData
+	 * Gets the committee data map
+	 * @return a {@link Map} containing committee ID as the key and
+	 * {@link Committee} objects as the value
 	 */
 	public static Map<String, Committee> getCommitteeData() {
 		return DataStore.committeeData;
 	}
 
 	/**
-	 * @param committeeData the campCommitteeMemberData to set
+	 * Sets the committee data map and saves the data to the file system.
+	 * @param committeeData to set a {@link Map} containing committee ID as the key and
+	 * {@link Committee} objects as the value
 	 */
 	public static void setCommitteeData(Map<String, Committee> committeeData) {
 		DataStore.committeeData = committeeData;
@@ -159,14 +191,18 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the campData
+	 * Gets the camp data map
+	 * @return a {@link Map} containing a numeric camp ID as the key and
+	 * {@link Camp} objects as the value
 	 */
 	public static Map<Integer, Camp> getCampData() {
 		return DataStore.campData;
 	}
 
 	/**
-	 * @param campData the campData to set
+	 * Sets the camp data map and saves the data to the file system.
+	 * @param campData to set a {@link Map} containing a numeric camp ID as the key and
+	 * {@link Camp} objects as the value
 	 */
 	public static void setCampData(Map<Integer, Camp> campData) {
 		DataStore.campData = campData;
@@ -174,14 +210,18 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the requestData
+	 * Gets the request data map
+	 * @return a {@link Map} containing a numeric enquiry ID as the key and
+	 * {@link Enquiry} objects as the value
 	 */
 	public static Map<Integer, Enquiry> getEnquiryData() {
 		return DataStore.enquiryData;
 	}
 
 	/**
-	 * @param requestData the requestData to set
+	 * Sets the request data map and saves the data to the file system.
+	 * @param requestData to set a {@link Map} containing a numeric enquiry ID as the key and
+	 * {@link Enquiry} objects as the value
 	 */
 	public static void setEnquiryData(Map<Integer, Enquiry> enquiryData) {
 		DataStore.enquiryData = enquiryData;
@@ -189,14 +229,18 @@ public class DataStore {
 	}
 
 	/**
-	 * @return the suggestionData
+	 * Gets the suggestion data map
+	 * @return a {@link Map} containing a numeric suggestion ID as the key and
+	 * {@link Suggestion} objects as the value
 	 */
 	public static Map<Integer, Suggestion> getSuggestionData() {
 		return suggestionData;
 	}
 
 	/**
-	 * @param suggestionData the suggestionData to set
+	 * Sets the suggestion data map and saves the data to the file system.
+	 * @param suggestionData to set a {@link Map} containing a numeric suggestion ID as the key and
+	 * {@link Suggestion} objects as the value
 	 */
 	public static void setSuggestionData(Map<Integer, Suggestion> suggestionData) {
 		DataStore.suggestionData = suggestionData;
