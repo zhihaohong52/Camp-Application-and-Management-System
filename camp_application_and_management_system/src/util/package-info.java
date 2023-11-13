@@ -2,6 +2,6 @@
  * 
  */
 /**
- * Contains useful classes and enums for program
+ * This subpackage contains useful classes and enums for program
  */
 package util;

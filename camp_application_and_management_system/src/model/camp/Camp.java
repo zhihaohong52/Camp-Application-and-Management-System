@@ -11,7 +11,7 @@ import enums.Schools;
 
 /**
  * Represents a camp declared within the system
- * @author Zhi Hao, !! everyone just put ur name here !!
+ * @author Zhi Hao, Venus, Siyu, Phyo, Advika
  * @version 1.0
  * @since put date of submission 2023-11-dd
  */
