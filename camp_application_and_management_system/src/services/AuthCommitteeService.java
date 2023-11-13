@@ -15,7 +15,7 @@ import stores.DataStore;
  * {@link AuthCommitteeService} extends {@link AuthStudentService} and 
  * provides authentication functions for Committee. 
  */
-public abstract class AuthCommitteeService extends AuthStudentService {
+public class AuthCommitteeService extends AuthStudentService {
 
 	/**
 	 * Construct an instance of {@link AuthCommitteeService}
