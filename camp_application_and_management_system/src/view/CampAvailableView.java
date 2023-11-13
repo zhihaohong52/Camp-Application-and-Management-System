@@ -10,12 +10,13 @@ import interfaces.ICampView;
 import model.camp.Camp;
 
 /**
- * 
+ * The {@link CampAvailableView} class implements {@link ICampView}
+ * and provide method to show the available camps
  */
 public class CampAvailableView implements ICampView {
 
 	/**
-	 * 
+	 * Construct an instance of {@link CampAvailableView}
 	 */
 	public CampAvailableView() {}
 

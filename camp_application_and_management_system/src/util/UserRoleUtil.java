@@ -6,12 +6,15 @@ package util;
 import enums.UserRole;
 
 /**
- * 
+ * The {@link UserRoleUtil} provide utility function for
+ * converting string input to an enum for the user role variable
  */
 public class UserRoleUtil {
 
 	/**
-	 * 
+	 * Convert from string input to UserRole enum variable
+	 * @param input the string input of UserRole status from csv file
+	 * @return the UserRole enum variable for code
 	 */
 	public static UserRole convertToEnum(String input) {
 		switch(input.toLowerCase()) {
