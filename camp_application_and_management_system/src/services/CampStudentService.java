@@ -5,6 +5,7 @@ package services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,9 @@ public class CampStudentService implements ICampStudentService {
 				availableCamps.add(camp);
 			}
 		}
+			
+		Collections.sort(availableCamps, (camp1, camp2) -> camp1.getName().compareTo(camp2.getName()));
+		
 		return availableCamps;
 	}
 
@@ -57,6 +61,9 @@ public class CampStudentService implements ICampStudentService {
 				registeredCamps.add(camp);
 			}
 		}
+		
+		Collections.sort(registeredCamps, (camp1, camp2) -> camp1.getName().compareTo(camp2.getName()));
+		
 		return registeredCamps;
 	}
 

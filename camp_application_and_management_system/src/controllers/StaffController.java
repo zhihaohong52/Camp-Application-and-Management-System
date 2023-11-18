@@ -30,6 +30,7 @@ import services.SuggestionStaffService;
 import stores.AuthStore;
 import stores.DataStore;
 import util.BooleanConverterUtil;
+import util.CampFilter;
 import util.IdNumberUtil;
 import util.SelectorUtil;
 import util.TextDecoratorUtil;
@@ -259,17 +260,75 @@ public class StaffController extends UserController {
 	}
 
 	private void viewAllCamps(ICampView campView) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		ArrayList<Camp> camps = campStaffService.getAllCamps();
 		
 		if (camps.isEmpty()) {
 			System.out.println("No camps have been created.\n");
 		}
 		else {
-			for (Camp camp : camps) {
-				campView.displayCamp(camp);
-				System.out.println();
-			}
-		}
+			ArrayList<Camp> filteredCamps = new ArrayList<>();
+	        int choice;
+
+	        do {
+	            System.out.println("Filter by:");
+	            System.out.println("0. None");
+	            System.out.println("1. Name");
+	            System.out.println("2. Date");
+	            System.out.println("3. Location");
+	            System.out.println("4. Student");
+	            System.out.println("5. Camp committee");
+	            System.out.println("6. Exit");
+	            choice = sc.nextInt();
+	            sc.nextLine(); // Consume the newline character
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.println("Enter name: ");
+	                    String name = sc.nextLine();
+	                    filteredCamps = CampFilter.filterByName(camps, name);
+	                    break;
+	                case 2:
+	                    System.out.println("Enter date (dd/mm/yyyy): ");
+	                    String dateString = sc.nextLine();
+	                    LocalDate date = LocalDate.parse(dateString, formatter);
+	                    filteredCamps = CampFilter.filterByDate(camps, date);
+	                    break;
+	                case 3:
+	                    System.out.println("Enter location: ");
+	                    String location = sc.nextLine();
+	                    filteredCamps = CampFilter.filterByLocation(camps, location);
+	                    break;
+	                case 4:
+	                	System.out.println("Enter student: ");
+	                	String student = sc.nextLine();
+	                	filteredCamps = CampFilter.filterByStudent(filteredCamps, student);
+	                	break;
+	                case 5:
+	                	System.out.println("Enter committee: ");
+	                	String committee = sc.nextLine();
+	                	filteredCamps = CampFilter.filterByCommittee(filteredCamps, committee);
+	                	break;
+	                case 0:
+	                    filteredCamps = camps;
+	                    break;
+	                case 6:
+	                    System.out.println("Exiting filter.");
+	                    break;
+	                default:
+	                    System.out.println("Invalid input.");
+	            }
+
+	            if (filteredCamps.isEmpty() && choice != 6) {
+	                System.out.println("No camp found!");
+	            }
+
+	            for (Camp camp : filteredCamps) {
+	                campView.displayCamp(camp);
+	                System.out.println();
+	            }
+	        } while (choice != 6);
+	    }
 	}
 	
 	private void createCamps() {
