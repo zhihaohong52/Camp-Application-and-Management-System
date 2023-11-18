@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,6 +21,7 @@ import services.CampStudentService;
 import services.EnquiryStudentService;
 import stores.AuthStore;
 import stores.DataStore;
+import util.CampFilter;
 import util.SelectorUtil;
 import util.TextDecoratorUtil;
 import view.CampAvailableView;
@@ -218,20 +221,66 @@ public class StudentController extends UserController {
      * @param campView The view interface for displaying camp details.
      */
 	private void viewAvailableCamps(ICampView campView) {
-		Student student = (Student) AuthStore.getCurrentUser();
-		Schools school = student.getFaculty();
-		
-		ArrayList<Camp> availableCamps = campStudentService.getAvailableCamps(school);
-		
-		if (availableCamps.isEmpty()) {
-			System.out.println("There are no camps available at the moment.\n");
-		}
-		else {
-			for (Camp camp : availableCamps) {
-				campView.displayCamp(camp);
-				System.out.println();
-			}
-		}
+	    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    Student student = (Student) AuthStore.getCurrentUser();
+	    Schools school = student.getFaculty();
+
+	    ArrayList<Camp> availableCamps = campStudentService.getAvailableCamps(school);
+
+	    if (availableCamps.isEmpty()) {
+	        System.out.println("There are no camps available at the moment.\n");
+	    } 
+	    else {
+	        ArrayList<Camp> filteredCamps = new ArrayList<>();
+	        int choice;
+
+	        do {
+	            System.out.println("Filter by:");
+	            System.out.println("0. None");
+	            System.out.println("1. Name");
+	            System.out.println("2. Date");
+	            System.out.println("3. Location");
+	            System.out.println("4. Exit");
+	            choice = sc.nextInt();
+	            sc.nextLine(); // Consume the newline character
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.println("Enter name: ");
+	                    String name = sc.nextLine();
+	                    filteredCamps = CampFilter.filterByName(availableCamps, name);
+	                    break;
+	                case 2:
+	                    System.out.println("Enter date (dd/mm/yyyy): ");
+	                    String dateString = sc.next();
+	                    LocalDate date = LocalDate.parse(dateString, formatter);
+	                    filteredCamps = CampFilter.filterByDate(availableCamps, date);
+	                    break;
+	                case 3:
+	                    System.out.println("Enter location: ");
+	                    String location = sc.next();
+	                    filteredCamps = CampFilter.filterByLocation(availableCamps, location);
+	                    break;
+	                case 0:
+	                    filteredCamps = availableCamps;
+	                    break;
+	                case 4:
+	                    System.out.println("Exiting filter.");
+	                    break;
+	                default:
+	                    System.out.println("Invalid input.");
+	            }
+
+	            if (filteredCamps.isEmpty() && choice != 4) {
+	                System.out.println("No camp found!");
+	            }
+
+	            for (Camp camp : filteredCamps) {
+	                campView.displayCamp(camp);
+	                System.out.println();
+	            }
+	        } while (choice != 4);
+	    }
 	}
 	
 	 /**
@@ -240,6 +289,7 @@ public class StudentController extends UserController {
      * @param campView The view interface for displaying camp details.
      */
 	private void viewRegisteredCamps(ICampView campView) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		Student student = (Student) AuthStore.getCurrentUser();
 		String studentID = student.getID();
 		
@@ -249,11 +299,56 @@ public class StudentController extends UserController {
 			System.out.println("You have not registered for any camps");
 		}
 		else {
-			for (Camp camp : registeredCamps) {
-				campView.displayCamp(camp);
-				System.out.println();
-			}
-		}
+			ArrayList<Camp> filteredCamps = new ArrayList<>();
+	        int choice;
+
+	        do {
+	            System.out.println("Filter by:");
+	            System.out.println("0. None");
+	            System.out.println("1. Name");
+	            System.out.println("2. Date");
+	            System.out.println("3. Location");
+	            System.out.println("4. Exit");
+	            choice = sc.nextInt();
+	            sc.nextLine(); // Consume the newline character
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.println("Enter name: ");
+	                    String name = sc.nextLine();
+	                    filteredCamps = CampFilter.filterByName(registeredCamps, name);
+	                    break;
+	                case 2:
+	                    System.out.println("Enter date (dd/mm/yyyy): ");
+	                    String dateString = sc.next();
+	                    LocalDate date = LocalDate.parse(dateString, formatter);
+	                    filteredCamps = CampFilter.filterByDate(registeredCamps, date);
+	                    break;
+	                case 3:
+	                    System.out.println("Enter location: ");
+	                    String location = sc.next();
+	                    filteredCamps = CampFilter.filterByLocation(registeredCamps, location);
+	                    break;
+	                case 0:
+	                    filteredCamps = registeredCamps;
+	                    break;
+	                case 4:
+	                    System.out.println("Exiting filter.");
+	                    break;
+	                default:
+	                    System.out.println("Invalid input.");
+	            }
+
+	            if (filteredCamps.isEmpty() && choice != 4) {
+	                System.out.println("No camp found!");
+	            }
+
+	            for (Camp camp : filteredCamps) {
+	                campView.displayCamp(camp);
+	                System.out.println();
+	            }
+	        } while (choice != 4);
+	    }
 	}
 	
 	/**
