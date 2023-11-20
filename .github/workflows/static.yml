@@ -29,17 +29,22 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+      - uses: actions/checkout@v3
+
+      - name: Install JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
       - name: Build JavaDocs
         run: javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:models:services:stores:utils:views -private
+     
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: '.'
+          path: './docs'
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1
