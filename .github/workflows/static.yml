@@ -38,16 +38,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Go into Folder
-        run: cd camp_application_and_management_system
-
       - name: Build JavaDocs
         run: javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './docs'
+          path: './camp_application_and_management_system/docs'
 
       - name: Deploy to GitHub Pages
         id: deployment
