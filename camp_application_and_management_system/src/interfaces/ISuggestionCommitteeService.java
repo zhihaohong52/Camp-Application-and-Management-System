@@ -23,7 +23,7 @@ public interface ISuggestionCommitteeService {
       /**
      * Retrieves a list of processing suggestions.
      *
-     * @return An {@code ArrayList} of {@codlinke Suggestion} objects representing processing suggestions.
+     * @return An {@code ArrayList} of {@link Suggestion} objects representing processing suggestions.
      */
 	public ArrayList<Suggestion> viewProcessingSuggestions();
 	

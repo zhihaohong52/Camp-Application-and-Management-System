@@ -52,7 +52,6 @@ public class Suggestion {
      * @param commiteeID Identifier of the committee member who made the suggestion.
      * @param question Description of the suggestion.
      */
-
 	public Suggestion(int enquiryID, int campID, String committeeID, String question) {
 		this.suggestionID = enquiryID;
 		this.campID = campID;

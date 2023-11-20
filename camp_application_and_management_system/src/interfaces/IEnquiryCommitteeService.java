@@ -1,7 +1,3 @@
-/**
- * The {@link IEnquiryCommitteeService} interface defines the contract for services related to camp enquiries
- * for committee members. It provides methods to view enquiries for a specific camp and reply to those enquiries.
- */
 package interfaces;
 
 import java.util.ArrayList;
@@ -9,6 +5,10 @@ import java.util.ArrayList;
 import model.camp.Camp;
 import model.camp.Enquiry;
 
+/**
+ * The {@link IEnquiryCommitteeService} interface defines the contract for services related to camp enquiries
+ * for committee members. It provides methods to view enquiries for a specific camp and reply to those enquiries.
+ */
 public interface IEnquiryCommitteeService {
 	/**
      * Retrieves a list of enquiries associated with the provided camp.

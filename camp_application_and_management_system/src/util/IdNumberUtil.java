@@ -9,7 +9,7 @@ import model.camp.Enquiry;
 import model.camp.Suggestion;
 
 /**
- * The {@IdNumberUtil} class provide utility functions that
+ * The {@link IdNumberUtil} class provide utility functions that
  * find the lowest available ID integer for Camp, Enquiry, and Suggestion
  * so that the new object created will take the lowest available ID
  */

@@ -1,10 +1,11 @@
-/**
- * The {@link ICampView} interface defines a contract for classes that provide methods to display information about camps.
- */
+
 package interfaces;
 
 import model.camp.Camp;
 
+/**
+ * The {@link ICampView} interface defines a contract for classes that provide methods to display information about camps.
+ */
 public interface ICampView {
 	
     /**

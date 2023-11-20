@@ -134,6 +134,11 @@ public class CsvDataService implements IFileDataService {
 		return true;
 	}
 	
+	/**
+	 * parse string into a map for code
+	 * @param userRow string from csv file
+	 * @return map for code
+	 */
 	private Map<String, String> parseUserRow(String[] userRow){
 		String userID = userRow[0];
 		String name = userRow[1];

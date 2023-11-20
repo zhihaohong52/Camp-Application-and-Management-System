@@ -220,7 +220,7 @@ public class DataStore {
 
 	/**
 	 * Sets the request data map and saves the data to the file system.
-	 * @param requestData to set a {@link Map} containing a numeric enquiry ID as the key and
+	 * @param enquiryData to set a {@link Map} containing a numeric enquiry ID as the key and
 	 * {@link Enquiry} objects as the value
 	 */
 	public static void setEnquiryData(Map<Integer, Enquiry> enquiryData) {

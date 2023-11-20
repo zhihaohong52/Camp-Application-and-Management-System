@@ -6,5 +6,8 @@ package enums;
  * This indicates the current processing status of an enquiry
  */
 public enum EnquiryStatus {
+	/**
+	 * 2 status about EnquiryStatus: Processing or Processed
+	 */
 	Processing, Processed
 }

@@ -1,7 +1,3 @@
-/**
- * The {@link IEnquiryStaffService} interface defines the contract for services related to handling enquiries for camp staff. 
- * Implementing classes are expected to provide functionality for viewing enquiries associated with a specific camp and replying to those enquiries.
- */
 package interfaces;
 
 import java.util.ArrayList;
@@ -9,6 +5,10 @@ import java.util.ArrayList;
 import model.camp.Camp;
 import model.camp.Enquiry;
 
+/**
+ * The {@link IEnquiryStaffService} interface defines the contract for services related to handling enquiries for camp staff. 
+ * Implementing classes are expected to provide functionality for viewing enquiries associated with a specific camp and replying to those enquiries.
+ */
 public interface IEnquiryStaffService {
 	 /**
      * Retrieves a list of enquiries associated with a specific camp.

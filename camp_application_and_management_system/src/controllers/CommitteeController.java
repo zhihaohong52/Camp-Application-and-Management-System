@@ -28,7 +28,7 @@ import view.EnquiryView;
 import view.SuggestionView;
 
 /**
- * The {@link CommitteController} class for managing activities related to the camp.
+ * The {@link CommitteeController} class for managing activities related to the camp.
  * Extends the functionality of the {@link StudentController} class
  */
 public class CommitteeController extends StudentController {
@@ -61,8 +61,8 @@ public class CommitteeController extends StudentController {
 
 	/**
 	 * Starts the committee controller, allows the committee member to perform various actions related to specific camp.\
-	 * @param Committee The committee member associated with this controller
-	 * @param Camp     The camp for which the committee actions are performed.
+	 * @param committee The committee member associated with this controller
+	 * @param camp     The camp for which the committee actions are performed.
 	 */
 	public void start(Committee committee, Camp camp) {
 		
@@ -261,6 +261,9 @@ public class CommitteeController extends StudentController {
 		}
 	}
 	
+	/**
+	 * Method to delete suggestion
+	 */
 	private void deleteSuggestion() {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		

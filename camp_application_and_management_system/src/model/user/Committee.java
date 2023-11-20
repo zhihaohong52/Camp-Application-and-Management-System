@@ -38,6 +38,7 @@ public class Committee extends Student {
 	}
 	
 	/**
+	 * Create an object of the {@link Committee} class
 	 * @param name Name of the committee member.
 	 * @param password Password of the committee member.
 	 * @param userID User ID of the committee member.

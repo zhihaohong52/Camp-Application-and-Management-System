@@ -46,10 +46,13 @@ public class User {
 	
 	/**
 	 * Create an object of the {@link User} class
-	 * 
-	 * @param name
-	 * @param userID
-	 * @param faculty
+	 * @param name user's name
+	 * @param password user's password
+	 * @param userID user's ID
+	 * @param email user's email
+	 * @param faculty user's faculty info
+	 * @param type user's role
+	 * @param firstLogin Check if it's user's first login
 	 */
 	public User(String name, String password, String userID, String email, Schools faculty, UserRole type, boolean firstLogin) {
 		this.name = name;

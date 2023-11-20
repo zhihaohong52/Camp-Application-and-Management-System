@@ -14,11 +14,19 @@ import enums.Schools;
  * schools that camps are able to participate in
  */
 public class SchoolEnumUtil {
-	
+	/**
+	 * Schools under College of Engineering
+	 */
 	public static final Schools[] CoE = {Schools.SCSE, Schools.CCEB, Schools.EEE, Schools.CEE, Schools.MSE, Schools.MAE};
 
+	/**
+	 * Schools under College of Humanities and Social Sciences
+	 */
 	public static final Schools[] CoHASS = {Schools.ADM, Schools.SOH, Schools.SSS, Schools.WKWSCI};
 	
+	/**
+	 * Schools under College of Science
+	 */
 	public static final Schools[] CoS = {Schools.CCEB, Schools.SPMS, Schools.SBS, Schools.ASE};
 	
 	/**
