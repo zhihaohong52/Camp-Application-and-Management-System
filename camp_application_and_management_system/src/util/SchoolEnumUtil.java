@@ -1,6 +1,3 @@
-/**
- * 
- */
 package util;
 
 import java.util.ArrayList;
@@ -9,6 +6,10 @@ import java.util.List;
 
 import enums.Schools;
 
+/**
+ * The {@link SchoolEnumUtil} provides utility functions for
+ * schools that camps are able to participate in
+ */
 public class SchoolEnumUtil {
 	/**
 	 * Schools under College of Engineering
