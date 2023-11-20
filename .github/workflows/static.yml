@@ -39,7 +39,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Go into Folder
-        run: cd Camp-Application-and-Management-System/camp_application_and_management_system
+        run: cd camp_application_and_management_system
 
       - name: Build JavaDocs
         run: javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
