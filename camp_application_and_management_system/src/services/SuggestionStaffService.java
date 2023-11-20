@@ -13,12 +13,14 @@ import model.user.Committee;
 import stores.DataStore;
 
 /**
- * 
+ * {@link SuggestionStaffService} implements {@link ISuggestionStaffService}
+ * interface and provide suggestions related functions for a staff user
+ * for selected camp
  */
 public class SuggestionStaffService implements ISuggestionStaffService {
 
 	/**
-	 * 
+	 * Create an instance of {@link SuggestionStaffService}
 	 */
 	public SuggestionStaffService() {}
 

@@ -16,12 +16,13 @@ import stores.DataStore;
 import util.TextDecoratorUtil;
 
 /**
- * 
+ * The {@link EnquiryView} implements {@link IEnquiryView}
+ * and provide a method to display enquiries
  */
 public class EnquiryView implements IEnquiryView {
 
 	/**
-	 * 
+	 * Construct an instance of {@link EnquiryView}
 	 */
 	public EnquiryView() {}
 

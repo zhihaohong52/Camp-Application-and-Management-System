@@ -13,12 +13,13 @@ import model.user.Staff;
 import stores.DataStore;
 
 /**
- * 
+ * The {@link SuggestionView} class implements {@link ISuggestionView}
+ * and provide a method to display suggestions
  */
 public class SuggestionView implements ISuggestionView {
 
 	/**
-	 * 
+	 * Construct an instance of {@link SuggestionView}
 	 */
 	public SuggestionView() {}
 

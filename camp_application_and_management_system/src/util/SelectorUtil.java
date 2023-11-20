@@ -16,17 +16,28 @@ import model.camp.Suggestion;
 import stores.DataStore;
 
 /**
- * 
+ * The {@link SelectorUtil} class provides utility methods to select various
+ * entities like camps, enquirie, suggestions and schools from a list by getting user
+ * input.
  */
 public class SelectorUtil {
 
+	/**
+     * {@link Scanner} object to get input from the user.
+     */
 	private static final Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * 
+	 * Constructs an instance of the {@link SelectorUtil} class
 	 */
 	public SelectorUtil() {}
 
+	/**
+     * Selects a camp from a list of camps by getting user input.
+     *
+     * @param camps the list of camps
+     * @return the selected camp or null if no camp is selected
+     */
 	public static Camp campSelector(ArrayList<Camp> camps) {
 		while (true) {
 			System.out.println("CampID\tCamp name");
@@ -58,6 +69,12 @@ public class SelectorUtil {
 		}
 	}
 	
+	/**
+     * Selects an enquiry from a list of enquiries by getting user input.
+     *
+     * @param enquiries the list of enquiries
+     * @return the selected enquiry or null if no enquiry is selected
+     */
 	public static Enquiry enquirySelector(ArrayList<Enquiry> enquiries) {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		while (true) {
@@ -94,6 +111,12 @@ public class SelectorUtil {
 		}
 	}
 	
+	/**
+     * Selects an suggestion from a list of suggestions by getting user input.
+     *
+     * @param suggestions the list of suggestions
+     * @return the selected suggestion or null if no suggestion is selected
+     */
 	public static Suggestion suggestionSelector(ArrayList<Suggestion> suggestions) {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		while (true) {
@@ -130,6 +153,10 @@ public class SelectorUtil {
 		}
 	}
 	
+	/**
+     * Selects school(s) from a list of schools by getting user input.
+     * @return the list of schools the camp is open to
+     */
 	public static List<Schools> schoolSelector(){
 		List<Schools> available = new ArrayList<Schools>();
 		

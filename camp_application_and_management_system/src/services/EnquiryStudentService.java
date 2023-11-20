@@ -18,17 +18,19 @@ import stores.DataStore;
 import util.IdNumberUtil;
 
 /**
- * 
+ * {@link EnquiryStudentService} implemets {@link IEnquiryStudentService}
+ * interface and provide enquiry related functions for a student user
+ * for selected camp
  */
 public class EnquiryStudentService implements IEnquiryStudentService{
 
 	/**
-	 * 
+	 * {@link Scanner} object to get input from user
 	 */
 	private static final Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * 
+	 * Construct an instance of {@link EnquiryStudentService}
 	 */
 	public EnquiryStudentService()  {}
 
