@@ -12,4 +12,14 @@
  * @author Venus Ng Min Jia
  */
 module camp_management_and_application_system {
+    exports controllers;
+    exports enums;
+    exports interfaces;
+    exports main;
+    exports model.camp;
+    exports model.user;
+    exports services;
+    exports stores;
+    exports util;
+    exports view;
 }
