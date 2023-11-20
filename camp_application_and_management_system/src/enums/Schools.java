@@ -35,7 +35,7 @@ public enum Schools {
 	 */
 	NBS, 
 	/**
-	 * School of Art, Design & Media
+	 * School of Art, Design and Media
 	 */
 	ADM, 
 	/**
