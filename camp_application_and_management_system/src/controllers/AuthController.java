@@ -93,10 +93,16 @@ public class AuthController{
         } while (!authenticated);
     }
 	
+    /**
+     * Switch logged in user from student to committee
+     */
 	public static void changeToCommittee() {
 		authService = (AuthCommitteeService) authService;
 	}
 	
+    /**
+     * Switch logged in user from committee to student
+     */
 	public static void changeToStudent() {
 		authService = (AuthStudentService) authService;
 	}

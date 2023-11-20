@@ -12,8 +12,8 @@ public interface IAuthService {
 	/**
 	 * Logs in a user with userID and password (for student and staff)
 	 * 
-	 * @param userID
-	 * @param password
+	 * @param userID user's userID
+	 * @param password user's password
 	 * @return {@code True} if the user is authenticated successfully, {@code False} otherwise
 	 */
 	default public boolean login(String userID, String password) {

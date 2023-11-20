@@ -6,5 +6,16 @@ package enums;
  * This indicates the current processing status of a suggestion
  */
 public enum SuggestionStatus {
-	Processing, Approved, Rejected
+	/**
+	 * Suggestion is Processing
+	 */
+	Processing, 
+	/**
+	 * Suggestion is Approved
+	 */
+	Approved, 
+	/**
+	 * Suggestion is Rejected
+	 */
+	Rejected
 }

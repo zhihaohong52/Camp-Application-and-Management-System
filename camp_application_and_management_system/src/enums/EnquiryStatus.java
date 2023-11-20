@@ -7,7 +7,11 @@ package enums;
  */
 public enum EnquiryStatus {
 	/**
-	 * 2 status about EnquiryStatus: Processing or Processed
+	 * enquiry is processing
 	 */
-	Processing, Processed
+	Processing, 
+	/**
+	 * enquiry is processed
+	 */
+	Processed
 }

@@ -86,10 +86,10 @@ public class Camp {
 	 * @param description	Description of the camp
 	 * @param staffIC	IC of staff in charge
 	 * @param visibility	visibility of the camp to students
-	 * @param students	A list of {@link Student} that registered for the camp
+	 * @param students	A list of students that registered for the camp
 	 * @param campCommitteeSlots Number of slots for camp committee members
-	 * @param campCommittee	A list of {@link Committee} that attached to the camp
-	 * @param withdrawn A list of {@link Student} that withdraw from the camp
+	 * @param campCommittee	A list of committee that attached to the camp
+	 * @param withdrawn A list of students that withdraw from the camp
 	 */
 	public Camp(int campID, String name, List<LocalDate> dates, LocalDate closing, List<Schools> available,
 			String location, int totalSlots, String description, String staffIC, boolean visibility, 
@@ -202,10 +202,9 @@ public class Camp {
 	}
 
 	/**
- 	* Sets the list of available schools for the camp.
- 	*
- 	* @param available The list of available schools to set for the camp.
- 	*/
+	 * Sets the list of available schools for the camp.
+	 * @param school The list of available schools to set for the camp.
+	 */
 	public void setAvailable(List<Schools> school) {
 		this.available.addAll(school);
 	}
@@ -396,7 +395,7 @@ public class Camp {
 	/**
 	 * Gets the list of withdrawn participants from the camp.
 	 *
-	 * @return The list of withdrawn {@link Student} from the camp.
+	 * @return The list of withdrawn students from the camp.
 	 */
 	public List<String> getWithdrawn() {
 		return withdrawn;

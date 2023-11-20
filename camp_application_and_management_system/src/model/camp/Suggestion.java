@@ -49,7 +49,7 @@ public class Suggestion {
      *
      * @param enquiryID Unique identifier for the suggestion.
      * @param campID Identifier of the camp associated with the suggestion.
-     * @param commiteeID Identifier of the committee member who made the suggestion.
+     * @param committeeID Identifier of the committee member who made the suggestion.
      * @param question Description of the suggestion.
      */
 	public Suggestion(int enquiryID, int campID, String committeeID, String question) {

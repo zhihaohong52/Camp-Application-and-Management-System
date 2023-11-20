@@ -42,6 +42,9 @@ public class User {
 	
 	private String email;
 	
+	/**
+	 * Boolean to check if it is user's first login
+	 */
 	private boolean firstLogin;
 	
 	/**
@@ -93,8 +96,8 @@ public class User {
 	
 	/**
 	 * Set password
-	 * 
 	 * @param newPassword The new password set by the user
+	 * @return boolean that show password set success 
 	 */
 	public boolean setPassword(String newPassword) {
 	
