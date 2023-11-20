@@ -20,32 +20,74 @@ import enums.Schools;
  */
 public class Camp {
 	
+	/**
+	 * camp's campID
+	 */
 	private int campID;
 	
+	/**
+	 * name of camp
+	 */
 	private String name; 
 	
+	/**
+	 * list of the dates the camp is held
+	 */
 	private List<LocalDate> dates = new ArrayList<LocalDate>();
 	
+	/**
+	 * closing date of camp
+	 */
 	private LocalDate closing;
 	
+	/**
+	 * list of available schools
+	 */
 	private List<Schools> available = new ArrayList<Schools>();
 	
+	/**
+	 * location of camp
+	 */
 	private String location;
 	
+	/**
+	 * total number of slots for camo
+	 */
 	private int totalSlots;
 	
+	/**
+	 * list of students participating in the camp
+	 */
 	private List<String> students = new ArrayList<String>();
 	
+	/**
+	 * number of camp committee slots
+	 */
 	private int campCommitteeSlots = 10;
 	
+	/**
+	 * List of camp committee
+	 */
 	private List<String> campCommittee = new ArrayList<String>(10);
 	
+	/**
+	 * camp description
+	 */
 	private String description;
 	
+	/**
+	 * staff in-charge of the camp
+	 */
 	private String staffIC;
 	
+	/**
+	 * the visibility of the camp
+	 */
 	private boolean visibility;
 	
+	/**
+	 * list of withdrawn student from the camp
+	 */
 	private List<String> withdrawn = new ArrayList<String>();
 	
 	/**
