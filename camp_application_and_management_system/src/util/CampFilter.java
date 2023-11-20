@@ -9,9 +9,6 @@ import java.util.List;
 
 import model.camp.Camp;
 
-/**
- * The {@link CampFilter} provides a filter methods for user interface
- */
 public class CampFilter {
 
 	/**

@@ -5,10 +5,7 @@ package util;
 
 import enums.UserRole;
 
-/**
- * The {@link UserRoleUtil} provide utility function for
- * converting string input to an enum for the user role variable
- */
+
 public class UserRoleUtil {
 
 	/**

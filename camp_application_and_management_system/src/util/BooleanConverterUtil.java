@@ -4,11 +4,6 @@
 package util;
 
 
-
-/**
- * The {@link BooleanConverterUtil} provides a function that allows conversion of
- * given input to a boolean variable for visibility or first login checking
- */
 public class BooleanConverterUtil {
 	/**
 	 * Converts a string input to a boolean variable
