@@ -1,34 +1,35 @@
-/**
- * 
- */
+
 package model.user;
 
 import enums.Schools;
 
 /**
- *
+ * This class {@link Committee} represents committee member of a camp, extending the properties of the class {@link Student}.
+ * Committee members are students who actively participate in camps and accrue points.
  */
 public class Committee extends Student {
 
 	/**
-	 * Camp where user is a committee member
-	 */
+     * Identifier of the camp where the committee member is associated.
+     */
 	
 	private int campID;
 	
 	/**
-	 * 
-	 */
+     * Points accrued by the committee member.
+     */
 	private int point;
 
 	/**
-	 * @param name
-	 * @param password
-	 * @param userID
-	 * @param email
-	 * @param faculty
-	 * @param firstLogin
-	 * @param campID
+	 * Constructor of class {@code Committee}
+	 * 
+	 * @param name Name of the committee member.
+	 * @param password Password of the committee member.
+	 * @param userID User ID of the committee member.
+	 * @param email Email of the committee member.
+	 * @param faculty Faculty to which the committee member belongs.
+	 * @param firstLogin  Flag indicating whether it's the committee member's first login.
+	 * @param campID Identifier of the camp where the committee member is associated.
 	 */
 	public Committee(String name, String password, String userID, String email, Schools faculty, boolean firstLogin, int campID) {
 		super(name, password, userID, email, faculty, firstLogin);
@@ -37,14 +38,14 @@ public class Committee extends Student {
 	}
 	
 	/**
-	 * @param name
-	 * @param password
-	 * @param userID
-	 * @param email
-	 * @param faculty
-	 * @param firstLogin
-	 * @param campID
-	 * @param point
+	 * @param name Name of the committee member.
+	 * @param password Password of the committee member.
+	 * @param userID User ID of the committee member.
+	 * @param email Email of the committee member.
+	 * @param faculty Faculty to which the committee member belongs.
+	 * @param firstLogin  Flag indicating whether it's the committee member's first login.
+	 * @param campID Identifier of the camp where the committee member is associated.
+     * @param point Points accrued by the committee member.
 	 */
 	public Committee(String name, String password, String userID, String email, Schools faculty, boolean firstLogin, int campID, int point) {
 		super(name, password, userID, email, faculty, firstLogin);
@@ -52,27 +53,38 @@ public class Committee extends Student {
 		this.point = point;
 	}
 
-	/**
-	 * @return
-	 */
+ 	/**
+     * Gets the identifier of the camp where the committee member is associated.
+     *
+     * @return The identifier of the camp where the committee member is associated.
+     */
 	public int getCampID() {
 		return campID;
 	}
 	
+	 /**
+     * Sets the identifier of the camp where the committee member is associated.
+     *
+     * @param campID The identifier to set for the camp where the committee member is associated.
+     */
 	public void setCampID(int campID) {
 		this.campID = campID;
 	}
 
 	/**
-	 * @return the point
-	 */
+     * Gets the points accrued by the committee member.
+     *
+     * @return The points accrued by the committee member.
+     */
 	public int getPoint() {
 		return point;
 	}
 
 	/**
-	 * @param point the point to set
-	 */
+     * Sets the points accrued by the committee member.
+     *
+     * @param point The points to set for the committee member.
+     */
 	public void setPoint(int point) {
 		this.point = point;
 	}

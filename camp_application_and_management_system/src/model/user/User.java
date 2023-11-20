@@ -63,6 +63,7 @@ public class User {
 	
 	/**
 	 * Gets the user's name
+	 * 
 	 * @return name
 	 */
 	public String getName() {
@@ -71,6 +72,7 @@ public class User {
 	
 	/**
 	 * Gets the user's ID
+	 * 
 	 * @return userID
 	 */
 	public String getID() {
@@ -79,6 +81,7 @@ public class User {
 	
 	/**
 	 * Gets the user's password
+	 * 
 	 * @return password
 	 */
 	public String getPassword() {
@@ -87,6 +90,8 @@ public class User {
 	
 	/**
 	 * Set password
+	 * 
+	 * @param newPassword The new password set by the user
 	 */
 	public boolean setPassword(String newPassword) {
 	
@@ -100,6 +105,8 @@ public class User {
 	}
 	
 	/**
+	 * Gets the email of the user 
+	 *
 	 * @return the email
 	 */
 	public String getEmail() {
@@ -108,6 +115,7 @@ public class User {
 
 	/**
 	 * Gets the user's faculty info
+	 * 
 	 * @return faculty
 	 */
 	public Schools getFaculty() {
@@ -116,13 +124,16 @@ public class User {
 
 	/**
 	 * Gets the user's role
-	 * @return type
+	 * 
+	 * @return type of user's role
 	 */
 	public UserRole getType() {
 		return type;
 	}
 
 	/**
+	 * Sets the usertype 
+	 * 
 	 * @param type the type to set
 	 */
 	public void setType(UserRole type) {
@@ -131,6 +142,7 @@ public class User {
 
 	/**
 	 * Check's if it's user's first login
+	 * 
 	 * @return firstLogin
 	 */
 	public boolean isFirstLogin() {

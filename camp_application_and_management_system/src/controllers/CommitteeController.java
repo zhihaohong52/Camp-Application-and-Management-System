@@ -28,23 +28,42 @@ import view.EnquiryView;
 import view.SuggestionView;
 
 /**
- * 
+ * The {@link CommitteController} class for managing activities related to the camp.
+ * Extends the functionality of the {@link StudentController} class
  */
 public class CommitteeController extends StudentController {
+	
+	/**
+	 * This class has-a {@link Camp} which the committee member are incharge of
+	 */
 
 	private Camp camp = null;
-	
+
+	/**
+	 * This class has-a {@link IEnquiryCommitteeService} object which the member has to deal with enquiries that the participants sent
+	 */
 	private static final IEnquiryCommitteeService enquiryCommitteeService = new EnquiryCommitteeService();
 	
+	/**
+	 * This class has-a {@link ISuggestionCommitteeService} object which the member has to deal with Suggestions that the participants sent
+	 */
 	private static final ISuggestionCommitteeService suggestionCommitteeService = new SuggestionCommitteeService();
 	
+	/**
+	 * This class has-a {@link IReportGeneratorService} object which the member can use to generate a report regarding the camp
+	 */
 	private static final IReportGeneratorService reportGeneratorService = new ReportGeneratorService();
 	
 	/**
-	 * 
+	 * Default constructor for CommitteeController class
 	 */
 	public CommitteeController() {}
-	
+
+	/**
+	 * Starts the committee controller, allows the committee member to perform various actions related to specific camp.\
+	 * @param Committee The committee member associated with this controller
+	 * @param Camp     The camp for which the committee actions are performed.
+	 */
 	public void start(Committee committee, Camp camp) {
 		
 		ICampView campView;
@@ -140,7 +159,12 @@ public class CommitteeController extends StudentController {
 			}
 		} while (true);
 	}
-	
+
+	/**
+	 * Displays a list of enquiries associated with the given camp that the {@link Committee} is associated with
+	 * 
+	 * @param enquiryView The view is responsible for displaying enquiry information regarding the camp.
+	 */
 	private void viewEnquiries(IEnquiryView enquiryView) {
 		ArrayList<Enquiry> enquiries = enquiryCommitteeService.viewEnquiries(camp);
 		
@@ -154,7 +178,12 @@ public class CommitteeController extends StudentController {
 			}
 		}
 	}
-	
+
+	/**
+	 * Allows the committee to reply to a selected enquiry
+	 * 
+	 * @param enquiryView The view that is responsible for displaying enquiry information regarding the camp
+	 */
 	private void replyToEnquiries(IEnquiryView enquiryView) {
 		ArrayList<Enquiry> enquiries = enquiryCommitteeService.viewEnquiries(camp);
 		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
@@ -173,7 +202,12 @@ public class CommitteeController extends StudentController {
 			System.out.println("Reply to enquiry unsuccessful.");
 		}
 	}
-	
+
+	/**
+	 * Displays a list of suggestions associated with the given camp that the {@link Committee} is associated with
+	 * 
+	 * @param suggestionView The view is responsible for displaying suggestion information regarding the camp.
+	 */
 	private void viewSuggestions(ISuggestionView suggestionView) {
 		ArrayList<Suggestion> suggestions = suggestionCommitteeService.viewAllSuggestions();
 		
@@ -187,7 +221,10 @@ public class CommitteeController extends StudentController {
 			}
 		}
 	}
-	
+
+	/**
+	 * Submits a suggestion for the associated camp
+	 */
 	private void submitSuggestion() {		
 		boolean success = suggestionCommitteeService.submitSuggestions(camp);
 		
@@ -199,7 +236,11 @@ public class CommitteeController extends StudentController {
 			System.out.println("Enquiry not submitted");
 		}
 	}
-	
+	/**
+     * Edits a selected suggestion's question.
+     * The committee member is prompted to provide the new question.
+     */
+
 	private void editSuggestion() {
 		ArrayList<Suggestion> suggestions = suggestionCommitteeService.viewProcessingSuggestions();
 		Suggestion selectedSuggestion = SelectorUtil.suggestionSelector(suggestions);
@@ -247,6 +288,10 @@ public class CommitteeController extends StudentController {
 	    }
 	}
 	
+	  /**
+     * Generates a report for the associated camp based on user-selected filters.
+     * Filters include attendees only, camp committee only, or both.
+     */
 	private void generateReport() {
 		System.out.println("Please select filters for report:");
 		System.out.println("1. Attendees only");

@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package controllers;
 
 import java.util.Scanner;
@@ -26,10 +24,16 @@ public class UserController {
 	private static final Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * Constructs an instance of {@link UserController} class
+	 * Default constructor of UserController class
 	 */
 	public UserController() {}
-
+	
+	/**
+     * Changes the user's password after verifying the old password and ensuring
+     * the new password meets certain criteria.
+     *
+     * @return true if the password change is successful, false otherwise.
+     */
 	protected boolean changePassword() {
 	    String oldPassword, newPassword;
 	    IUserService userService = new UserService();

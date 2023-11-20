@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package main;
 
 import controllers.AuthController;
@@ -14,7 +12,9 @@ import util.FilePathsUtil;
 import view.CommonView;
 
 /**
- * The main class responsible for running the CAMS application
+ * The {@link CAMS} class serves as the entry point for the CAMS (Campus Activities Management System) application.
+ * It initializes the necessary components, handles user authentication, and launches the appropriate user interface based on the user's role.
+ * The application runs in an infinite loop, allowing multiple users to operate it.
  */
 public class CAMS {
 
