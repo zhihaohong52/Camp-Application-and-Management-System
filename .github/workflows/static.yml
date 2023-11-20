@@ -39,7 +39,7 @@ jobs:
       - name: Build JavaDocs
         uses: javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           # Upload docs folder
           path: './docs'
