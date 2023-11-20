@@ -38,7 +38,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build JavaDocs
-        run: javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:models:services:stores:utils:views -private
+        run: javadoc -d docs -sourcepath src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
