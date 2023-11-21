@@ -5,6 +5,12 @@ package util;
  * given input to a boolean variable for visibility or first login checking
  */
 public class BooleanConverterUtil {
+
+	/**
+	 * Construct an instance of {@link BooleanConverterUtil}
+	 */
+	public BooleanConverterUtil() {}
+
 	/**
 	 * Converts a string input to a boolean variable
 	 * @param input the string to be converted into boolean

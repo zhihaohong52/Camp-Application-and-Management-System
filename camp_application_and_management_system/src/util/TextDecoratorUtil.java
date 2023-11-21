@@ -7,6 +7,11 @@ package util;
 public class TextDecoratorUtil {
 
 	/**
+	 * Construct an instance of {@link TextDecoratorUtil}
+	 */
+	public TextDecoratorUtil() {}
+
+	/**
 	 * {@link UNDERLINE} constant ANSI escape code for underline text
 	 */
 	public static final String UNDERLINE = "\u001B[4m";

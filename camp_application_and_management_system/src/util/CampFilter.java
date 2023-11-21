@@ -12,6 +12,11 @@ import model.camp.Camp;
 public class CampFilter {
 
 	/**
+	 * Construct an instance of {@link CampFilter}
+	 */
+	public CampFilter() {}
+
+	/**
 	 * Filter by camp names
 	 * @param camps the list of camps
 	 * @param name the string filter

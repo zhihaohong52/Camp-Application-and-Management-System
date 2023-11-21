@@ -7,6 +7,10 @@ import enums.UserRole;
  * converting string input to an enum for the user role variable
  */
 public class UserRoleUtil {
+	/**
+	 * Construct an instance of {@link UserRoleUtil}
+	 */
+	public UserRoleUtil() {}
 
 	/**
 	 * Convert from string input to UserRole enum variable

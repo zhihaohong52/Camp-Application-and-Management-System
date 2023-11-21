@@ -11,6 +11,12 @@ import enums.Schools;
  * schools that camps are able to participate in
  */
 public class SchoolEnumUtil {
+
+	/**
+	 * Construct an instance of {@link SchoolEnumUtil}
+	 */
+	public SchoolEnumUtil() {}
+	
 	/**
 	 * Schools under College of Engineering
 	 */

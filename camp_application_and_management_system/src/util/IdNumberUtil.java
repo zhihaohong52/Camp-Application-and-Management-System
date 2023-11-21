@@ -12,6 +12,11 @@ import model.camp.Suggestion;
  */
 public class IdNumberUtil {
 
+    /**
+	 * Construct an instance of {@link IdNumberUtil}
+	 */
+	public IdNumberUtil() {}
+
 	/**
      * Find the lowest available {@link Camp} ID integer from a list of camps
      * @param campData the {@link Map} object with numeric Camp ID key and Camp object as value
