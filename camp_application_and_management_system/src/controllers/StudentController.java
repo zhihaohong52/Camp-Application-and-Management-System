@@ -359,40 +359,46 @@ public class StudentController extends UserController {
 		String studentID = student.getID();
 		
 		ArrayList<Camp> camps = campStudentService.getAvailableCamps(student.getFaculty());
-		Camp camp = SelectorUtil.campSelector(camps);
 		
-		int choice;
-		boolean success = false;
-		
-		sc.nextLine();// consume newline character
-		
-		System.out.println("1. Register as attendee");
-		System.out.println("2. Register as camp committee member");
-		System.out.println("0. Return to homepage");
-		
-		choice = sc.nextInt();
-		
-		switch (choice) {
-			case 1:
-				System.out.println("Registering as attendee...");
-				success = campStudentService.registerForCamp(studentID, camp.getCampID(), false);
-				break;
-			case 2:
-				System.out.println("Registering as camp committee member...");
-				success = campStudentService.registerForCamp(studentID, camp.getCampID(), true);
-				break;
-			case 0:
-				System.out.println("Exiting");
-				return;
-			default:
-				System.out.println("Invalid choice. Please select a number between 0 and 2");
-		}
-		
-		if (success) {
-			System.out.println("Camp registered successfully.");
+		if (camps.isEmpty()) {
+			System.out.println("There are no camps available at the moment.\n");
 		}
 		else {
-			System.out.println("Camp not registered.");
+			Camp camp = SelectorUtil.campSelector(camps);
+			
+			int choice;
+			boolean success = false;
+			
+			sc.nextLine();// consume newline character
+			
+			System.out.println("1. Register as attendee");
+			System.out.println("2. Register as camp committee member");
+			System.out.println("0. Return to homepage");
+			
+			choice = sc.nextInt();
+			
+			switch (choice) {
+				case 1:
+					System.out.println("Registering as attendee...");
+					success = campStudentService.registerForCamp(studentID, camp.getCampID(), false);
+					break;
+				case 2:
+					System.out.println("Registering as camp committee member...");
+					success = campStudentService.registerForCamp(studentID, camp.getCampID(), true);
+					break;
+				case 0:
+					System.out.println("Exiting");
+					return;
+				default:
+					System.out.println("Invalid choice. Please select a number between 0 and 2");
+			}
+			
+			if (success) {
+				System.out.println("Camp registered successfully.");
+			}
+			else {
+				System.out.println("Camp not registered.");
+			}
 		}
 	}
 	
@@ -404,16 +410,22 @@ public class StudentController extends UserController {
 		String studentID = student.getID();
 		
 		ArrayList<Camp> camps = campStudentService.getRegisteredCamps(studentID);
-		Camp camp = SelectorUtil.campSelector(camps);
 		
-		boolean success = campStudentService.withdrawFromCamp(studentID, camp.getCampID());
-		
-		if (success) {
-			System.out.println("Camp withdrwan successfully.\n"
-					+ "!!Please not that you are NOT allowed to register for this camp again!!");
+		if (camps.isEmpty()) {
+			System.out.println("You have not registered for any camps");
 		}
 		else {
-			System.out.println("Camp not withdrawn from.");
+			Camp camp = SelectorUtil.campSelector(camps);
+			
+			boolean success = campStudentService.withdrawFromCamp(studentID, camp.getCampID());
+			
+			if (success) {
+				System.out.println("Camp withdrwan successfully.\n"
+						+ "!!Please not that you are NOT allowed to register for this camp again!!");
+			}
+			else {
+				System.out.println("Camp not withdrawn from.");
+			}
 		}
 	}
 
@@ -442,16 +454,22 @@ public class StudentController extends UserController {
 	private void submitEnquiry() {
 		Student student = (Student) AuthStore.getCurrentUser();
 		ArrayList<Camp> camps = campStudentService.getAvailableCamps(student.getFaculty());
-		Camp camp = SelectorUtil.campSelector(camps);
 		
-		boolean success = enquiryStudentService.submitEnquiry(camp);
-		
-		if (success) {
-			System.out.println("Enquiry submitted successfully.\n"
-					+ "Please be patients while we get back to you.");
+		if (camps.isEmpty()) {
+			System.out.println("There are no camps available at the moment.\n");
 		}
 		else {
-			System.out.println("Enquiry not submitted");
+			Camp camp = SelectorUtil.campSelector(camps);
+			
+			boolean success = enquiryStudentService.submitEnquiry(camp);
+			
+			if (success) {
+				System.out.println("Enquiry submitted successfully.\n"
+						+ "Please be patients while we get back to you.");
+			}
+			else {
+				System.out.println("Enquiry not submitted");
+			}
 		}
 	}
 
@@ -460,20 +478,26 @@ public class StudentController extends UserController {
      */
 	private void editEnquiry() {
 		ArrayList<Enquiry> enquiries = enquiryStudentService.viewProcessingEnquiries();
-		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
 		
-		if (selectedEnquiry != null) {
-			System.out.println("Current question: " + selectedEnquiry.getQuestion());
-			System.out.println("Enter edited question");
-			String newQuestion = sc.nextLine();
+		if (enquiries.isEmpty()) {
+			System.out.println("You have not made any enquiries.");
+		}
+		else {
+			Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
 			
-			boolean success = enquiryStudentService.editEnquiry(selectedEnquiry, newQuestion);
-			
-			if (success) {
-				System.out.println("Enquiry edited successfully.");
-			}
-			else {
-				System.out.println("Enquiry not edited.");
+			if (selectedEnquiry != null) {
+				System.out.println("Current question: " + selectedEnquiry.getQuestion());
+				System.out.println("Enter edited question");
+				String newQuestion = sc.nextLine();
+				
+				boolean success = enquiryStudentService.editEnquiry(selectedEnquiry, newQuestion);
+				
+				if (success) {
+					System.out.println("Enquiry edited successfully.");
+				}
+				else {
+					System.out.println("Enquiry not edited.");
+				}
 			}
 		}
 	}
@@ -485,6 +509,12 @@ public class StudentController extends UserController {
 		Map<Integer, Camp> campData = DataStore.getCampData();
 		
 		ArrayList<Enquiry> enquiries = enquiryStudentService.viewProcessingEnquiries();
+		
+		if (enquiries.isEmpty()) {
+			System.out.println("You have not made any enquiries.");
+			return;
+		}
+		
 		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
 		String input = null;
 		

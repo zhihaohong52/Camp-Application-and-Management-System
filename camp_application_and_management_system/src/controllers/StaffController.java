@@ -726,14 +726,20 @@ public class StaffController extends UserController {
  	*/
 	private void generatePerformanceReport() {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
-		Camp selectedCamp = SelectorUtil.campSelector(camps);
 		
-		System.out.println("Please select filters for report:");
-		System.out.println("1. Attendees only");
-		System.out.println("2. Camp committee only");
-		System.out.println("Press any other number to see both attendee and camp committee");
-		int filter = sc.nextInt();
-		reportGeneratorService.generateCampReport(selectedCamp, filter);
+		if (camps.isEmpty()) {
+			System.out.println("There are no camps created.");
+		}
+		else {
+			Camp selectedCamp = SelectorUtil.campSelector(camps);
+			
+			System.out.println("Please select filters for report:");
+			System.out.println("1. Attendees only");
+			System.out.println("2. Camp committee only");
+			System.out.println("Press any other number to see both attendee and camp committee");
+			int filter = sc.nextInt();
+			reportGeneratorService.generateCampReport(selectedCamp, filter);
+		}
 	}
 	
 	/**
@@ -741,9 +747,15 @@ public class StaffController extends UserController {
  	*/
 	private void generateCampReport() {
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
-		Camp selectedCamp = SelectorUtil.campSelector(camps);
 		
-		reportGeneratorService.generateCommitteePerformanceReport(selectedCamp);
+		if (camps.isEmpty()) {
+			System.out.println("There are no camps created.");
+		}
+		else {
+			Camp selectedCamp = SelectorUtil.campSelector(camps);
+			
+			reportGeneratorService.generateCommitteePerformanceReport(selectedCamp);
+		}
 	}
 }
 

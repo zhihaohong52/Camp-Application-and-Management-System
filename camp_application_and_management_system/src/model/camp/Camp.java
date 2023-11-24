@@ -16,7 +16,7 @@ import enums.Schools;
  * This class provides methods to interact with and edit camp related data. 
  * @author Zhi Hao, Venus, Siyu, Phyo, Advika
  * @version 1.0
- * @since put date of submission 2023-11-dd
+ * @since 26/11/2024
  */
 public class Camp {
 	
