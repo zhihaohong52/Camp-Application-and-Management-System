@@ -35,7 +35,7 @@ public class EnquiryView implements IEnquiryView {
 		
 		System.out.println("Camp: " + camp.getName());
 		System.out.println("Question: " + enquiry.getQuestion());
-		System.out.println("Status" + enquiry.getStatus());
+		System.out.println("Status: " + enquiry.getStatus());
 		if (enquiry.getStatus() == EnquiryStatus.Processing)
 			return;
 		System.out.println("Answers: ");

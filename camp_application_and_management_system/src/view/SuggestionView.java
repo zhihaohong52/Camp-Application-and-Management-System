@@ -31,7 +31,7 @@ public class SuggestionView implements ISuggestionView {
 		
 		System.out.println("Camp: " + camp.getName());
 		System.out.println("Question: " + suggestion.getQuestion());
-		System.out.println("Status" + suggestion.getStatus());
+		System.out.println("Status: " + suggestion.getStatus());
 		if (suggestion.getStatus() == SuggestionStatus.Processing)
 			return;
 		System.out.println("Reply: " +  suggestion.getReply());
