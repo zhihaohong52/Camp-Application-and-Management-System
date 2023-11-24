@@ -43,6 +43,7 @@ public class SelectorUtil {
 			System.out.println("CampID\tCamp name");
 			camps.forEach(camp->System.out.printf("%d\t%s\n", camp.getCampID(), camp.getName()));
 			
+			sc.nextLine();
 			System.out.print("Select campID: ");
 			String input = sc.nextLine();
 			int campID;
@@ -83,6 +84,8 @@ public class SelectorUtil {
 				System.out.println("Camp: " + campData.get(enquiry.getCampID()).getName());
 				System.out.println("Question: " + enquiry.getQuestion());
 			}
+			
+			sc.nextLine();
 			
 			System.out.println("Press Enter to exit");
 			System.out.print("Select enquiry no. : ");
@@ -126,6 +129,8 @@ public class SelectorUtil {
 				System.out.println("Camp: " + campData.get(suggestion.getCampID()).getName());
 				System.out.println("Question: " + suggestion.getQuestion());
 			}
+			
+			sc.nextLine();
 			
 			System.out.println("Press Enter to exit");
 			System.out.print("Select suggestion no. : ");
