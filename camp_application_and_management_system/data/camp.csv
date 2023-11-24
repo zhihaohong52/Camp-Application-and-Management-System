@@ -1,1 +1,5 @@
-
+Camp ID,Name,Dates,Closing,School,Location,Total Slots,Attendees,Camp Committee Slots,Camp Committee,Withdrawn,Description,Staff IC,Visibility
+1,SCSE TOP (Camp 1),2024-04-01;2024-04-02;2024-04-03,2024-03-03,SCSE,SCSE building,19,;CT113,10,,,Orientation for Y1s,HUKUMAR,true
+2,Hall 13 Camp (Camp 2),2024-04-01,2024-03-01,SCSE;CCEB;EEE;CEE;MSE;MAE;NBS;ADM;SOH;SSS;WKWSCI;SPMS;SBS;ASE;LKCMedicine;NIE,Audi,4,,9,;KOH1,,orientation for whole school,HUKUMAR,true
+3,CCA camp (Camp 3),2024-05-01;2024-05-02,2024-01-01,SCSE;CCEB;EEE;CEE;MSE;MAE;NBS;ADM;SOH;SSS;WKWSCI;SPMS;SBS;ASE;LKCMedicine;NIE,Classroom,1,;CT113,10,,,CCA camp,HUKUMAR,true
+4,Art Gallery Walk (Camp 4),2024-02-15,2024-01-01,ADM,ADM,10,,10,,,Come and see more art pieces,OURIN,true
