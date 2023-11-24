@@ -1,8 +1,8 @@
 UserID,Name,Email,Faculty,Role,Password,First Login
-YCHERN,CHERN ,YCHERN@e.ntu.edu.sg;,SCSE,student,Password123!,false
-KOH1,KOH ,KOH1@e.ntu.edu.sg;,ADM,student,password,true
+YCHERN,CHERN ,YCHERN@e.ntu.edu.sg;,SCSE,student,password,true
+KOH1,KOH ,KOH1@e.ntu.edu.sg;,ADM,student,Password123!,false
 BR015,BRANDON ,BR015@e.ntu.edu.sg;,EEE,student,password,true
-CT113,CALVIN ,CT113@e.ntu.edu.sg;,SCSE,student,password,true
+CT113,CALVIN ,CT113@e.ntu.edu.sg;,SCSE,student,Password123!,false
 YCN019,CHAN,YCN019@e.ntu.edu.sg;,NBS,student,password,true
 DL007,DENISE,DL007@e.ntu.edu.sg;,SCSE,student,password,true
 DON84,DONG,DON84@e.ntu.edu.sg;,ADM,student,password,true

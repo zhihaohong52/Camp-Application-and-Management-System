@@ -10,6 +10,8 @@
  * @author Harvande Advika Sandeep
  * @author Zhang Siyu
  * @author Venus Ng Min Jia
+ * @version 1.0
+ * @since 26/11/2024
  */
 module camp_management_and_application_system {
     exports controllers;
