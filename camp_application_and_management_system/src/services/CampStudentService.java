@@ -56,8 +56,12 @@ public class CampStudentService implements ICampStudentService {
 		
 		for (Camp camp : campData.values()) {
 			List<String> studentList = camp.getStudents();
+			List<String> committeeList = camp.getCampCommittee();
 			
 			if (studentList.contains(studentID)) {
+				registeredCamps.add(camp);
+			}
+			else if (committeeList.contains(studentID)) {
 				registeredCamps.add(camp);
 			}
 		}
