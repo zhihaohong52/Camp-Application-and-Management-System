@@ -523,7 +523,7 @@ public class StudentController extends UserController {
 		
 		if (selectedEnquiry != null) {
 	    	do {
-	    		System.out.printf("Deleting enquiry for camp %d - %s\n", campData.get(selectedEnquiry.getCampID()).getName(), selectedEnquiry.getQuestion());
+	    		System.out.printf("Deleting enquiry for camp %s - %s\n", campData.get(selectedEnquiry.getCampID()).getName(), selectedEnquiry.getQuestion());
 		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");
 		    	input = sc.next();
 		    	if (input.equals("Y") || input.equals("y")) {
