@@ -128,6 +128,7 @@ public class StaffController extends UserController {
 		                System.out.println("Please login again");   
 						return;
 					}
+					break;
 				case 2:
 					CommonView.printNavbar("CAMS > Staff > View all camps");
 					campView = new AllCampDetailsView();

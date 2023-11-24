@@ -55,8 +55,12 @@ public class UserController {
 		                + "iv. contain at least one special character from the following: ,.<>/:;!@#$%^&*()-_+=]");
 		        System.out.print("Please set a new password: ");
 		        newPassword = sc.nextLine();
-
-		        if (newPassword.length() > 8) {
+		        
+		        if (newPassword.equals(oldPassword)) {
+		        	System.out.println("Same password as old password!!");
+		        	success = false;
+		        }
+		        else if (newPassword.length() > 8) {
 		            // Check for at least 1 upper case, 1 lower case, 1 digit, and 1 special character
 		            String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[,.<>/:;!@#$%^&*()-_+=])";
 		            Pattern pattern = Pattern.compile(regex);
