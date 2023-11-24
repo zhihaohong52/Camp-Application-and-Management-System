@@ -66,7 +66,7 @@ public class AuthController{
 
             switch (choice) {
                 case 0:
-                    System.out.println("Shutting down FYPMS...");
+                    System.out.println("Shutting down CAMS...");
                     return;
                 case 1:
                     authService = new AuthStudentService();

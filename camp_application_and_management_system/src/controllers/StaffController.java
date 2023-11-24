@@ -369,7 +369,7 @@ public class StaffController extends UserController {
 		ArrayList<Camp> camps = new ArrayList<>();
 		
 		for (int i = 0; i < campCount; i++) {
-			System.out.printf("Creating project %d\n", i+1);
+			System.out.printf("Creating camp %d\n", i+1);
 			System.out.println("Camp title: ");
 			sc.nextLine(); //consumer newline char from previous input
 			String name = sc.nextLine();
