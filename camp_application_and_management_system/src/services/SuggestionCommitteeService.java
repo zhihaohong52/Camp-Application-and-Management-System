@@ -70,6 +70,8 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 		Map<String, Committee> committeeData = DataStore.getCommitteeData();
 		Committee committee = committeeData.get(user.getID());
 		
+		int point = committee.getPoint();
+		
 		Map<Integer, Suggestion> suggestionData = DataStore.getSuggestionData();
 		
 		System.out.print("Please input your enquiry: ");
@@ -79,9 +81,12 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 		
 		Suggestion suggestion = new Suggestion(inquiryID, camp.getCampID(), committee.getID(), question);
 		
+		point++;
+		committee.setPoint(point);
+		
 		suggestionData.put(inquiryID, suggestion);
 		
-		return true;
+		return DataStore.saveData();
 	}
 
 	@Override
