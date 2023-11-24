@@ -246,7 +246,10 @@ public class CommitteeController extends StudentController {
 		ArrayList<Suggestion> suggestions = suggestionCommitteeService.viewProcessingSuggestions();
 		Suggestion selectedSuggestion = SelectorUtil.suggestionSelector(suggestions);
 		
-		if (selectedSuggestion != null) {
+		if (selectedSuggestion == null) {
+			return;
+		}
+		else {
 			System.out.println("Current question: " + selectedSuggestion.getQuestion());
 			System.out.println("Enter edited question");
 			String newQuestion = sc.nextLine();
@@ -272,7 +275,10 @@ public class CommitteeController extends StudentController {
 		Suggestion selectedSuggestion = SelectorUtil.suggestionSelector(suggestions);
 		String input = null;
 		
-		if (selectedSuggestion != null) {
+		if (selectedSuggestion == null) {
+			return;
+		}
+		else {
 	    	do {
 	    		System.out.printf("Deleting suggestion for camp %s - %s\n", campData.get(selectedSuggestion.getCampID()).getName(), selectedSuggestion.getQuestion());
 		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");

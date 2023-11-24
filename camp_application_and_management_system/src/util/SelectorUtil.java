@@ -84,7 +84,8 @@ public class SelectorUtil {
 				System.out.println("Question: " + enquiry.getQuestion());
 			}
 			
-			System.out.print("Select enquiry no: ");
+			System.out.println("Press Enter to exit");
+			System.out.print("Select enquiry no. : ");
 			
 			String input = sc.nextLine();
 			int enquiryID;
@@ -126,7 +127,8 @@ public class SelectorUtil {
 				System.out.println("Question: " + suggestion.getQuestion());
 			}
 			
-			System.out.print("Select enquiry no: ");
+			System.out.println("Press Enter to exit");
+			System.out.print("Select suggestion no. : ");
 			
 			String input = sc.nextLine();
 			int suggestionID;

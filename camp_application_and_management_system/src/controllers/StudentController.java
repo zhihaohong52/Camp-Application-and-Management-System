@@ -485,7 +485,10 @@ public class StudentController extends UserController {
 		else {
 			Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
 			
-			if (selectedEnquiry != null) {
+			if (selectedEnquiry == null) {
+				return;
+			}
+			else {
 				System.out.println("Current question: " + selectedEnquiry.getQuestion());
 				
 				sc.nextLine(); //consume newline character
@@ -521,7 +524,10 @@ public class StudentController extends UserController {
 		Enquiry selectedEnquiry = SelectorUtil.enquirySelector(enquiries);
 		String input = null;
 		
-		if (selectedEnquiry != null) {
+		if (selectedEnquiry == null) {
+			return;
+		}
+		else {
 	    	do {
 	    		System.out.printf("Deleting enquiry for camp %s - %s\n", campData.get(selectedEnquiry.getCampID()).getName(), selectedEnquiry.getQuestion());
 		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");
