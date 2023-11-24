@@ -43,7 +43,7 @@ public class ReportGeneratorService implements IReportGeneratorService{
         }
 		
 		StringBuilder report = new StringBuilder();
-		report.append(TextDecoratorUtil.boldText("CAMP REPORT")).append("\n\n");
+		report.append("CAMP REPORT\n\n");
         report.append("Name: ").append(camp.getName()).append("\n");
         report.append("Location: ").append(camp.getLocation()).append("\n");
         report.append("Dates: ");
@@ -89,7 +89,7 @@ public class ReportGeneratorService implements IReportGeneratorService{
 		Map<String, Committee> committeeData = DataStore.getCommitteeData();
 		
 		StringBuilder report = new StringBuilder();
-		report.append(TextDecoratorUtil.boldText("COMMITTEE PERFORMANCE REPORT")).append("\n\n");
+		report.append("COMMITTEE PERFORMANCE REPORT\n\n");
 		report.append("Camp name: ").append(camp.getName()).append("\n");
 		report.append("Staff IC: ").append(camp.getStaffIC()).append("\n");
 		

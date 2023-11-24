@@ -24,10 +24,10 @@ public class AllCampDetailsView extends CampAvailableView implements ICampView {
 	@Override
 	public void displayCamp(Camp camp) {
 		
-		String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
-		String availableString = String.join(";", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
-		String committeeString = camp.getCampCommittee().stream().filter(committee -> committee != null && !committee.isEmpty()).collect(Collectors.joining(","));
-		String studentString = camp.getStudents().stream().filter(student -> student != null && !student.isEmpty()).collect(Collectors.joining(","));
+		String datesString = String.join(", ", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
+		String availableString = String.join(", ", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
+		String committeeString = camp.getCampCommittee().stream().filter(committee -> committee != null && !committee.isEmpty()).collect(Collectors.joining(", "));
+		String studentString = camp.getStudents().stream().filter(student -> student != null && !student.isEmpty()).collect(Collectors.joining(", "));
 
 		System.out.println("Name: " + camp.getName());
 		System.out.println("Dates: " + datesString);
@@ -40,6 +40,7 @@ public class AllCampDetailsView extends CampAvailableView implements ICampView {
 		System.out.println("Committee members: " + committeeString);
 		System.out.println("Students: " + studentString);
 		System.out.println("Visibility: " + camp.getVisibility());
+		CommonView.printLine();
 	}
 
 }

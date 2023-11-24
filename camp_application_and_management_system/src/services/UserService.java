@@ -7,6 +7,7 @@ import interfaces.IUserService;
 import model.user.User;
 import stores.AuthStore;
 import stores.DataStore;
+import view.CommonView;
 
 /**
  * The {@link UserService} class implements the {@link IUserService} interface and 
@@ -29,7 +30,8 @@ public class UserService implements IUserService {
 			return false;
 		}
 		else {
-			System.out.println("Saving new password");
+			System.out.println("Saving new password...");
+			CommonView.printLine();
 			DataStore.saveData(); //save new password to database
 			return true;
 		}	

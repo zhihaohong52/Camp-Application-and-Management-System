@@ -61,4 +61,12 @@ public class CommonView {
 		sc.nextLine();
 	}
 
+	/**
+	 * Prints a line of '+' to separate text
+	 */
+	public static void printLine() {
+		System.out.println();
+		System.out.println("=".repeat(100));
+		System.out.println();
+	}
 }

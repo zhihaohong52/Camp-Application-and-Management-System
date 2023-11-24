@@ -22,8 +22,9 @@ public class CampRegisteredView implements ICampView {
 
 	@Override
 	public void displayCamp(Camp camp) {
-		String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
-		String availableString = String.join(";", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
+		String datesString = String.join(", ", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
+		String availableString = String.join(", ", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
+		
 		
 		System.out.println("Name: " + camp.getName());
 		System.out.println("Dates: " + datesString);
@@ -31,6 +32,7 @@ public class CampRegisteredView implements ICampView {
 		System.out.println("Schools: " + availableString);
 		System.out.println("Location: " + camp.getLocation());
 		System.out.println("Description: " + camp.getDescription());
+		CommonView.printLine();
 	}
 
 }

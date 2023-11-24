@@ -40,10 +40,11 @@ public class SelectorUtil {
      */
 	public static Camp campSelector(ArrayList<Camp> camps) {
 		while (true) {
+			sc.nextLine(); //consumes newline
+			
 			System.out.println("CampID\tCamp name");
 			camps.forEach(camp->System.out.printf("%d\t%s\n", camp.getCampID(), camp.getName()));
 			
-			sc.nextLine();
 			System.out.print("Select campID: ");
 			String input = sc.nextLine();
 			int campID;

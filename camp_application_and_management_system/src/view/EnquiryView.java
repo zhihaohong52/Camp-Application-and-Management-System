@@ -45,7 +45,6 @@ public class EnquiryView implements IEnquiryView {
 		for (int i = 0; i < answers.size(); i++) {
 		    System.out.printf("%d\t%s\n", i, answers.get(i));
 		    
-		    
 		    Committee committeeAnswerer = committeeData.get(answererID.get(i));
 		    Staff staffAnswerer = null;
 
@@ -66,6 +65,7 @@ public class EnquiryView implements IEnquiryView {
 		    }
 		}
 
+		CommonView.printLine();
 	}
 
 }

@@ -22,8 +22,8 @@ public class CampAvailableView implements ICampView {
 
 	@Override
 	public void displayCamp(Camp camp) {
-		String datesString = String.join(";", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
-		String availableString = String.join(";", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
+		String datesString = String.join(", ", camp.getDates().stream().map(LocalDate::toString).toArray(String[]::new));
+		String availableString = String.join(", ", camp.getAvailable().stream().map(Schools::toString).toArray(String[]::new));
 		
 		System.out.println("Name: " + camp.getName());
 		System.out.println("Dates: " + datesString);
@@ -32,6 +32,7 @@ public class CampAvailableView implements ICampView {
 		System.out.println("Location: " + camp.getLocation());
 		System.out.println("Description: " + camp.getDescription());
 		System.out.println("Number of slots left: " + camp.getTotalSlots());
+		CommonView.printLine();
 	}
 
 }

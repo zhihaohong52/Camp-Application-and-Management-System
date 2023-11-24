@@ -39,6 +39,7 @@ public class SuggestionView implements ISuggestionView {
 		Staff staff = staffData.get(suggestion.getReplierID());
 		System.out.println("Replied by: " + staff.getName());
 
+		CommonView.printLine();
 	}
 
 }
