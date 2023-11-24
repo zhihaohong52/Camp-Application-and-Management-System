@@ -62,7 +62,7 @@ public class CommonView {
 	}
 
 	/**
-	 * Prints a line of '+' to separate text
+	 * Prints a line of '=' to separate text
 	 */
 	public static void printLine() {
 		System.out.println();

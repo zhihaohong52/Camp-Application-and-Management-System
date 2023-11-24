@@ -246,6 +246,8 @@ public class CommitteeController extends StudentController {
 		ArrayList<Suggestion> suggestions = suggestionCommitteeService.viewProcessingSuggestions();
 		Suggestion selectedSuggestion = SelectorUtil.suggestionSelector(suggestions);
 		
+		sc.nextLine();
+		
 		if (selectedSuggestion == null) {
 			return;
 		}
