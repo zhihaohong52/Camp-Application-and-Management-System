@@ -92,7 +92,7 @@ public class CampStudentService implements ICampStudentService {
 		
 		for (LocalDate campDate : campDates) {
 			if (unavailableDates.contains(campDate)) {
-				System.out.println("Camp date for " + camp + "clashes with previously registered camp");
+				System.out.println("Camp date for " + camp.getName() + "clashes with previously registered camp");
 				return false;
 			}
 		}
