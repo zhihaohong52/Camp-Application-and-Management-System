@@ -725,6 +725,7 @@ public class StaffController extends UserController {
 	* Staff members can choose to filter the report for attendees only, camp committee only, or both.
  	*/
 	private void generatePerformanceReport() {
+		sc.nextLine(); // Consume the newline character
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		
 		if (camps.isEmpty()) {
@@ -746,6 +747,7 @@ public class StaffController extends UserController {
  	* Staff can generate a detailed report for a specific camp, including information about attendees and camp committee members.
  	*/
 	private void generateCampReport() {
+		sc.nextLine(); // Consume the newline character
 		ArrayList<Camp> camps = campStaffService.getCreatedCamps();
 		
 		if (camps.isEmpty()) {
