@@ -76,7 +76,7 @@ public class CommitteeController extends StudentController {
 		
 		do {
 			CommonView.printNavbar("CAMS > Committee");
-			System.out.printf("Current points for %s : %d", committee.getName(), committee.getPoint());
+			System.out.printf("Current points for %s : %d\n", committee.getName(), committee.getPoint());
 			
 			System.out.println(TextDecoratorUtil.underlineText("Camp details for " + camp.getName()));
 			System.out.println("1. View camp details");
