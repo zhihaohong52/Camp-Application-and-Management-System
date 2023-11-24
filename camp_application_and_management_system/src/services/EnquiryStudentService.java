@@ -39,8 +39,6 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 		User user = AuthStore.getCurrentUser();
 		Map<Integer, Enquiry> enquiryData = DataStore.getEnquiryData();
 		
-		System.out.println(enquiryData);
-		
 		ArrayList<Enquiry> enquiryList = new ArrayList<>();
 		
 		for (Enquiry enquiry : enquiryData.values()) {
@@ -60,7 +58,7 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 		ArrayList<Enquiry> enquiryList = new ArrayList<>();
 		
 		for (Enquiry enquiry : enquiryData.values()) {
-			if ((enquiry.getStatus() == EnquiryStatus.Processing) && (enquiry.getStudentID() == user.getID())) {
+			if ((enquiry.getStatus() == EnquiryStatus.Processing) && (enquiry.getStudentID().equals(user.getID()))) {
 				enquiryList.add(enquiry);
 			}
 		}
