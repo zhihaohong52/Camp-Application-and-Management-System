@@ -17,9 +17,9 @@ public interface ICampStudentService {
      * @param school The school for which available camps are to be retrieved.
      * @return An {@code ArrayList} of {@link Camp}s containing the available camps.
      */
-
 	public ArrayList<Camp> getAvailableCamps(Schools school);
-	 /**
+	 
+	/**
      * Retrieves the camps registered by a specific student.
      *
      * @param studentID The ID of the student for whom registered camps are to be retrieved.
@@ -27,7 +27,8 @@ public interface ICampStudentService {
      */
 	
 	public ArrayList<Camp> getRegisteredCamps(String studentID);
-	 /**
+	 
+	/**
      * Registers a student for a specific camp.
      *
      * @param studentID The ID of the student to be registered.
@@ -35,7 +36,6 @@ public interface ICampStudentService {
      * @param committee A boolean indicating whether the student wants to become a committee.
      * @return {@code true} if the registration is successful, {@code false} otherwise.
      */
-
 	public boolean registerForCamp(String studentID, int campID, boolean committee);
 	
     /**

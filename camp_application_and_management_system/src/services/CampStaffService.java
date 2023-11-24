@@ -5,7 +5,6 @@ package services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,15 +27,11 @@ public class CampStaffService implements ICampStaffService {
 	public CampStaffService() {}
 
 	@Override
-	public boolean createCamp(ArrayList<Camp> camps) {
+	public boolean createCamp(Camp camp) {
 		Map<Integer, Camp> campData = DataStore.getCampData();
-		Map<Integer, Camp> newCampMap = new HashMap<Integer, Camp>();
 		
-		for (int i = 0; i < camps.size(); i++) {
-			newCampMap.put(camps.get(i).getCampID(), camps.get(i));
-        }
-
-        campData.putAll(newCampMap);;
+		campData.put(camp.getCampID(), camp);
+		
         DataStore.setCampData(campData);
 
         return true;

@@ -359,14 +359,11 @@ public class StaffController extends UserController {
 		//variables
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		Map<Integer, Camp> campData = DataStore.getCampData();
-		
 		System.out.print("Enter the number of camps to create: ");
 		int campCount = sc.nextInt();
 		
 		Staff staff = (Staff) AuthStore.getCurrentUser();
 		String staffID = staff.getID();
-		ArrayList<Camp> camps = new ArrayList<>();
 		
 		for (int i = 0; i < campCount; i++) {
 			System.out.printf("Creating camp %d\n", i+1);
@@ -420,14 +417,14 @@ public class StaffController extends UserController {
 				}
 			}while (true);
 			
+			Map<Integer, Camp> campData = DataStore.getCampData();
+			
 			int campID = IdNumberUtil.findLowestAvailableCampId(campData);
 			
 			Camp camp = new Camp(campID, name, dates, closing, available, location, totalSlots, description, staffID, visibility);
 			
-			camps.add(camp);
+			campStaffService.createCamp(camp);
 		}
-		
-		campStaffService.createCamp(camps);
 		
 	}
 

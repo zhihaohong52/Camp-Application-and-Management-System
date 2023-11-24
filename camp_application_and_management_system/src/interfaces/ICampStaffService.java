@@ -16,14 +16,13 @@ public interface ICampStaffService {
      * @param camps The list of camps that exists already.
      * @return {@code true} if the camps are created successfully, {@code false} otherwise.
      */
+	public boolean createCamp(Camp camp);
 	
-	public boolean createCamp(ArrayList<Camp> camps);
 	/**
      * Retrieves all camps.
      *
      * @return An {@code ArrayList} of {@link Camp} containing all camps.
      */
-	
 	public ArrayList<Camp> getAllCamps();
 	
 	/**
@@ -31,8 +30,8 @@ public interface ICampStaffService {
      *
      * @return An {@code ArrayList} of {@link Camp} containing camps created by the staff member.
      */
-
 	public ArrayList<Camp> getCreatedCamps();
+	
 	/**
      * Edits a specific field (such as date, description ...) of a camp.
      *
@@ -41,7 +40,6 @@ public interface ICampStaffService {
      * @param value  The new value for the field.
      * @return {@code true} if the camp is edited successfully, {@code false} otherwise.
      */
-	
 	public boolean editCamp(Camp camp, int field, Object value);
 	
 	 /**
@@ -58,6 +56,5 @@ public interface ICampStaffService {
      * @param camps The {@code ArrayList} of {@link Camp}s for which visibility will be toggled.
      * @return {@code true} if the visibility is toggled successfully, {@code false} otherwise.
      */
-
 	public boolean toggleCampVisibilty(ArrayList<Camp> camps);
 }
