@@ -333,8 +333,8 @@ public class StudentController extends UserController {
 	                    filteredCamps = registeredCamps;
 	                    break;
 	                case 4:
-	                    System.out.println("Exiting filter.");
-	                    break;
+	                    System.out.println("Exiting filter...");
+	                    return;
 	                default:
 	                    System.out.println("Invalid input.");
 	            }
