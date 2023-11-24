@@ -14,9 +14,6 @@ import enums.Schools;
  * Each camp has various attributes such as a unique identifier, name, closing date, available schools, location, 
  * time slots, camp committee slots, camp description, staff in charge, list of attendees and committee members, and withdrawn participants.
  * This class provides methods to interact with and edit camp related data. 
- * @author Zhi Hao, Venus, Siyu, Phyo, Advika
- * @version 1.0
- * @since 26/11/2024
  */
 public class Camp {
 	

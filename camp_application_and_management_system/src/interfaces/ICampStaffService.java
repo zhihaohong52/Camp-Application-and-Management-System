@@ -10,10 +10,9 @@ import model.camp.Camp;
  */
 
 public interface ICampStaffService {
-	 /**
+    /**
      * Creates camps based on the provided list.
-     *
-     * @param camps The list of camps that exists already.
+     * @param camp The list of camps that exists already.
      * @return {@code true} if the camps are created successfully, {@code false} otherwise.
      */
 	public boolean createCamp(Camp camp);
