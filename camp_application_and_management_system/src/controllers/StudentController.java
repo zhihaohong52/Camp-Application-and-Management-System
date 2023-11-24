@@ -266,7 +266,7 @@ public class StudentController extends UserController {
 	                    break;
 	                case 4:
 	                    System.out.println("Exiting filter.");
-	                    break;
+	                    return;
 	                default:
 	                    System.out.println("Invalid input.");
 	            }

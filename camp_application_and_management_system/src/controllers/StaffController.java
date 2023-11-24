@@ -334,7 +334,7 @@ public class StaffController extends UserController {
 	                    break;
 	                case 6:
 	                    System.out.println("Exiting filter.");
-	                    break;
+	                    return;
 	                default:
 	                    System.out.println("Invalid input.");
 	            }
