@@ -39,7 +39,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build JavaDocs
-        run: javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
+        run: javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private -author
      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

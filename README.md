@@ -1,4 +1,7 @@
 # Camp-Application-and-Management-System
+**Docs:** [Report](https://zhihaohong52.github.io/Camp-Application-and-Management-System/) | 
+[UML Class Diagram](https://github.com/zhihaohong52/Camp-Application-and-Management-System/blob/main/camp_application_and_management_system/UML_CAMS.jpg) |
+[Java Docs](https://zhihaohong52.github.io/Camp-Application-and-Management-System/)
 SC2002 Object Oriented Project Group Assignment AY2023-24 Sem 1
 
 A Java-based application for managing camps for students in NTU. It features authentication, user management, camp management, and communications between students, camp committee members, and staff. This README file provides instructions on how to clone, compile, and run the project.
@@ -81,7 +84,7 @@ Follow the steps below to generate JavaDocs using the terminal:
 3. Run the following command in the terminal:
 
    ```bash
-    javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
+    javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private -author
    ```
 
    This command will generate the JavaDocs and save them in the docs directory in HTML format.
