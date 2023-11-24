@@ -34,13 +34,13 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 
 	@Override
 	public ArrayList<Suggestion> viewAllSuggestions() {
-		Committee committee = (Committee) AuthStore.getCurrentUser();
+		User user = AuthStore.getCurrentUser();
 		Map<Integer, Suggestion> suggestionData = DataStore.getSuggestionData();
 		
 		ArrayList<Suggestion> suggestionList = new ArrayList<>();
 		
 		for (Suggestion suggestion : suggestionData.values()) {
-			if (suggestion.getCommiteeID() == committee.getID()) {
+			if (suggestion.getCommiteeID().equals(user.getID())) {
 				suggestionList.add(suggestion);
 			}
 		}
@@ -50,13 +50,13 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 
 	@Override
 	public ArrayList<Suggestion> viewProcessingSuggestions() {
-		Committee committee = (Committee) AuthStore.getCurrentUser();
+		User user = AuthStore.getCurrentUser();
 		Map<Integer, Suggestion> suggestionData = DataStore.getSuggestionData();
 		
 		ArrayList<Suggestion> suggestionList = new ArrayList<>();
 		
 		for (Suggestion suggestion : suggestionData.values()) {
-			if ((suggestion.getStatus() == SuggestionStatus.Processing) && (suggestion.getCommiteeID() == committee.getID())) {
+			if ((suggestion.getStatus() == SuggestionStatus.Processing) && (suggestion.getCommiteeID() == user.getID())) {
 				suggestionList.add(suggestion);
 			}
 		}

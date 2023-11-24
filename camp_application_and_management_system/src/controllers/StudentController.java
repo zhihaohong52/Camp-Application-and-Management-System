@@ -487,6 +487,9 @@ public class StudentController extends UserController {
 			
 			if (selectedEnquiry != null) {
 				System.out.println("Current question: " + selectedEnquiry.getQuestion());
+				
+				sc.nextLine(); //consume newline character
+				
 				System.out.println("Enter edited question");
 				String newQuestion = sc.nextLine();
 				

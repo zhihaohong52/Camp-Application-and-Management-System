@@ -397,7 +397,7 @@ public class CsvDataService implements IFileDataService {
 	        String location = campRow[5];
 	        int totalSlots = Integer.parseInt(campRow[6]);
 	        
-	      //Parse students and initialize as empty list
+	        //Parse students and initialize as empty list
 	        List<String> students = new ArrayList<>();
 	        String studentsString = campRow[7];
 	        String[] studentsList = studentsString.split(";");
@@ -472,9 +472,9 @@ public class CsvDataService implements IFileDataService {
 	}
 
 	@Override
-	public Map<Integer, Enquiry> importEnquiryData(String inquiryFilePath) {
+	public Map<Integer, Enquiry> importEnquiryData(String enquiryFilePath) {
 		Map<Integer, Enquiry> enquiryMap = new HashMap<Integer, Enquiry>();
-		List<String[]> enquiryRows = this.readCsvFile(inquiryFilePath, enquiryCsvHeaders);
+		List<String[]> enquiryRows = this.readCsvFile(enquiryFilePath, enquiryCsvHeaders);
 		
 		for (String[] enquiryRow : enquiryRows) {
 			int enquiryID = Integer.parseInt(enquiryRow[0]);
@@ -503,13 +503,14 @@ public class CsvDataService implements IFileDataService {
 	        Enquiry enquiry = new Enquiry(enquiryID, campID, studentID, question, replies, replierIDs, status);
 	        
 	        enquiryMap.put(enquiryID, enquiry);
+
 	    }
 		
 		return enquiryMap;
 	}
 
 	@Override
-	public boolean exportEnquiryData(String inquiryFilePath, Map<Integer, Enquiry> enquiryMap) {
+	public boolean exportEnquiryData(String enquiryFilePath, Map<Integer, Enquiry> enquiryMap) {
 		List<String> enquiryLines = new ArrayList<String>();
 		
 		for (Enquiry enquiry : enquiryMap.values()) {
@@ -526,7 +527,7 @@ public class CsvDataService implements IFileDataService {
 			enquiryLines.add(enquiryLine);
 		}
 		
-		return this.writeCsvFile(inquiryFilePath, enquiryCsvHeaders, enquiryLines);
+		return this.writeCsvFile(enquiryFilePath, enquiryCsvHeaders, enquiryLines);
 	}
 
 	@Override

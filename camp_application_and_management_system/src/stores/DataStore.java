@@ -101,7 +101,7 @@ public class DataStore {
 	
 	/**
 	 * Save the data from the DataStore to the file system.
-	 * @return {@code true} if the data is saved succesfully, {@code false} otherwise
+	 * @return {@code true} if the data is saved successfully, {@code false} otherwise
 	 */
 	public static boolean saveData() {
 		DataStore.setStudentData(studentData);

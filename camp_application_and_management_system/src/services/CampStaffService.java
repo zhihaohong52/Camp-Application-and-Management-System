@@ -11,7 +11,7 @@ import java.util.Map;
 import enums.Schools;
 import interfaces.ICampStaffService;
 import model.camp.Camp;
-import model.user.Staff;
+import model.user.User;
 import stores.AuthStore;
 import stores.DataStore;
 
@@ -57,11 +57,11 @@ public class CampStaffService implements ICampStaffService {
 	 */
 	public ArrayList<Camp> getCreatedCamps(){
 		Map<Integer, Camp> campData = DataStore.getCampData();
-		Staff staff = (Staff) AuthStore.getCurrentUser();
+		User user = AuthStore.getCurrentUser();
 		ArrayList<Camp> createdCamps = new ArrayList<>();
 		
 		for (Camp camp : campData.values()) {
-			if (camp.getStaffIC() == staff.getID()) {
+			if (camp.getStaffIC().equals(user.getID())) {
 				createdCamps.add(camp);
 			}
 		}

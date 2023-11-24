@@ -36,13 +36,15 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 
 	@Override
 	public ArrayList<Enquiry> viewAllEnquiries() {
-		Student student = (Student) AuthStore.getCurrentUser();
+		User user = AuthStore.getCurrentUser();
 		Map<Integer, Enquiry> enquiryData = DataStore.getEnquiryData();
+		
+		System.out.println(enquiryData);
 		
 		ArrayList<Enquiry> enquiryList = new ArrayList<>();
 		
 		for (Enquiry enquiry : enquiryData.values()) {
-			if (enquiry.getStudentID() == student.getID()) {
+			if (enquiry.getStudentID().equals(user.getID())) {
 				enquiryList.add(enquiry);
 			}
 		}
@@ -52,13 +54,13 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 	
 	@Override
 	public ArrayList<Enquiry> viewProcessingEnquiries(){
-		Student student = (Student) AuthStore.getCurrentUser();
+		User user =  AuthStore.getCurrentUser();
 		Map<Integer, Enquiry> enquiryData = DataStore.getEnquiryData();
 		
 		ArrayList<Enquiry> enquiryList = new ArrayList<>();
 		
 		for (Enquiry enquiry : enquiryData.values()) {
-			if ((enquiry.getStatus() == EnquiryStatus.Processing)&& (enquiry.getStudentID() == student.getID())) {
+			if ((enquiry.getStatus() == EnquiryStatus.Processing) && (enquiry.getStudentID() == user.getID())) {
 				enquiryList.add(enquiry);
 			}
 		}
@@ -77,13 +79,13 @@ public class EnquiryStudentService implements IEnquiryStudentService{
 		System.out.print("Please input your enquiry: ");
 		String question = sc.nextLine();
 		
-		int inquiryID = IdNumberUtil.findLowestAvailableEnquiryId(enquiryData);
+		int enquiryID = IdNumberUtil.findLowestAvailableEnquiryId(enquiryData);
 		
-		Enquiry enquiry = new Enquiry(inquiryID, camp.getCampID(), student.getID(), question);
+		Enquiry enquiry = new Enquiry(enquiryID, camp.getCampID(), student.getID(), question);
 		
-		enquiryData.put(inquiryID, enquiry);
+		enquiryData.put(enquiryID, enquiry);
 		
-		return true;
+		return DataStore.saveData();
 	}
 
 	@Override

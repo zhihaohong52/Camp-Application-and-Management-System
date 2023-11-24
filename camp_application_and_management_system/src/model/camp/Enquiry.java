@@ -1,12 +1,13 @@
 package model.camp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import enums.EnquiryStatus;
 
 /**
  * This {@link Enquiry} Class represent inquiry related to a camp. 
- * An inquiry is sent in by a student and the student may then recieve replies from staff or committee members of the camp.
+ * An inquiry is sent in by a student and the student may then receive replies from staff or committee members of the camp.
  */
 public class Enquiry {
 
@@ -33,12 +34,12 @@ public class Enquiry {
     /**
      * List of replies to the inquiry.
      */
-    private List<String> reply;
+    private List<String> reply = new ArrayList<String>();
 
     /**
      * List of replier identifiers corresponding to each reply.
      */
-    private List<String> replierID;
+    private List<String> replierID = new ArrayList<String>();
 
     /**
      * Status of the inquiry, indicating whether it's Processing or Processed.

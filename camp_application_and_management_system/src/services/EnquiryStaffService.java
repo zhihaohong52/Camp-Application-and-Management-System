@@ -32,7 +32,7 @@ public class EnquiryStaffService implements IEnquiryStaffService {
 		int campID = camp.getCampID();
 		ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
 		for (Enquiry enquiry : enquiryData.values()) {
-			if (enquiry.getCampID() == campID) {
+			if (enquiry.getCampID()== campID) {
 				enquiries.add(enquiry);
 			}
 		}
