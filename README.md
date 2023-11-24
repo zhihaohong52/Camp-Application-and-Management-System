@@ -81,7 +81,7 @@ Follow the steps below to generate JavaDocs using the terminal:
 3. Run the following command in the terminal:
 
    ```bash
-    javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private
+    javadoc -d camp_application_and_management_system/docs -sourcepath camp_application_and_management_system/src -subpackages controllers:enums:interfaces:main:model:services:stores:util:view -private -author
    ```
 
    This command will generate the JavaDocs and save them in the docs directory in HTML format.
