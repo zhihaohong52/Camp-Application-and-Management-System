@@ -34,7 +34,7 @@ These setup instructions will guide you through the process of cloning the repos
 3. Navigate to the cloned repository by entering the following command:
 
    ```bash
-   cd Camp-Application-and-Management-System
+   cd Camp-Application-and-Management-System/camp_application_and_management_system
    ```
 
 4. Compile the project by entering the following command:
