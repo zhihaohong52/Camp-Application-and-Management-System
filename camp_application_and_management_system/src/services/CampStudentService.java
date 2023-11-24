@@ -80,9 +80,14 @@ public class CampStudentService implements ICampStudentService {
 		
 		boolean success;
 		
+		//check if withdrawn
+		if (camp.getWithdrawn().contains(studentID)) {
+			System.out.println("You are not allowed to register for a camp you have previously withdrawn from.");
+			return false;
+		}
+		
 		//check for date clash
 		List<LocalDate> campDates = camp.getDates();
-		
 		ArrayList<Camp> registeredCamps = getRegisteredCamps(studentID);
 		Set<LocalDate> unavailableDates = new HashSet<>();
 		
@@ -95,11 +100,6 @@ public class CampStudentService implements ICampStudentService {
 				System.out.println("Camp date for " + camp.getName() + "clashes with previously registered camp");
 				return false;
 			}
-		}
-		
-		if (camp.getWithdrawn().contains(studentID)) {
-			System.out.println("You are not allowed to register for a camp you have previously withdrawn from.");
-			return false;
 		}
 		
 		// register student for camp if no clash
