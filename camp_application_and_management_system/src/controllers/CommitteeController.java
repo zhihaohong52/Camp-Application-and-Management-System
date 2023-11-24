@@ -273,7 +273,7 @@ public class CommitteeController extends StudentController {
 		
 		if (selectedSuggestion != null) {
 	    	do {
-	    		System.out.printf("Deleting suggestion for camp %d - %s\n", campData.get(selectedSuggestion.getCampID()).getName(), selectedSuggestion.getQuestion());
+	    		System.out.printf("Deleting suggestion for camp %s - %s\n", campData.get(selectedSuggestion.getCampID()).getName(), selectedSuggestion.getQuestion());
 		    	System.out.println("Please confirm the option. Do note that deleted camps will be deleted permanently. (Y/N)");
 		    	input = sc.next();
 		    	if (input.equals("Y") || input.equals("y")) {

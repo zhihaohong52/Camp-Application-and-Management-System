@@ -56,7 +56,7 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 		ArrayList<Suggestion> suggestionList = new ArrayList<>();
 		
 		for (Suggestion suggestion : suggestionData.values()) {
-			if ((suggestion.getStatus() == SuggestionStatus.Processing) && (suggestion.getCommiteeID() == user.getID())) {
+			if ((suggestion.getStatus() == SuggestionStatus.Processing) && (suggestion.getCommiteeID().equals(user.getID()))) {
 				suggestionList.add(suggestion);
 			}
 		}
