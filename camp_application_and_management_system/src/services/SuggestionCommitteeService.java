@@ -74,6 +74,8 @@ public class SuggestionCommitteeService implements ISuggestionCommitteeService {
 		
 		Map<Integer, Suggestion> suggestionData = DataStore.getSuggestionData();
 		
+		sc.nextLine();
+		
 		System.out.print("Please input your enquiry: ");
 		String question = sc.nextLine();
 		

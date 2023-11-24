@@ -126,15 +126,15 @@ public class CommitteeController extends StudentController {
 	                	choice2 = sc.nextInt();
 	                	switch(choice2) {
 	                	case 1:
-	                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Submit enquiries");
+	                		CommonView.printNavbar("CAMS > Committee > Submit/Edit/Delete suggestions > Submit suggestions");
 	                		submitSuggestion();
 	                		break;
 	                	case 2:
-	                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Edit enquiries");
+	                		CommonView.printNavbar("CAMS > Committee > Submit/Edit/Delete suggestions > Edit suggestions");
 	                		editSuggestion();
 	                		break;
 	                	case 3:
-	                		CommonView.printNavbar("CAMS > Student > Submit/Edit/Delete enquiries > Delete enquiries");
+	                		CommonView.printNavbar("CAMS > Committee > Submit/Edit/Delete suggestions > Delete suggestions");
 	                		deleteSuggestion();
 	                		break;
 	                	case 4:
@@ -190,6 +190,7 @@ public class CommitteeController extends StudentController {
 		
 		System.out.println("The selected enquiry is: ");
 		enquiryView.displayEnquiries(selectedEnquiry);
+		sc.nextLine();
 		System.out.print("Enter your reply to the enquiry: ");
 		String reply = sc.nextLine();
 		
