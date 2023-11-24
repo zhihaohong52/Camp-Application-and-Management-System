@@ -576,10 +576,10 @@ public class StaffController extends UserController {
 	    if (selectedCamps != null) {
 	    	do {
 	    		System.out.printf("Selected camps are:\n");
-	    		System.out.printf("CampID\tCamp name\tVisiblity");
+	    		System.out.printf("CampID\tCamp name\tVisiblity\n");
 	    		
 	    		for (Camp selectedCamp : selectedCamps) {
-	    			System.out.printf("%d\t%s\t", selectedCamp.getCampID(), selectedCamp.getName(), selectedCamp.getVisibility());
+	    			System.out.printf("%d\t%s\t%b\n", selectedCamp.getCampID(), selectedCamp.getName(), selectedCamp.getVisibility());
 	    		}
 	    		
 		    	System.out.println("Please confirm the option. (Y/N)");
@@ -695,27 +695,36 @@ public class StaffController extends UserController {
 		
 		System.out.println("The selected suggestion is: ");
 		suggestionView.displaySuggestions(selectedSuggestion);
-		System.out.print("Enter your reply to the suggestion: ");
-		String reply = sc.nextLine();
 		
 		do {
-			System.out.println("Please select if suggestion is approved. (Y/N)");
-			String input = sc.next();
-			
-			if (input.equals("Y") || input.equals("y")) {
-				suggestionStaffService.approveSuggestion(selectedSuggestion, reply, true);
-	    		System.out.println("Suggestion approved");
-	    		break;
-	    	}
-	    	else if (input.equals("N") || input.equals("n")) {
-	    		suggestionStaffService.approveSuggestion(selectedSuggestion, reply, false);
-	    		System.out.println("Suggestion rejected");
-	    		break;
-	    	}
-	    	else {
-	    		System.out.println("Invalid input. Please input Y or N.");
-	    	}
+			sc.nextLine();
+			System.out.print("Enter your reply to the suggestion: ");
+			String reply = sc.nextLine();
+			if (reply != null) {
+				do {
+					System.out.println("Please select if suggestion is approved. (Y/N)");
+					String input = sc.next();
+					
+					if (input.equals("Y") || input.equals("y")) {
+						suggestionStaffService.approveSuggestion(selectedSuggestion, reply, true);
+			    		System.out.println("Suggestion approved");
+			    		break;
+			    	}
+			    	else if (input.equals("N") || input.equals("n")) {
+			    		suggestionStaffService.approveSuggestion(selectedSuggestion, reply, false);
+			    		System.out.println("Suggestion rejected");
+			    		break;
+			    	}
+			    	else {
+			    		System.out.println("Invalid input. Please input Y or N.");
+			    	}
+				} while (true);
+				break;
+			}
+			System.out.println("Please enter a reply");
 		} while (true);
+		
+		
 	}
 
 	/**
