@@ -1,6 +1,5 @@
 # Camp-Application-and-Management-System
-**Docs:** [Report](https://zhihaohong52.github.io/Camp-Application-and-Management-System/) | 
-[UML Class Diagram](https://github.com/zhihaohong52/Camp-Application-and-Management-System/blob/main/UML_CAMS.jpg) |
+**Docs:** [UML Class Diagram](https://github.com/zhihaohong52/Camp-Application-and-Management-System/blob/main/UML_CAMS.jpg) |
 [Java Docs](https://zhihaohong52.github.io/Camp-Application-and-Management-System/)
 
 SC2002 Object Oriented Project Group Assignment AY2023-24 Sem 1
